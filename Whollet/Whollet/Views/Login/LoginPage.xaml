@@ -22,7 +22,7 @@
                 <Grid RowDefinitions="*,*,auto" ColumnDefinitions="*,auto">
                     <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="First Name" EntryPlaceholder="First Name" Grid.Row="0" Grid.ColumnSpan="2"/>
 
-                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="First Name" EntryPlaceholder="First Name" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="Password" EntryPlaceholder="Password" Grid.Row="1" Grid.ColumnSpan="2"/>
 
                     <Label Grid.Row="2" Grid.Column="1" Text="Forgot your password?" FontAttributes="Bold" Margin="0,-25,0,0" FontFamily="TitilliumSemiBold" FontSize="15" TextColor="{DynamicResource SkipBlue}">
                         <Label.GestureRecognizers>
