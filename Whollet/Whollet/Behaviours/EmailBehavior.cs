@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using Whollet.Custom_Controls;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
 namespace Whollet.Behaviours
 {
-    public class EmailBehavior : Behavior<LoginEntry>
+    public class EmailBehavior : BaseBehavior<VisualElement>
     {
         const string emailRegex = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
@@ -24,11 +25,12 @@ namespace Whollet.Behaviours
             private set { base.SetValue(IsValidPropertyKey, value); }
         }
 
-        protected override void OnAttachedTo(LoginEntry bindable)
+        protected override void OnAttachedTo(VisualElement bindable)
         {
-            defaultColor = bindable.TextColor;
+            var entry = bindable as Entry;
+            defaultColor = entry.TextColor;
             
-            bindable.TextChanged += HandleTextChanged;
+            entry.TextChanged += HandleTextChanged;
         }
 
         void HandleTextChanged(object sender, TextChangedEventArgs e)
@@ -50,9 +52,10 @@ namespace Whollet.Behaviours
             
         }
 
-        protected override void OnDetachingFrom(LoginEntry bindable)
+        protected override void OnDetachingFrom(VisualElement bindable)
         {
-            bindable.TextChanged -= HandleTextChanged;
+            var entry = bindable as Entry;
+            entry.TextChanged -= HandleTextChanged;
 
         }
     }

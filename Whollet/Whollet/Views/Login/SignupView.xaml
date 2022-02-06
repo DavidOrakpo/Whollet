@@ -5,7 +5,7 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:b="clr-namespace:Whollet.Behaviours"
-             xmlns:behave="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+             
              xmlns:bind="clr-namespace:Whollet.ViewModel"
              xmlns:control="clr-namespace:Whollet.Custom_Controls"
              BackgroundColor="{DynamicResource BackGroundWhite}"
@@ -14,6 +14,18 @@
     <ContentPage.BindingContext>
         <bind:SignUpViewModel/>
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="loginentry:SignUp" x:Key="Invalid">
+                <Setter Property="BackgroundColor" Value="PaleVioletRed"/>
+            </Style>
+
+            <Style TargetType="loginentry:SignUp" x:Key="Valid">
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     
     <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
         <Grid RowDefinitions="*,1.1*">
@@ -24,14 +36,23 @@
             </Grid>
             <Grid Grid.Row="1" RowDefinitions="2*,*" Margin="0,-20,0,0" Padding="24,10">
                 <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,auto">
-                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="First Name" EntryPlaceholder="First Name" Grid.Row="0" Grid.ColumnSpan="2"/>
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" 
+                                       LabelIsVisible="False" LabelText="First Name" EntryPlaceholder="First Name" Grid.Row="0" Grid.ColumnSpan="2"/>
 
                     <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="Last Name" EntryPlaceholder="Last Name" Grid.Row="1" Grid.ColumnSpan="2"/>
 
-                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="Email Address" EntryPlaceholder="Email Address" Grid.Row="2" Grid.ColumnSpan="2">
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" 
+                                       LabelText="Email Address" EntryPlaceholder="Email Address" Grid.Row="2" Grid.ColumnSpan="2">
+                        <loginentry:SignUp.Triggers>
+                            <DataTrigger TargetType="loginentry:SignUp" Binding="{Binding Source={x:Reference EmailBehave}, Path=IsNotValid}" Value="True">
+                                <Setter Property="LabelIsVisible" Value="True" />
+                                <Setter Property="LabelText" Value="Wrong Email Format"/>
+                            </DataTrigger>
+                        </loginentry:SignUp.Triggers>
+                        
                         <loginentry:SignUp.EntryBehavior>
-                            <b:EmailBehavior/>
-                            
+                            <xct:EmailValidationBehavior x:Name="EmailBehave" ValidStyle="{StaticResource Valid}" InvalidStyle="{StaticResource Invalid}"/>
+
                         </loginentry:SignUp.EntryBehavior>
                     </loginentry:SignUp>
                     

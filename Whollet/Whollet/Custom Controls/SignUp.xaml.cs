@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -104,8 +104,8 @@ namespace Whollet.Custom_Controls
                                                                                                 default(string),
                                                                                                 BindingMode.TwoWay);
 
-        public static readonly BindableProperty EntryBehaviorProperty = BindableProperty.Create(nameof(EntryBehavior), typeof(Behavior<LoginEntry>),
-                                                                                                    typeof(SignUp), default(Behavior<LoginEntry>), BindingMode.TwoWay);
+        public static readonly BindableProperty EntryBehaviorProperty = BindableProperty.Create(nameof(EntryBehavior), typeof(BaseBehavior<VisualElement>),
+                                                                                                    typeof(SignUp), default(BaseBehavior<VisualElement>), BindingMode.TwoWay);
 
         //  public string LabelPlaceholder 
         //   {
@@ -119,9 +119,9 @@ namespace Whollet.Custom_Controls
         //     }
         //   }
 
-        public Behavior<LoginEntry> EntryBehavior 
+        public BaseBehavior<VisualElement> EntryBehavior 
         { 
-            get { return (Behavior<LoginEntry>)GetValue(EntryBehaviorProperty); } 
+            get { return (BaseBehavior<VisualElement>)GetValue(EntryBehaviorProperty); } 
             set { SetValue(EntryBehaviorProperty, value); } 
         }
 
