@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Whollet.Custom_Controls.GoToNextPage">
+  <ContentView.Content>
+      <StackLayout HorizontalOptions="CenterAndExpand" Spacing="1">
+            <Button x:Name="ButtonControl" HorizontalOptions="CenterAndExpand" Margin="0,40,0,0" VerticalOptions="CenterAndExpand" BorderColor="{DynamicResource SkipBlue}" CornerRadius="50" Scale="1"
+                                WidthRequest="200" HeightRequest="46" FontFamily="TitilliumRegular" TextTransform="None" BackgroundColor="{DynamicResource SkipBlue}"/>
+            <Grid ColumnDefinitions="3*,auto" Margin="0,0,0,10" >
+                <Label x:Name="DescriptionLabelControl" Grid.Column="0" HorizontalOptions="Center" Text="Already have an account?" TextColor="{DynamicResource DescriptionBlack}" Margin="-60,0,0,10" />
+                <Label x:Name="ActionLabelControl" Grid.Column="1" HorizontalOptions="Start" Text="Log in!" FontAttributes="Bold" TextColor="{DynamicResource SkipBlue}" Margin="-120,0,0,10">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer />
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--Command="{Binding GotoLogin} For Tap gesture recognizer"-->
+            </Grid>
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

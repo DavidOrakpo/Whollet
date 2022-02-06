@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:control="clr-namespace:Whollet.Custom_Controls"
+             xmlns:vm="clr-namespace:Whollet.ViewModel"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:progbar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+             x:Class="Whollet.Views.KYC.DocumentVerificationPage">
+    <ContentPage.BindingContext>
+        <vm:DocumentVerificationViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid RowDefinitions="0.2*,0.8*">
+            <Grid RowDefinitions="*,*" ColumnDefinitions="auto,*" Padding="20">
+                <ImageButton  Source="backicon.png" BackgroundColor="Transparent"/>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Text="Document Verification" 
+                       FontFamily="TitilliumBold" HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="26" TextColor="{DynamicResource TitleBlack}"/>
+                <progbar:SfLinearProgressBar Grid.Row="1" Grid.Column="0" CornerRadius="20"
+                                             Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand"
+                                             xct:ShadowEffect.Opacity="1" HeightRequest="10"
+                                             xct:ShadowEffect.Color="{DynamicResource SkipBlue}"
+                                             WidthRequest="240" HorizontalOptions="CenterAndExpand"
+                                             Progress="50" TrackHeight="32" Padding="2"/>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Frame CornerRadius="20" Padding="20">
+                    <Grid RowDefinitions="0.3*,auto,auto,auto,*" RowSpacing="15">
+                        <Label Grid.Row="0" HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Start" 
+                               Text="Your document photo helps us prove your identity.
+                                It should match the information you have provided
+                                in the previous steps." HorizontalTextAlignment="Center"
+                               TextColor="{DynamicResource DescriptionBlack}">
+                            
+                        </Label>
+
+                        <pcake:PancakeView Grid.Row="1" HeightRequest="20" Padding="20"
+                                           CornerRadius="40"
+                                           xct:TouchEffect.AnimationDuration="250"
+                                           xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                           xct:TouchEffect.PressedScale="0.85"
+                                           xct:TouchEffect.PressedOpacity="0.8"
+                                           xct:TouchEffect.LongPressCommand="{Binding GoToScan}"
+                                           BackgroundColor="{DynamicResource BackGroundWhite}">
+                            <Grid ColumnDefinitions="auto,*,auto">
+                                <Image Grid.Column="0"
+                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
+                                       Source="creditcardicon.png"/>
+                                <Label Grid.Column="1" 
+                                       Text="National ID"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold"
+                                       FontSize="20" 
+                                       TextColor="{DynamicResource DescriptionBlack}"
+                                       Margin="0,-5,0,0"
+                                       FontFamily="TitilliumBold"
+                                       VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                                <Image Grid.Column="2" 
+                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
+                                       Source="fowardarrowicon.png"/>
+                            </Grid>
+                        </pcake:PancakeView>
+
+                        <pcake:PancakeView Grid.Row="2"
+                                           HeightRequest="20"
+                                           Padding="20"
+                                           xct:TouchEffect.AnimationDuration="250"
+                                           xct:TouchEffect.LongPressCommand="{Binding GoToScan}"
+                                           xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                           xct:TouchEffect.PressedScale="0.85"
+                                           xct:TouchEffect.PressedOpacity="0.8"
+                                           CornerRadius="40"
+                                           BackgroundColor="{DynamicResource BackGroundWhite}">
+                            <Grid ColumnDefinitions="auto,*,auto" ColumnSpacing="10">
+                                <Image Grid.Column="0" Source="earthicon.png"
+                                       BackgroundColor="Transparent" 
+                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"/>
+                                <Label Grid.Column="1"
+                                       TextColor="{DynamicResource DescriptionBlack}"
+                                       Text="Passport" 
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold" 
+                                       FontSize="19" 
+                                       Margin="0,-5,0,0"
+                                       FontFamily="TitilliumBold"
+                                       VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                                <Image Grid.Column="2" 
+                                       Source="fowardarrowicon.png"
+                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}">
+                                    
+                                </Image>
+                            </Grid>
+                        </pcake:PancakeView>
+
+                        <pcake:PancakeView Grid.Row="3" 
+                                           HeightRequest="20"
+                                           Padding="20"
+                                           CornerRadius="40"
+                                           xct:TouchEffect.AnimationDuration="250"
+                                           xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                           xct:TouchEffect.PressedScale="0.85"
+                                           xct:TouchEffect.PressedOpacity="0.8"
+                                           xct:TouchEffect.LongPressCommand="{Binding GoToScan}"
+                                           BackgroundColor="{DynamicResource BackGroundWhite}">
+                            <Grid ColumnDefinitions="auto,*,auto">
+                                <Image Grid.Column="0" 
+                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
+                                       Source="caricon.png"/>
+                                <Label Grid.Column="1" 
+                                       Text="Driver's License"
+                                       TextColor="{DynamicResource DescriptionBlack}"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold"
+                                       FontSize="20" 
+                                       Margin="0,-5,0,0" 
+                                       FontFamily="TitilliumBold"
+                                       VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                                <Image Grid.Column="2"
+                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
+                                       Source="fowardarrowicon.png"/>
+                            </Grid>
+                        </pcake:PancakeView>
+
+                        <pcake:PancakeView Grid.Row="4"/>
+
+                    </Grid>
+                </Frame>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:Whollet.ViewModel"           
+             xmlns:views="clr-namespace:Whollet.Views.FirstTimeInApp"
+             xmlns:dtemplate="clr-namespace:Whollet.DataTenplateSelectors"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="Whollet.Views.FirstTimeInApp.KycEmptyPage">
+    <ContentPage.BindingContext>
+        <vm:KycTabViewModel x:Name="vmodel"/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <ControlTemplate
+		        x:Key="TabItemTemplate">
+                <Grid
+                    Padding="0,0,0,5"
+			        RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image
+                        
+				        Grid.Row="0"
+				        VerticalOptions="Center"
+				        HorizontalOptions="Center"
+				        WidthRequest="40"
+				        HeightRequest="40"
+                        Margin="6"
+				        Source="{TemplateBinding CurrentIcon}" />
+                    <Label
+				        Grid.Row="1"
+				        HorizontalOptions="Center"
+				        FontSize="{TemplateBinding FontSize}"
+				        Text="{TemplateBinding Text}"
+				        TextColor="{TemplateBinding CurrentTextColor}" />
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate
+                x:Key="FabTabItemTemplate">
+                <Grid  Margin="0,10,0,-10"
+                      RowSpacing="0" Padding="0" 
+                      RowDefinitions="*,auto" HeightRequest="100">
+                    <ImageButton 
+                        VerticalOptions="CenterAndExpand"
+                        InputTransparent="True"
+                        Source="{TemplateBinding CurrentIcon}"
+                        Padding="10"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#3783F5"
+                        HeightRequest="70"
+                        WidthRequest="70"
+                        Scale="0.9"
+                        Margin="0,0,0,0">
+                        <ImageButton.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Int32">
+                                <On Platform="iOS" Value="30"/>
+                                <On Platform="Android" Value="80"/>
+                                <On Platform="UWP" Value="36"/>
+                            </OnPlatform>
+                        </ImageButton.CornerRadius>
+                        <ImageButton.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean">
+                                <On Platform="Android, iOS, UWP">True</On>
+                                <On Platform="macOS">False</On>
+                            </OnPlatform>
+                        </ImageButton.IsVisible>
+                    </ImageButton>
+                    <Label
+                        Margin="0,-10,0,0"
+				        Grid.Row="1"
+                        TranslationY="-5"
+				        HorizontalOptions="Center"
+				        FontSize="{TemplateBinding FontSize}"
+				        Text="{TemplateBinding Text}"
+				        TextColor="{TemplateBinding CurrentTextColor}" />
+                    <BoxView
+                        Grid.RowSpan="2"
+                        InputTransparent="True"
+                        HorizontalOptions="Center"
+                        CornerRadius="30"
+                        BackgroundColor="#3783F5"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        Margin="6">
+                        <BoxView.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean">
+                                <On Platform="Android, iOS, UWP">False</On>
+                                <On Platform="macOS">True</On>
+                            </OnPlatform>
+                        </BoxView.IsVisible>
+                    </BoxView>
+                </Grid>
+            </ControlTemplate>
+
+            <Style
+		        x:Key="TabItemStyle"
+		        TargetType="xct:TabViewItem">
+                <Setter
+			        Property="FontSize"
+			        Value="12" />
+                <Setter
+			        Property="TextColor"
+			        Value="{DynamicResource DescriptionBlack}" />
+                <Setter
+			        Property="TextColorSelected"
+			        Value="Black" />
+            </Style>
+
+            <Style
+		        x:Key="CustomTabStyle"
+		        TargetType="xct:TabView">
+                <Setter
+			        Property="IsTabTransitionEnabled"
+			        Value="True" />
+                <Setter
+			        Property="TabStripHeight"
+			        Value="61" />
+                <Setter
+			        Property="TabContentBackgroundColor"
+			        Value="#484848" />
+                <Setter
+			        Property="TabStripPlacement"
+			        Value="Bottom" />
+            </Style>
+            <xct:ItemTappedEventArgsConverter x:Key="ItemTapEventArgs"/>
+            <!-- DATA TEMPLATE WORKFLOW -->
+            <DataTemplate x:Key="FirstPageTemplate" >
+                <views:EmptyStateView/>
+            </DataTemplate>
+            <DataTemplate x:Key="SecondPageTemplate">
+                <views:EmptyStatePending/>
+            </DataTemplate>
+            <DataTemplate x:Key="ThirdPageTemplate">
+                <views:EmptyStateFinished/>
+            </DataTemplate>
+            <dtemplate:PageTemplateSelector x:Key="PageSelector" FirstPage="{StaticResource FirstPageTemplate}" SecondPage="{StaticResource SecondPageTemplate}"
+                                            ThirdPage="{StaticResource ThirdPageTemplate}"/>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <!-- ITEM SOURCE WOULD BE AN OBSERVABLE COLLECTION CONTAINING ONE INSTANCE OF AN OBHECT WITH INTEGER PROP-->
+        <!-- THIS INTEGER PROP CAN ONLY MOVE BETWEEN 1, 2 AND 3. THESE VALUES WILL THEN BE TIED TO A DATA TEMPLATET SELECTOR-->
+        <!--wHICH WILL THEN BE USED TO POPULATE THE PAGE. 
+        CLICKING ON THE BUTTON WILL CAUSE THE INT PARAMETER TO INCREASE BY 1, SWITCHING THE DATA TEMPLATE
+        -->
+        <Grid>
+            <xct:TabView x:Name="KycTabView" Style="{StaticResource CustomTabStyle}">
+                <xct:TabView.TabStripBackgroundView>
+                    <BoxView Color="{DynamicResource PureWhite}" CornerRadius="20,20,0,0"/>
+                </xct:TabView.TabStripBackgroundView>
+            <!-- FIRST TAB ITEM -->
+                <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}"
+                                 Text="Transactions" Icon="transactions.png" Style="{StaticResource TabItemStyle}">
+                    <xct:TabViewItem.IconSelected>
+                        <ImageSource>transactions</ImageSource>
+                    </xct:TabViewItem.IconSelected>
+                    <views:TransactionsView/>
+                </xct:TabViewItem>
+                <!-- SECOND TAB ITEM -->
+                
+                <xct:TabViewItem
+                                 ControlTemplate="{StaticResource FabTabItemTemplate}" 
+                                 Text="Deposit"                                
+                                 TranslationY="-10"
+                                 Style="{StaticResource TabItemStyle}"
+                                 Icon="deposit.png">
+                    <xct:TabViewItem.Behaviors>
+                        <xct:EventToCommandBehavior EventName="TabTapped" Command="{Binding PageChangeCommand}"/>
+                    </xct:TabViewItem.Behaviors>
+                    
+                    <ContentView>
+                        
+                        <Grid BindableLayout.ItemsSource="{Binding PIndex}"
+                            BindableLayout.ItemTemplateSelector="{StaticResource PageSelector}">
+                            
+                        </Grid>
+                    </ContentView>
+                    
+                </xct:TabViewItem>
+                <!-- THIRD TAB ITEM -->
+                <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}"
+                                 Text="Portfolio" Icon="portfolio.png" Style="{StaticResource TabItemStyle}">
+                    <views:PortfolioView/>
+                </xct:TabViewItem>
+
+            </xct:TabView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

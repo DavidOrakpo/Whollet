@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:trigger="clr-namespace:Whollet.Triggers" 
+             xmlns:control="clr-namespace:Whollet.Custom_Controls"
+             xmlns:viewmodel="clr-namespace:Whollet.ViewModel"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             xmlns:LengthtoColor="clr-namespace:MasterClass.Converters"
+             x:Class="Whollet.Views.Login.ConfirmPin">
+    <ContentPage.BindingContext>
+        <viewmodel:ConfirmPinViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <LengthtoColor:BooltoStringConverter x:Key="StringtoColor" IncomeColorString="#00FF00" ExpenseColorString="#9EA5B1"/>
+            <Style TargetType="Button" x:Key="NumberPadButton">
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="WidthRequest" Value="50"/>
+                <Setter Property="TextColor" Value="{DynamicResource DescriptionBlack}"/>
+                <Setter Property="CornerRadius" Value="50"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="Command" Value="{Binding ButtonPressed}"/>
+            </Style>
+        </ResourceDictionary>
+        <!--#808080-->
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,*">
+            <Grid Padding="30,30" RowDefinitions="*,*,*" HeightRequest="50" ColumnDefinitions="*,*,*,*">
+                <Label Grid.Row="0" Grid.ColumnSpan="4" Text="Confirm PIN" TextColor="{DynamicResource TitleBlack}" 
+                       FontFamily="TitilliumBold" HorizontalOptions="Center" FontSize="28"/>
+                <Label WidthRequest="300" Grid.Row="1" Grid.ColumnSpan="4" HorizontalTextAlignment="Center" Margin="0,-70,0,0"
+                       Text="Repeat a PIN Code to continue" Opacity=".6" TextColor="{DynamicResource DescriptionBlack}" 
+                       HorizontalOptions="Center" FontSize="15"/>
+                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" VerticalOptions="Center" Margin="0,-120,0,0" Padding="80,0">
+                    <Ellipse Grid.Row="2" Grid.Column="0" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="Center" Fill="{Binding Source={x:Reference PassEntry}, Path=Text.Length, Converter={StaticResource StringtoColor}, ConverterParameter=1 }"/>
+                    <Ellipse Grid.Row="2" Grid.Column="1" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="Center" Fill="{Binding Source={x:Reference PassEntry}, Path=Text.Length, Converter={StaticResource StringtoColor}, ConverterParameter=2 }"/>
+                    <Ellipse Grid.Row="2" Grid.Column="2" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="Center" Fill="{Binding Source={x:Reference PassEntry}, Path=Text.Length, Converter={StaticResource StringtoColor}, ConverterParameter=3 }"/>
+                    <Ellipse Grid.Row="2" Grid.Column="3" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="Center" Fill="{Binding Source={x:Reference PassEntry}, Path=Text.Length, Converter={StaticResource StringtoColor}, ConverterParameter=4 }"/>
+                </Grid>
+
+
+            </Grid>
+            <FlexLayout Direction="Column" Grid.Row="1">
+                <control:LoginEntry WidthRequest="100" CharacterSpacing="10" Opacity="0" FlexLayout.AlignSelf="Center" Text="{Binding EntryText}" x:Name="PassEntry" MaxLength="4" 
+                                    Keyboard="Numeric" TextColor="Black" InputTransparent="True" IsPassword="True" HorizontalTextAlignment="Center"/>
+                <Grid FlexLayout.Grow="1" Padding="40,30" RowSpacing="15" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*">
+                    <Button Grid.Row="0" Grid.Column="0" CommandParameter="1" Text="1" FontSize="20" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="1" Text="2" CommandParameter="2" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="2" Text="3" CommandParameter="3" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="0" CommandParameter="4" Text="4" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" CommandParameter="5" Text="5" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="2" CommandParameter="6" Text="6" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="2" Grid.Column="0" CommandParameter="7" Text="7" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="2" Grid.Column="1" CommandParameter="8" Text="8" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="2" Grid.Column="2" CommandParameter="9" Text="9" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="3" Grid.Column="0" Text="." Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="3" Grid.Column="1" Text="0" CommandParameter="0" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Grid.Row="3" Grid.Column="2" Text="back" Command="{Binding BackButtonPressed}" Style="{StaticResource NumberPadButton}">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="White"/>
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <trigger:ButtonPressedTrigger ButtonBackgroudColor="Transparent"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Grid>
+            </FlexLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

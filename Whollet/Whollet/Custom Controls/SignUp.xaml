@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:loginentry="clr-namespace:Whollet.Custom_Controls" xmlns:passtrigger="clr-namespace:Whollet.Triggers"
+             x:Class="Whollet.Custom_Controls.SignUp"
+             xmlns:tool="clr-namespace:Xamarin.CommunityToolkit.Core;assembly=Xamarin.CommunityToolkit"
+             xmlns:local="clr-namespace:FormsPinView.Core;assembly=FormsPinView.Core">
+    
+  <ContentView.Content>
+      
+            <StackLayout Spacing="2"  Grid.Row="0" Grid.ColumnSpan="2" Padding="0" VerticalOptions="Center" HorizontalOptions="Fill">
+                <Label x:Name="LabelControl" VerticalOptions="Start"  HorizontalOptions="Start" 
+                       Padding="5,0,0,0" FontFamily="TitilliumLight"
+                       IsVisible="False" Text="Email address" TextColor="#B5BBC9">
+
+                </Label>
+                
+                <Grid ColumnDefinitions="3*,auto">
+                <loginentry:LoginEntry x:Name="EntryControl" VerticalOptions="End" 
+                                       FontAttributes="Bold" Grid.ColumnSpan="2"
+                                       VerticalTextAlignment="End" 
+                                       Opacity=".5" TextColor="{DynamicResource TitleBlack}" 
+                                          
+                           PlaceholderColor="{DynamicResource PlaceholderGrey}" >
+                    <loginentry:LoginEntry.Behaviors>
+                        
+                    </loginentry:LoginEntry.Behaviors>
+                </loginentry:LoginEntry>
+                    <!--Focused="EmailEntry_Focused" Unfocused="EmailEntry_Unfocused"-->
+                    <ImageButton x:Name="ButtonControl" Margin="0,-10,0,0" HorizontalOptions="End" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" Opacity=".4" BackgroundColor="Transparent" Source="eyeicon.png"
+                           HeightRequest="30" WidthRequest="50" BorderWidth="2.5">
+                        <ImageButton.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <passtrigger:PasswordTrigger ShowIcon="eyeicon.png" HideIcon="eyeclosedicon.png" x:Name="ShowPasswordTrigger"/>
+                            </EventTrigger>
+                        </ImageButton.Triggers>
+
+                    </ImageButton>
+                </Grid>
+                
+            </StackLayout>
+
+          
+  </ContentView.Content>
+</ContentView>

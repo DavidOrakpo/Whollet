@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:control="clr-namespace:Whollet.Custom_Controls"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:progbar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:Whollet.ViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             x:Class="Whollet.Views.KYC.PersonalInformationPage">
+    <ContentPage.BindingContext>
+        <vm:PersonalInformationViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid RowDefinitions="0.2*,0.8*">
+            <Grid RowDefinitions="*,*" ColumnDefinitions="auto,*" Padding="20">
+                <ImageButton  Source="backicon.png" BackgroundColor="Transparent"/>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Text="Personal Information" 
+                       FontFamily="TitilliumBold" HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="26" TextColor="{DynamicResource DescriptionBlack}"/>
+                <progbar:SfLinearProgressBar Grid.Row="1" Grid.Column="0" CornerRadius="20"
+                                             Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand"
+                                             xct:ShadowEffect.Opacity="1" HeightRequest="10"
+                                             xct:ShadowEffect.Color="{DynamicResource SkipBlue}"
+                                             WidthRequest="240" HorizontalOptions="CenterAndExpand"
+                                             Progress="25" TrackHeight="32" Padding="2"/>
+               
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Frame CornerRadius="20" Padding="20">
+                    <Grid RowDefinitions="*,*,*,*,*,*,2*">
+                        <control:SignUp Grid.Row="0" LabelText="First Name" LabelIsVisible="False"
+                                        EntryPlaceholder="First Name" EntryIsPassword="False" />
+                        <control:SignUp Grid.Row="1" LabelText="Last Name" LabelIsVisible="False"
+                                        EntryPlaceholder="Last Name" EntryIsPassword="False" />
+                        <control:SignUp Grid.Row="2" LabelText="Address" LabelIsVisible="False"
+                                        EntryPlaceholder="Address" EntryIsPassword="False"/>
+                        <control:SignUp Grid.Row="3" LabelText="City" LabelIsVisible="False"
+                                        EntryPlaceholder="City" EntryIsPassword="False"/>
+                        <control:SignUp Grid.Row="4" LabelText="Zip Area/Code" LabelIsVisible="False"
+                                        EntryPlaceholder="Zip Area/Code" EntryIsPassword="False"/>
+                        <control:SignUp Grid.Row="5" LabelText="Citizenship" LabelIsVisible="False"
+                                        EntryPlaceholder="Citizenship" EntryIsPassword="False"/>
+                        <Button Grid.Row="6" Text="Next Step"
+                                TextColor="{DynamicResource PureWhite}"
+                                FontAttributes="Bold"
+                                Command="{Binding GoToNextPage}"
+                                Style="{StaticResource CommonPageButton}"/>
+
+                    </Grid>
+                </Frame>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

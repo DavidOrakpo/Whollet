@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Whollet.ViewModel"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             x:Class="Whollet.Views.OnboardingPage">
+    <ContentPage.BindingContext>
+        <viewmodel:OnboardingViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Frame CornerRadius="20" AbsoluteLayout.LayoutBounds="0,1.15,1,0.6" AbsoluteLayout.LayoutFlags="All">
+
+            </Frame>
+            <Grid RowDefinitions="auto,4*,*" >
+                <Label Grid.Row="0" Margin="0,30,20,0" Text="Skip" FontSize="19" HorizontalOptions="End" FontFamily="TitiliumSemiBold" 
+                       TextColor="{DynamicResource SkipBlue}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PopCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                    <CarouselView Grid.Row="1" ItemsSource="{Binding OnboardLayout}" Margin="0,30,0,0"  IndicatorView="{Reference InView}">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid RowDefinitions="*,*">
+                                    <Image Margin="0,-35,0,0" Scale="0.8" Grid.Row="0" Source="{Binding OnboardingImage}"/>
+                                    <Grid Grid.Row="1" Padding="40" RowDefinitions="1.7*,*" Margin="0,20,0,0">
+                                        <Label FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="0,0,0,0" Text="{Binding Title}" FontFamily="TitilliumBold" FontSize="36" TextColor="{DynamicResource TitleBlack}"/>
+                                        <Label HorizontalTextAlignment="Center" Grid.Row="1" Text="{Binding Description}" FontFamily="TitilliumRegular" FontSize="15" TextColor="{DynamicResource DescriptionBlack}"/>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+
+
+
+                <Grid Grid.Row="2" Padding="0">
+                
+                    <Grid RowDefinitions="*,*">
+                        <IndicatorView VerticalOptions="Start" x:Name="InView" IndicatorColor="{DynamicResource BackGroundWhite}" SelectedIndicatorColor="{DynamicResource SkipBlue}" Grid.Row="0"
+                                    IndicatorsShape="Circle" IndicatorSize="10" Margin="0,-280,0,0" />
+                        <Button HorizontalOptions="Center" BorderColor="{DynamicResource SkipBlue}" CornerRadius="50" BorderWidth="1.5" Scale="1" TextColor="{DynamicResource SkipBlue}"
+                                WidthRequest="200" Clicked="Button_Clicked" HeightRequest="46" Text="Next Step" BackgroundColor="Transparent" Grid.Row="1" Margin="0,-100,0,120"/>
+                    </Grid>
+                    
+                
+            </Grid>
+        </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:bind="clr-namespace:Whollet.ViewModel"
+             xmlns:passtrigger="clr-namespace:Whollet.Triggers"
+             xmlns:loginentry="clr-namespace:Whollet.Custom_Controls"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             x:Class="Whollet.Views.Login.LoginPage">
+    <ContentPage.BindingContext>
+        <bind:LoginPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
+        <Grid RowDefinitions="*,1.1*">
+            <Grid Padding="25" Grid.Row="0" RowDefinitions="0.3*,*">
+                <Label FontSize="26" FontFamily="TitilliumSemiBold" HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="Welcome Back!" TextColor="{DynamicResource TitleBlack}" Grid.Row="0"/>
+                <Image Grid.Row="1" Source="loginimage2" Margin="-20,0,10,-5"/>
+            </Grid>
+            <Grid Grid.Row="1" RowDefinitions="*,*" Margin="0,-20,0,0" Padding="24,10">
+                <Grid RowDefinitions="*,*,auto" ColumnDefinitions="*,auto">
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="First Name" EntryPlaceholder="First Name" Grid.Row="0" Grid.ColumnSpan="2"/>
+
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="First Name" EntryPlaceholder="First Name" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                    <Label Grid.Row="2" Grid.Column="1" Text="Forgot your password?" FontAttributes="Bold" Margin="0,-25,0,0" FontFamily="TitilliumSemiBold" FontSize="15" TextColor="{DynamicResource SkipBlue}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GotoForgetPassword}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="*,*" ColumnDefinitions="*,auto" Margin="0,75,0,0" >
+                    <Button HorizontalOptions="CenterAndExpand" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" BorderColor="{DynamicResource SkipBlue}"
+                            CornerRadius="50" Scale="1" TextColor="{DynamicResource BackGroundWhite}" Command="{Binding GotoVerify}"
+                                WidthRequest="200" HeightRequest="46" Text="Login" BackgroundColor="{DynamicResource SkipBlue}" Grid.Row="0"/>
+                    <Label Grid.Row="1" HorizontalOptions="Center" Text="Don't have an account?" TextColor="{DynamicResource DescriptionBlack}" Margin="-40,-10,0,0" />
+                    <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" Text="Sign up!" FontAttributes="Bold" TextColor="{DynamicResource SkipBlue}" Margin="-125,-10,0,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GotoSignup}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentView>
+</ContentPage>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loginentry="clr-namespace:Whollet.Custom_Controls"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:b="clr-namespace:Whollet.Behaviours"
+             xmlns:behave="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+             xmlns:bind="clr-namespace:Whollet.ViewModel"
+             xmlns:control="clr-namespace:Whollet.Custom_Controls"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             xmlns:passtrigger="clr-namespace:Whollet.Triggers"
+             x:Class="Whollet.Views.Login.SignupView">
+    <ContentPage.BindingContext>
+        <bind:SignUpViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
+        <Grid RowDefinitions="*,1.1*">
+            <Grid Padding="25" Grid.Row="0" RowDefinitions="0.3*,*">
+                <Label FontSize="26" FontFamily="TitilliumSemiBold" HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="Create Accout" TextColor="{DynamicResource TitleBlack}" Grid.Row="0"/>
+                <Image Grid.Row="1" Source="loginimage3" Margin="-40,5,-40,-40"/>
+            </Grid>
+            <Grid Grid.Row="1" RowDefinitions="2*,*" Margin="0,-20,0,0" Padding="24,10">
+                <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,auto">
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="First Name" EntryPlaceholder="First Name" Grid.Row="0" Grid.ColumnSpan="2"/>
+
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="Last Name" EntryPlaceholder="Last Name" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="Email Address" EntryPlaceholder="Email Address" Grid.Row="2" Grid.ColumnSpan="2">
+                        <loginentry:SignUp.EntryBehavior>
+                            <b:EmailBehavior/>
+                            
+                        </loginentry:SignUp.EntryBehavior>
+                    </loginentry:SignUp>
+                    
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="Password" EntryPlaceholder="Password" Grid.Row="3" Grid.ColumnSpan="2">
+                        
+                    </loginentry:SignUp>
+                </Grid>
+                <control:GoToNextPage Grid.Row="1" ButtonBackgroundColor="{DynamicResource SkipBlue}" DescriptionLabelTextColor="{DynamicResource DescriptionBlack}"
+                                      ButtonText="Let's get started" ButtonFontSize="18" DescriptionLabelText="Already have an account?" ButtonCommand="{Binding GotoPin}"
+                                      ActionLabelText="Login!" ButtonTextColor="White" ActionLabelTextColor="{DynamicResource SkipBlue}">
+                    <control:GoToNextPage.LabelTap>
+                        <TapGestureRecognizer Command="{Binding GotoLogin}"/>
+                    </control:GoToNextPage.LabelTap>
+                </control:GoToNextPage>
+            </Grid>
+        </Grid>
+    </ContentView>
+</ContentPage>

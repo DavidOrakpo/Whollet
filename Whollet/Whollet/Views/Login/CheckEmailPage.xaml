@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:Whollet.Custom_Controls"
+             xmlns:viewmodel="clr-namespace:Whollet.ViewModel"
+             x:Class="Whollet.Views.Login.CheckEmailPage">
+    <ContentPage.BindingContext>
+        <viewmodel:CheckEmailViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentView>
+        <Grid Padding="20" RowDefinitions="*,1.5*,*">
+            <Grid Grid.Row="0" RowDefinitions="auto,auto,*">
+                <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Check your Email" TextColor="{DynamicResource TitleBlack}" 
+                       FontFamily="TitilliumBold" HorizontalOptions="Center" FontSize="28"/>
+                <Label WidthRequest="300" Grid.Row="1" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" Margin="0,0,0,0"
+                       Text="Follow the password recovery options we have just sent to your email address" Opacity=".6" TextColor="{DynamicResource DescriptionBlack}" 
+                       HorizontalOptions="Center" FontSize="15"/>
+            </Grid>
+            <Image Source="loginimage1" Grid.Row="1"/>
+            <Grid Grid.Row="2" RowDefinitions="*,auto">
+                
+                <Button x:Name="ButtonControl" 
+                        HorizontalOptions="CenterAndExpand" 
+                        Margin="0,0,0,0" 
+                        Text="Back to Login"
+                        TextColor="White" Grid.Row="1"
+                        VerticalOptions="End"
+                        BorderColor="{DynamicResource SkipBlue}"
+                        CornerRadius="50" Scale="1"
+                        Command="{Binding GoToLogin}"
+                        WidthRequest="200"
+                        HeightRequest="46" 
+                        FontFamily="TitilliumRegular" 
+                        TextTransform="None"
+                        BackgroundColor="{DynamicResource SkipBlue}"/>
+
+            </Grid>
+
+
+        </Grid>
+    </ContentView>
+</ContentPage>

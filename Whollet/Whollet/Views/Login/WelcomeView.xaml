@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:vmodel="clr-namespace:Whollet.ViewModel"
+             xmlns:control="clr-namespace:Whollet.Custom_Controls"
+             BackgroundColor="{DynamicResource SkipBlue}"
+             x:Class="Whollet.Views.Login.WelcomeView">
+    <ContentPage.BindingContext>
+        <vmodel:WelcomeViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid RowDefinitions="1.5*,0.6*" Padding="20">
+            <Grid RowDefinitions="0.3*,1.5*,*">
+                
+                <Image HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Grid.Row="1" Source="logo.png" Margin="0,0,0,0" WidthRequest="150" HeightRequest="120"/>
+                <Label Grid.Row="2" FontFamily="TitilliumRegular" VerticalOptions="Start" FontSize="28" HorizontalOptions="Center" Text="Welcome to" Margin="0,-40,0,0"/>
+                <Label Grid.Row="2" FontFamily="TitilliumRegular" TextColor="White" VerticalOptions="Start" FontSize="48" HorizontalOptions="Center" Margin="0,0,0,0" Text="WHOLLET"/>
+            </Grid>
+            <control:GoToNextPage ButtonBackgroundColor="{DynamicResource BackGroundWhite}" 
+                                  VerticalOptions="Start" ButtonFontSize="18" 
+                                  ButtonCommand="{Binding GotoSignup}"
+                                  DescriptionLabelText="Already have an account?"
+                                  ActionLabelText="Login!" ActionLabelTextColor="{DynamicResource BackGroundWhite}"
+                                  DescriptionLabelTextColor="{DynamicResource BackGroundWhite}" ButtonTextColor="{DynamicResource SkipBlue}"
+                                  ButtonText="Create Account" Grid.Row="1" Margin="0,100,0,0">
+                <control:GoToNextPage.LabelTap>
+                    <TapGestureRecognizer Command="{Binding GotoLogin}"/>
+                </control:GoToNextPage.LabelTap>
+            </control:GoToNextPage>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

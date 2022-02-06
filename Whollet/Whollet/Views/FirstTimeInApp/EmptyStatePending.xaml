@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             x:Class="Whollet.Views.FirstTimeInApp.EmptyStatePending">
+    <ContentView.Content>
+        <!--<StackLayout BackgroundColor="Gold">
+
+            <Label Text="Second Page is working" TextColor="Black"/>
+            <Label Text="{Binding PageIndex}"/>
+            <Button Text="Change Page" >
+                <Button.Behaviors>
+                    <xct:EventToCommandBehavior EventName="Clicked" Command="{Binding PageChange}"/>
+                </Button.Behaviors>
+            </Button>
+        </StackLayout>-->
+
+        <Grid Padding="20" RowDefinitions="*,1.5*,*" Margin="0,0,0,50">
+            <Grid Grid.Row="0" RowDefinitions="auto,auto,*" ColumnDefinitions="auto,*">
+
+                <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Welcome to Whollet" TextColor="{DynamicResource TitleBlack}" 
+                       FontFamily="TitilliumBold" HorizontalOptions="Center" FontSize="28"/>
+                <Label WidthRequest="300" 
+                       Grid.Row="1"
+                       
+                       Grid.ColumnSpan="2" 
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,0"
+                       
+                       Opacity=".6" 
+                        
+                       HorizontalOptions="Center" FontSize="15">
+
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Your Profile Verification is now in progress. If you don't receive a confirmation in the next 24 hours, please" TextColor="{DynamicResource DescriptionBlack}" />
+                            <Span Text=" contact our support" TextColor="{DynamicResource SkipBlue}">
+                                <Span.GestureRecognizers>
+                                    
+                                </Span.GestureRecognizers>
+                            </Span>
+                            
+                        </FormattedString>
+                    </Label.FormattedText>
+
+                </Label>
+            </Grid>
+            <Image Source="firsttimeicon3.png" Grid.Row="1"/>
+            <Grid Grid.Row="2" RowDefinitions="*,auto">
+
+                <Button x:Name="ButtonControl" 
+                        HorizontalOptions="CenterAndExpand" 
+                        Margin="0,50,0,0" 
+                        Text="Verification in Progress"
+                        TextColor="White"
+                        Grid.Row="0"
+                        VerticalOptions="Center"
+                        BorderColor="{DynamicResource SkipBlue}"
+                        CornerRadius="50" Scale="1"
+                        Command="{Binding PageChange}"
+                        WidthRequest="200"
+                        HeightRequest="46" 
+                        FontFamily="TitilliumRegular" 
+                        TextTransform="None"
+                        BackgroundColor="{DynamicResource SkipBlue}"/>
+
+            </Grid>
+
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

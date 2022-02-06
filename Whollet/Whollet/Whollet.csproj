@@ -1,0 +1,135 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\TitilliumWeb-Black.ttf" />
+    <None Remove="Fonts\TitilliumWeb-Bold.ttf" />
+    <None Remove="Fonts\TitilliumWeb-BoldItalic.ttf" />
+    <None Remove="Fonts\TitilliumWeb-ExtraLight.ttf" />
+    <None Remove="Fonts\TitilliumWeb-ExtraLightItalic.ttf" />
+    <None Remove="Fonts\TitilliumWeb-Italic.ttf" />
+    <None Remove="Fonts\TitilliumWeb-Light.ttf" />
+    <None Remove="Fonts\TitilliumWeb-LightItalic.ttf" />
+    <None Remove="Fonts\TitilliumWeb-Regular.ttf" />
+    <None Remove="Fonts\TitilliumWeb-SemiBold.ttf" />
+    <None Remove="Fonts\TitilliumWeb-SemiBoldItalic.ttf" />
+    <None Remove="Images\scanbackground.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\TitilliumWeb-Black.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-BoldItalic.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-ExtraLight.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-ExtraLightItalic.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-Italic.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-Light.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-LightItalic.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-SemiBold.ttf" />
+    <EmbeddedResource Include="Fonts\TitilliumWeb-SemiBoldItalic.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FormsPinView" Version="2.0.0" />
+    <PackageReference Include="Resizetizer.NT" Version="0.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.4.0.48" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Converters\" />
+    <Folder Include="Control Templates\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SharedImage Include="Images\scanbackground.png" BaseSize="400,400" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Custom Controls\GoToNextPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Custom Controls\SignUp.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FirstTimeInApp\EmptyStateFinished.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FirstTimeInApp\EmptyStatePending.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FirstTimeInApp\EmptyStateView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FirstTimeInApp\KycEmptyPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FirstTimeInApp\PortfolioView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\FirstTimeInApp\TransactionsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\KYC\BackDocumentScan.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\KYC\DocumentVerificationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\KYC\FinalConfirmationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\KYC\FrontDocumentScan.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\KYC\KycLastConfirmed.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\KYC\PersonalInformationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\CheckEmailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\ConfirmPin.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\CreatePin.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\ForgotPassword.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\LoginPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\SignupView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\VerificationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Login\WelcomeView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\OnboardingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

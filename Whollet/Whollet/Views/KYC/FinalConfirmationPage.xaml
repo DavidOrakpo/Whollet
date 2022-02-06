@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             xmlns:vm="clr-namespace:Whollet.ViewModel"
+             xmlns:progbar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+             x:Class="Whollet.Views.KYC.FinalConfirmationPage">
+    <ContentPage.BindingContext>
+        <vm:FinalConfirmationPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid RowDefinitions="0.2*,0.8*">
+                <Grid RowDefinitions="*,*" ColumnDefinitions="auto,*" Padding="20">
+                    <ImageButton  Source="backicon.png" BackgroundColor="Transparent"/>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Text="Personal Information" 
+                       FontFamily="TitilliumBold" HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="26" TextColor="{DynamicResource DescriptionBlack}"/>
+                    <progbar:SfLinearProgressBar Grid.Row="1" Grid.Column="0" CornerRadius="20"
+                                             Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand"
+                                             xct:ShadowEffect.Opacity="1" HeightRequest="10"
+                                             xct:ShadowEffect.Color="{DynamicResource SkipBlue}"
+                                             WidthRequest="240" HorizontalOptions="CenterAndExpand"
+                                             Progress="75" TrackHeight="32" Padding="2"/>
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Frame CornerRadius="20">
+                        <Grid RowDefinitions="auto,*,*,auto" Padding="20">
+                            <Label Grid.Row="0" FontSize="15"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Margin="0,-20,0,0"
+                                   Text="Have a final check if all data is clearly visible and that it matches the information you have 
+                                    entered in previous steps."
+                                   VerticalOptions="StartAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="{DynamicResource PlaceholderGrey}">
+                                
+                            </Label>
+                            <Grid Grid.Row="1" Padding="0,20,0,0">
+                                <Image Source="frontcard.png" Aspect="Fill"/>
+                            </Grid>
+
+                            <Grid Grid.Row="2" Padding="0,20,0,0" RowDefinitions="auto,*,auto">
+                                <Label Grid.Row="0" Text="Back Side"
+                                       FontSize="24" HorizontalOptions="Center"
+                                       TextColor="{DynamicResource TextGrey}"/>
+                                <Image Grid.Row="1" Source="backcard.png" Aspect="Fill"/>
+                                <Label Grid.Row="2"
+                                       FontSize="18"
+                                       Text="Scan
+                                       
+                                       Again"
+                                       HorizontalTextAlignment="Center"
+                                       HorizontalOptions="CenterAndExpand"
+                                       TextColor="{DynamicResource SkipBlue}">
+                                    
+                                </Label>
+                            </Grid>
+                            <Button Margin="0,20,0,0" Grid.Row="3" 
+                                    Text="Finish Verification"
+                                    FontSize="18"
+                                    Command="{Binding GoToNextPage}"
+                                    FontAttributes="Bold"
+                                    Style="{StaticResource CommonPageButton}"/>
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

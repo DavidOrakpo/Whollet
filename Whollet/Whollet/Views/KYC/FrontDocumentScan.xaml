@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:vm="clr-namespace:Whollet.ViewModel"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="Whollet.Views.KYC.FrontDocumentScan">
+    <ContentPage.BindingContext>
+        <vm:FrontDocumentScanViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Image AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"
+                   Aspect="AspectFill" Margin="0,-200,0,-200"
+                   Source="scanbackground.png"/>
+            <BoxView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" 
+                      Opacity=".80" Color="#0D1F3C"/>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"
+                  RowDefinitions="*,*,*" Padding="20">
+                <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,*">
+                    <ImageButton Grid.Row="0" Grid.Column="0" Source="backicon.png" VerticalOptions="Center"
+                                 xct:IconTintColorEffect.TintColor="{DynamicResource PureWhite}"
+                                 BackgroundColor="Transparent"/>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Text="Scan Front Side" VerticalOptions="Start" VerticalTextAlignment="Center"
+                       FontFamily="TitilliumBold" HorizontalOptions="CenterAndExpand"
+                       FontAttributes="Bold"
+                       FontSize="26" TextColor="{DynamicResource PureWhite}"/>
+                </Grid>
+
+                <Grid Grid.Row="1" RowDefinitions="*,auto" RowSpacing="30">
+                    <BoxView Color="#c7c7c7" CornerRadius="20"/>
+                    <Image Source="creditcardtemplate.png" Aspect="Fill"/>
+                    <Label Grid.Row="1" FontSize="15" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                          TextColor="{DynamicResource PureWhite}" Margin="0,-10,0,-30"
+                           Text="Position your document inside the frame. Make sure that all the data is clearly visible."/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Button 
+                        VerticalOptions="End"
+                        Margin="0,0,0,20"
+                        Text="Scan Now"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Command="{Binding GoToNextPage}"
+                        TextColor="{DynamicResource PureWhite}"
+                        Style="{StaticResource CommonPageButton}"/>
+                </Grid>
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

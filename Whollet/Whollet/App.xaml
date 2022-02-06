@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Whollet.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--Colors-->
+            <Color x:Key="PureWhite">#FFFFFF</Color>
+            <Color x:Key="TextGrey">LightGray</Color>
+            <Color x:Key="BackGroundWhite">#edf1f9</Color>
+            <Color x:Key="SkipBlue">#347AF0</Color>
+            <Color x:Key="TitleBlack">#0D1F3C</Color>
+            <SolidColorBrush x:Key="GrayPinBackground">Gray</SolidColorBrush>
+            <Color x:Key="PlaceholderGrey">#3D4C63</Color>
+            <Color x:Key="DescriptionBlack">#485068</Color>
+            <!--Control Templates-->
+            <ControlTemplate x:Key="Login/Welcome Template">
+                <AbsoluteLayout>
+                    <Frame CornerRadius="20" AbsoluteLayout.LayoutBounds="0,1.15,1,0.6" AbsoluteLayout.LayoutFlags="All">
+
+                    </Frame>
+                    <ContentPresenter AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
+                </AbsoluteLayout>
+            </ControlTemplate>
+        </ResourceDictionary>
+        <Style x:Key="CommonPageButton" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="BorderColor" Value="{DynamicResource SkipBlue}"/>
+            <Setter Property="CornerRadius" Value="50"/>
+            <Setter Property="WidthRequest" Value="200"/>
+            <Setter Property="HeightRequest" Value="46"/>
+            <Setter Property="FontFamily" Value="TitilliumRegular"/>
+            <Setter Property="TextTransform" Value="None"/>
+            <Setter Property="BackgroundColor" Value="{DynamicResource SkipBlue}"/>
+        </Style>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Whollet.ViewModel"
+             BackgroundColor="{DynamicResource BackGroundWhite}"
+             x:Class="Whollet.Views.FirstTimeInApp.PortfolioView">
+    <ContentView.BindingContext>
+        <viewmodel:PortfolioViewModel/>
+    </ContentView.BindingContext>
+    <ContentView.Content>
+        <!--<StackLayout BackgroundColor="Gold">
+
+            <Label Text="Second Page is working" TextColor="Black"/>
+            <Label Text="{Binding PageIndex}"/>
+            <Button Text="Change Page" >
+                <Button.Behaviors>
+                    <xct:EventToCommandBehavior EventName="Clicked" Command="{Binding PageChange}"/>
+                </Button.Behaviors>
+            </Button>
+        </StackLayout>-->
+
+        <Grid Padding="20" RowDefinitions="*,1.5*,*" Margin="0,0,0,50">
+            <Grid Grid.Row="0" RowDefinitions="auto,auto,*" ColumnDefinitions="auto,*">
+                <ImageButton Source="backicon.png" BackgroundColor="Transparent" Scale="1.1" VerticalOptions="End"/>
+                <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Portfolio" TextColor="{DynamicResource TitleBlack}" 
+                       FontFamily="TitilliumBold" HorizontalOptions="Center" FontSize="28"/>
+                <Label WidthRequest="300" Grid.Row="1" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" Margin="0,0,0,0"
+                       Text="Place for managing all your crypto related day-to-day tasks simple and easy" Opacity=".6" TextColor="{DynamicResource DescriptionBlack}" 
+                       HorizontalOptions="Center" FontSize="15"/>
+            </Grid>
+            <Image Source="firsttimeicon5.png" Grid.Row="1"/>
+            <Grid Grid.Row="2" RowDefinitions="*,auto">
+
+                <Button x:Name="ButtonControl" 
+                        HorizontalOptions="CenterAndExpand" 
+                        Margin="0,50,0,0" 
+                        Text="Deposit Coins"
+                        TextColor="White"
+                        Grid.Row="0"
+                        VerticalOptions="Center"
+                        BorderColor="{DynamicResource SkipBlue}"
+                        CornerRadius="50" Scale="1"
+                        Command="{Binding DepositCommand}"
+                        WidthRequest="200"
+                        HeightRequest="46" 
+                        FontFamily="TitilliumRegular" 
+                        TextTransform="None"
+                        BackgroundColor="{DynamicResource SkipBlue}"/>
+
+            </Grid>
+
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>
