@@ -21,9 +21,10 @@ namespace Whollet.Model.Helpers
         }
 
         // Show the registers
-        public Task<List<T>> GetTableAsync<T>(T model) where T : new()
+        public Task<List<T>> GetTableAsync<T>() where T : new()
         {
-            var temp = _database.Table<T>().ToListAsync();         
+            var temp = _database.Table<T>().ToListAsync();     
+            
             return temp;
         }
 
@@ -42,6 +43,12 @@ namespace Whollet.Model.Helpers
         public Task<int> DeleteAsync<T>(T model) where T : new()
         {
             return _database.DeleteAsync(model);
+        }
+
+        public Task<int> DeleteAllAsync<T>() where T : new()
+        {
+          return  _database.DeleteAllAsync<T>();
+            
         }
 
         // Save registers
