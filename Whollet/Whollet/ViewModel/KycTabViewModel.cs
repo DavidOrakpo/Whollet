@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using Whollet.Model.Helpers;
 using Xamarin.Forms;
 using Whollet.Views.KYC;
+using Whollet.Views.FirstTimeInApp;
 
 namespace Whollet.ViewModel
 {
@@ -16,14 +17,20 @@ namespace Whollet.ViewModel
 
         // TWO CONSTRUCTORS: ONE SETS THE INITIAL TAB VIEW WITH 3 CONTENT VIEW PAGES WITHIN
         // THE OTHER SETS DYNAMIC CONTENT VIEWS WITHIN THE TAB VIEW
+
+        // TODO: Implement a parameter in the constructor to take a KycEmptyPage instance.
+
+        //Test if a list/Dictionary of Content views can be made and looped through to avoid using DataTemplate Selectors
         public KycTabViewModel()
         {   
-            
+            //var tabpage = new KycEmptyPage();
+            //tabpage.Mid
             PIndex = ResetCollection(1);           
         }
         
         public KycTabViewModel(int pnum = 0, int pageviewtemplates = 0)
         {
+            
             pagenumber = pnum;
             pageviewtemp = pageviewtemplates;
             PIndex = ResetCollection(pnum);

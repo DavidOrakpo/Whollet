@@ -166,6 +166,8 @@
                 <!-- SECOND TAB ITEM -->
                 
                 <xct:TabViewItem
+                                 x:Name="Middle_tab"
+                                 x:FieldModifier="Public"
                                  ControlTemplate="{StaticResource FabTabItemTemplate}" 
                                  Text="Deposit"                                
                                  TranslationY="-10"

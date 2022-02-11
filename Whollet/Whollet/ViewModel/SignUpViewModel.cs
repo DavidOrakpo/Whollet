@@ -104,7 +104,7 @@ namespace Whollet.ViewModel
                 var table = await App.GetDatabase.GetTableAsync<User>();
                 if (table.Count() != 0)
                 {
-                    var temp = table.Where<User>(user => _user.Email == user.Email).FirstOrDefault();
+                    var temp = table.Where<User>(user => _user.Email == user.Email && user.Pincode == 0).FirstOrDefault();
                     if (temp != null)
                     {
                         await App.GetDatabase.UpdateAsync(temp);
