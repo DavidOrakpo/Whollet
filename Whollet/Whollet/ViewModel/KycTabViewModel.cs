@@ -16,7 +16,7 @@ namespace Whollet.ViewModel
         ObservableCollection<ViewSwitcher> vIndex = new ObservableCollection<ViewSwitcher>();
 
         // TWO CONSTRUCTORS: ONE SETS THE INITIAL TAB VIEW WITH 3 CONTENT VIEW PAGES WITHIN
-        // THE OTHER SETS DYNAMIC CONTENT VIEWS WITHIN THE TAB VIEW
+        // THE OTHER SETS DYNAMIC CONTENT VIEWS WITHIN THE TAB VIEW df
 
         // TODO: Implement a parameter in the constructor to take a KycEmptyPage instance.
 
