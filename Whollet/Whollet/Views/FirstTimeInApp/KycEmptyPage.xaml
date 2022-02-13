@@ -8,7 +8,7 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="Whollet.Views.FirstTimeInApp.KycEmptyPage">
     <ContentPage.BindingContext>
-        <vm:KycTabViewModel x:Name="vmodel"/>
+        <vm:KycTabModel2/>
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -174,15 +174,15 @@
                                  Style="{StaticResource TabItemStyle}"
                                  Icon="deposit.png">
                     <xct:TabViewItem.Behaviors>
-                        <xct:EventToCommandBehavior EventName="TabTapped" Command="{Binding PageChangeCommand}"/>
+                        <xct:EventToCommandBehavior EventName="TabTapped" Command="{Binding ChangeViewCommand}"/>
                     </xct:TabViewItem.Behaviors>
                     
                     <ContentView>
                         
-                        <Grid BindableLayout.ItemsSource="{Binding PIndex}"
+                        <!--<Grid BindableLayout.ItemsSource="{Binding PIndex}"
                             BindableLayout.ItemTemplateSelector="{StaticResource PageSelector}">
                             
-                        </Grid>
+                        </Grid>-->
                     </ContentView>
                     
                 </xct:TabViewItem>

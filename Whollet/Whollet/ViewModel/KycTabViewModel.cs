@@ -13,8 +13,9 @@ namespace Whollet.ViewModel
     {
         private ObservableCollection<ViewSwitcher> pIndex;
         private int pagenumber, pageviewtemp;
+        
         ObservableCollection<ViewSwitcher> vIndex = new ObservableCollection<ViewSwitcher>();
-
+        
         // TWO CONSTRUCTORS: ONE SETS THE INITIAL TAB VIEW WITH 3 CONTENT VIEW PAGES WITHIN
         // THE OTHER SETS DYNAMIC CONTENT VIEWS WITHIN THE TAB VIEW df
 
@@ -27,7 +28,9 @@ namespace Whollet.ViewModel
             //tabpage.Mid
             PIndex = ResetCollection(1);           
         }
+
         
+
         public KycTabViewModel(int pnum = 0, int pageviewtemplates = 0)
         {
             

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Whollet.Views.FirstTimeInApp;
 using Whollet.Views.Login;
+using Whollet.ViewModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -45,11 +46,15 @@ namespace Whollet.ViewModel
                 }
                 if (Int32.Parse(EntryText) == Int32.Parse(pincode))
                 {
-                  await App.Current.MainPage.DisplayAlert("Success!", "You entered the right pin", "Ok");
+                 // await App.Current.MainPage.DisplayAlert("Success!", "You entered the right pin", "Ok");
 
                    
-                  GoToPageAsync(new KycEmptyPage());
-                   
+                 // GoToPageAsync(new KycEmptyPage());
+                    var TabPage = new KycEmptyPage();
+                    
+                    var nextviewmodel = new KycTabModel2(TabPage); 
+                    TabPage.BindingContext = nextviewmodel;
+                    GoToPageAsync(TabPage);
                   RemoveCurrentPage();
                    
 

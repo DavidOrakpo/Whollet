@@ -90,47 +90,47 @@ namespace Whollet.ViewModel
         {
             //await App.GetDatabase.DeleteAllAsync<User>();
             //await App.Current.MainPage.DisplayAlert("Table Deleted", "You reset the table", "Ok");
+            GoToPageAsync(new CreatePin());
+            //if (EmailValid && PasswordValid)
+            //{
+            //    var _user = new User
+            //    {
+            //        FirstName = FirstName,
+            //        LastName = LastName,
+            //        Email = Email,
+            //        Password = Password,
 
-            if (EmailValid && PasswordValid)
-            {
-                var _user = new User
-                {
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    Email = Email,
-                    Password = Password,
-
-                };
-                var table = await App.GetDatabase.GetTableAsync<User>();
-                if (table.Count() != 0)
-                {
-                    var temp = table.Where<User>(user => _user.Email == user.Email && user.Pincode == 0).FirstOrDefault();
-                    if (temp != null)
-                    {
-                        await App.GetDatabase.UpdateAsync(temp);
-                        GoToPageAsync(new CreatePin());
-                    }
-                    else
-                    {
-                        await App.GetDatabase.SaveAsync<User>(_user);
-                        GoToPageAsync(new CreatePin());
-                    }
-                }
-                else
-                {
-                    await App.GetDatabase.SaveAsync<User>(_user);
-                    GoToPageAsync(new CreatePin());
-                }
-
-
+            //    };
+            //    var table = await App.GetDatabase.GetTableAsync<User>();
+            //    if (table.Count() != 0)
+            //    {
+            //        var temp = table.Where<User>(user => _user.Email == user.Email && user.Pincode == 0).FirstOrDefault();
+            //        if (temp != null)
+            //        {
+            //            await App.GetDatabase.UpdateAsync(temp);
+            //            GoToPageAsync(new CreatePin());
+            //        }
+            //        else
+            //        {
+            //            await App.GetDatabase.SaveAsync<User>(_user);
+            //            GoToPageAsync(new CreatePin());
+            //        }
+            //    }
+            //    else
+            //    {
+            //        await App.GetDatabase.SaveAsync<User>(_user);
+            //        GoToPageAsync(new CreatePin());
+            //    }
 
 
 
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Invalid Email or Password, Try again", "Ok");
-            }
+
+
+            //}
+            //else
+            //{
+            //    await App.Current.MainPage.DisplayAlert("Error", "Invalid Email or Password, Try again", "Ok");
+            //}
 
 
 
