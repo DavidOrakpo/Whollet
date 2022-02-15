@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="{DynamicResource BackGroundWhite}"
              xmlns:vm="clr-namespace:Whollet.ViewModel.EmptyStateModels"
+             
              x:Class="Whollet.Views.FirstTimeInApp.EmptyStateView">
-    <ContentView.BindingContext>
+    <!--<ContentView.BindingContext>
         <vm:EmptyStateViewModel/>
-    </ContentView.BindingContext>
+    </ContentView.BindingContext>-->
     <ContentView.Content>
         <!--<StackLayout BackgroundColor="Gold">
 
@@ -40,7 +41,7 @@
                         VerticalOptions="Center"
                         BorderColor="{DynamicResource SkipBlue}"
                         CornerRadius="50" Scale="1"
-                        Command="{Binding ProxyCommand}"
+                        Command="{Binding ChangeViewCommand}"
                         WidthRequest="200"
                         HeightRequest="46" 
                         FontFamily="TitilliumRegular" 

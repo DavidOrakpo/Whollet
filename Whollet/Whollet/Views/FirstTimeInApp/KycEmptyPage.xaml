@@ -151,7 +151,9 @@
         CLICKING ON THE BUTTON WILL CAUSE THE INT PARAMETER TO INCREASE BY 1, SWITCHING THE DATA TEMPLATE
         -->
         <Grid>
-            <xct:TabView x:Name="KycTabView" Style="{StaticResource CustomTabStyle}">
+            <xct:TabView x:Name="KycTabView"
+                         x:FieldModifier="Public"
+                         Style="{StaticResource CustomTabStyle}">
                 <xct:TabView.TabStripBackgroundView>
                     <BoxView Color="{DynamicResource PureWhite}" CornerRadius="20,20,0,0"/>
                 </xct:TabView.TabStripBackgroundView>
