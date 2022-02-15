@@ -57,7 +57,7 @@
                         VerticalOptions="Center"
                         BorderColor="{DynamicResource SkipBlue}"
                         CornerRadius="50" Scale="1"
-                        Command="{Binding PageChange}"
+                        Command="{Binding ChangeViewCommand}"
                         WidthRequest="200"
                         HeightRequest="46" 
                         FontFamily="TitilliumRegular" 

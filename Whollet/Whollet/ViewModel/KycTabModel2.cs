@@ -28,7 +28,7 @@ namespace Whollet.ViewModel
        
             // var currentview = _tabbedPage.Middle_tab.Content as ContentView;
            // emptyStateViewModel.CallNextViewEvent += EmptyStateViewModel_CallNextViewEvent;
-            Currentview = ContentViewDictionary["First_View"];
+            currentview = ContentViewDictionary["First_View"];
           //  _tabbedPage.Middle_tab.Content = currentview;
         }
 
@@ -43,9 +43,10 @@ namespace Whollet.ViewModel
             // var currentview = _tabbedPage.Middle_tab.Content as ContentView;
 
             currentview = ContentViewDictionary["First_View"];
-            currentview.BindingContext = this;
+            //currentview.BindingContext = this;
             _tabbedPage.Middle_tab.Content = currentview;
-            
+            _tabbedPage.Middle_tab.BindingContext = this;
+
            // emptyStateViewModel.CallNextViewEvent += EmptyStateViewModel_CallNextViewEvent;
         }
 
@@ -63,23 +64,33 @@ namespace Whollet.ViewModel
                 currentview.BindingContext = this;
                 _tabbedPage.Middle_tab.Content = currentview;
                 
-                _tabbedPage.KycTabView.SelectedIndex = 1;
+                //_tabbedPage.KycTabView.SelectedIndex = 1;
                // OnPropertyChanged(nameof(_tabbedPage.Middle_tab.Content));
             }
             else if (currentview == ContentViewDictionary["Second_View"])
             {
-                currentview = ContentViewDictionary["Third_View"];
-                currentview.BindingContext = this;
-                _tabbedPage.Middle_tab.Content = currentview;
-                OnPropertyChanged(nameof(_tabbedPage.Middle_tab.Content));
+                // _tabbedPage.Middle_tab.Content.BindingContext = null;
+                //_tabbedPage.Middle_tab.Content.BindingContext = this;
+
+                
+                    currentview = ContentViewDictionary["Third_View"];
+                    currentview.BindingContext = this;
+                    _tabbedPage.Middle_tab.Content = currentview;
+                    ///Code to update view here
+               
+                //OnPropertyChanged(nameof(_tabbedPage.Middle_tab.Content));
             }
             else if (currentview == ContentViewDictionary["Third_View"])
             {
-                 Application.Current.MainPage.DisplayAlert("Testing", "It works", "Ok");
+                //_tabbedPage.Middle_tab.Content.BindingContext = null;
+                _tabbedPage.Middle_tab.Content.BindingContext = this;
+                Application.Current.MainPage.DisplayAlert("Testing", "It works", "Ok");
             }
 
 
         });
+
+        
 
         public ContentView Currentview
         {
