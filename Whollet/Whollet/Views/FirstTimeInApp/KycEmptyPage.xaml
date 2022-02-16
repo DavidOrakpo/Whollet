@@ -6,6 +6,7 @@
              xmlns:views="clr-namespace:Whollet.Views.FirstTimeInApp"
              xmlns:dtemplate="clr-namespace:Whollet.DataTenplateSelectors"
              NavigationPage.HasNavigationBar="False"
+             
              x:Class="Whollet.Views.FirstTimeInApp.KycEmptyPage">
     <ContentPage.BindingContext>
         <vm:KycTabModel2/>
@@ -143,6 +144,7 @@
 
         </ResourceDictionary>
     </ContentPage.Resources>
+    
     <ContentPage.Content>
 
         <!-- ITEM SOURCE WOULD BE AN OBSERVABLE COLLECTION CONTAINING ONE INSTANCE OF AN OBHECT WITH INTEGER PROP-->
@@ -175,11 +177,11 @@
                                  TranslationY="-10"
                                  Style="{StaticResource TabItemStyle}"
                                  Icon="deposit.png">
-                    <xct:TabViewItem.Behaviors>
+                    <!--<xct:TabViewItem.Behaviors>
                         <xct:EventToCommandBehavior EventName="TabTapped" Command="{Binding ChangeViewCommand}"/>
-                    </xct:TabViewItem.Behaviors>
+                    </xct:TabViewItem.Behaviors>-->
                     
-                    <ContentView>
+                    <ContentView Content="{Binding Currentview}">
                         
                         <!--<Grid BindableLayout.ItemsSource="{Binding PIndex}"
                             BindableLayout.ItemTemplateSelector="{StaticResource PageSelector}">
