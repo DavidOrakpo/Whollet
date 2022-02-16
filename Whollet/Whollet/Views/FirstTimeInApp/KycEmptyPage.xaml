@@ -129,29 +129,12 @@
 			        Value="Bottom" />
             </Style>
             <xct:ItemTappedEventArgsConverter x:Key="ItemTapEventArgs"/>
-            <!-- DATA TEMPLATE WORKFLOW -->
-            <DataTemplate x:Key="FirstPageTemplate" >
-                <views:EmptyStateView/>
-            </DataTemplate>
-            <DataTemplate x:Key="SecondPageTemplate">
-                <views:EmptyStatePending/>
-            </DataTemplate>
-            <DataTemplate x:Key="ThirdPageTemplate">
-                <views:EmptyStateFinished/>
-            </DataTemplate>
-            <dtemplate:PageTemplateSelector x:Key="PageSelector" FirstPage="{StaticResource FirstPageTemplate}" SecondPage="{StaticResource SecondPageTemplate}"
-                                            ThirdPage="{StaticResource ThirdPageTemplate}"/>
+            
 
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <ContentPage.Content>
 
-        <!-- ITEM SOURCE WOULD BE AN OBSERVABLE COLLECTION CONTAINING ONE INSTANCE OF AN OBHECT WITH INTEGER PROP-->
-        <!-- THIS INTEGER PROP CAN ONLY MOVE BETWEEN 1, 2 AND 3. THESE VALUES WILL THEN BE TIED TO A DATA TEMPLATET SELECTOR-->
-        <!--wHICH WILL THEN BE USED TO POPULATE THE PAGE. 
-        CLICKING ON THE BUTTON WILL CAUSE THE INT PARAMETER TO INCREASE BY 1, SWITCHING THE DATA TEMPLATE
-        -->
+    <ContentPage.Content>
         <Grid>
             <xct:TabView x:Name="KycTabView"
                          x:FieldModifier="Public"
@@ -168,7 +151,7 @@
                     <views:TransactionsView/>
                 </xct:TabViewItem>
                 <!-- SECOND TAB ITEM -->
-                
+
                 <xct:TabViewItem
                                  x:Name="Middle_tab"
                                  x:FieldModifier="Public"
@@ -177,16 +160,9 @@
                                  TranslationY="-10"
                                  Style="{StaticResource TabItemStyle}"
                                  Icon="deposit.png">
-                    <!--<xct:TabViewItem.Behaviors>
-                        <xct:EventToCommandBehavior EventName="TabTapped" Command="{Binding ChangeViewCommand}"/>
-                    </xct:TabViewItem.Behaviors>-->
-                    
+
                     <ContentView Content="{Binding Currentview}">
-                        
-                        <!--<Grid BindableLayout.ItemsSource="{Binding PIndex}"
-                            BindableLayout.ItemTemplateSelector="{StaticResource PageSelector}">
-                            
-                        </Grid>-->
+
                     </ContentView>
                     
                 </xct:TabViewItem>

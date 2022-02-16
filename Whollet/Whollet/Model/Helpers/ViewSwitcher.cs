@@ -9,15 +9,7 @@ namespace Whollet.Model.Helpers
     {
         public ViewSwitcher()
         {
-            //PageChange = new Command(() =>
-            //{
-            //    if (PageIndex < 3)
-            //    {
-            //        PageIndex++;
-            //        // OnPropertyChanged(nameof(PIndex));
-            //    }
 
-            //});
         }
 
         public int PageIndex { get; set; }
