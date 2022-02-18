@@ -35,7 +35,7 @@ namespace Whollet.Model
                // _password = value;
             }
         }
-        public int Pincode { get; set; }
+        public string Pincode { get; set; }
         public string NationalID { get; set; } = String.Empty;
         public string Passport { get; set; } = String.Empty;
         public string Drivers_license { get; set; } = String.Empty; 

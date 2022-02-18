@@ -56,20 +56,18 @@
                         
                         <loginentry:SignUp.EntryBehavior>
                             <xct:EmailValidationBehavior x:Name="EmailBehave" 
-                                                         IsValid="{Binding Source={x:Reference viewmodel}, Path=EmailValid}"
-                                                         
+                                                         IsValid="{Binding Source={x:Reference viewmodel}, Path=EmailValid}"                                                       
                                                          ValidStyle="{StaticResource Valid}"
                                                          InvalidStyle="{StaticResource Invalid}"/>
-                            
                         </loginentry:SignUp.EntryBehavior>
                     </loginentry:SignUp>
                     
                     <loginentry:SignUp x:Name="PassEntry" EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}"
                                        LabelIsVisible="False" EntryText="{Binding Password}" LabelText="Password" EntryPlaceholder="Password" Grid.Row="3" Grid.ColumnSpan="2">
-                        <loginentry:SignUp.Behaviors>
-                            <b:PasswordBehaviour IsValid="{Binding PasswordValid, Source={x:Reference viewmodel}}"/>
+                        <loginentry:SignUp.EntryBehavior>
+                            <b:PasswordBehaviour IsValid="{Binding PasswordValid, Source={x:Reference viewmodel}, Mode=OneWayToSource}"/>
                             
-                        </loginentry:SignUp.Behaviors>   
+                        </loginentry:SignUp.EntryBehavior>   
                     </loginentry:SignUp>
                 </Grid>
                 <control:GoToNextPage Grid.Row="1" ButtonBackgroundColor="{DynamicResource SkipBlue}" DescriptionLabelTextColor="{DynamicResource DescriptionBlack}"

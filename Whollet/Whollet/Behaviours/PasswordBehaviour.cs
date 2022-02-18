@@ -9,7 +9,7 @@ namespace Whollet.Behaviours
 {
     public class PasswordBehaviour : BaseBehavior<VisualElement>
     {
-        const string passwordRegex = @"^([a-zA-Z0-9@*#]{8,15})$";
+        const string passwordRegex = @"^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$";
 
        // public static readonly BindablePropertyKey IsValidPropertyKey = BindableProperty.CreateReadOnly("IsValid", typeof(bool), typeof(PasswordBehaviour), false);
 
