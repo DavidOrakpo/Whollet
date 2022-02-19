@@ -14,6 +14,7 @@ namespace Whollet.ViewModel
     {
         private string entryText, _email;
         private User _user;
+        private string pincode;
 
         public CreatePinViewModel()
         {
@@ -23,6 +24,7 @@ namespace Whollet.ViewModel
         public CreatePinViewModel(string email)
         {
             _email = email;
+            pincode = _email;
             entryText = "";
            
         }
@@ -43,18 +45,30 @@ namespace Whollet.ViewModel
             {
                 var table = await App.GetDatabase.GetTableAsync<User>();
                 _user = table.Where((u) => u.Email == _email).FirstOrDefault();
-                var temp = _user.FirstName.ToList().GetRange((_user.FirstName.Length - 3),2);
+                //var temp = _user.FirstName.ToList().GetRange((_user.FirstName.Length - 3),2);
+
                 try
                 {
                     
-                    await SecureStorage.SetAsync("oath_token",EntryText);
+                    await SecureStorage.SetAsync(pincode,EntryText);
+                    _user.Pincode = pincode;
+                    await App.GetDatabase.UpdateAsync<User>(_user);
                 }
                 catch (Exception ex)
                 {
 
                     throw;
                 }
-                await Application.Current.MainPage.Navigation.PushAsync(new ConfirmPin());
+                finally
+                {
+                    var confirmpinvm = new ConfirmPinViewModel(_email);
+                    var nextpage = new ConfirmPin
+                    {
+                        BindingContext = confirmpinvm
+                    };
+                    GoToPageAsync(nextpage);
+                }
+              
             }
 
         });

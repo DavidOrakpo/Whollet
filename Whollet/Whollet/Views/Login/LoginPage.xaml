@@ -4,12 +4,25 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:bind="clr-namespace:Whollet.ViewModel"
              xmlns:passtrigger="clr-namespace:Whollet.Triggers"
-             xmlns:loginentry="clr-namespace:Whollet.Custom_Controls"
+             xmlns:b="clr-namespace:Whollet.Behaviours"
+             xmlns:loginentry="clr-namespace:Whollet.Custom_Controls" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              BackgroundColor="{DynamicResource BackGroundWhite}"
              x:Class="Whollet.Views.Login.LoginPage">
     <ContentPage.BindingContext>
         <bind:LoginPageViewModel/>
     </ContentPage.BindingContext>
+    
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <Style TargetType="loginentry:SignUp" x:Key="Invalid">
+                    <Setter Property="BackgroundColor" Value="PaleVioletRed"/>
+                </Style>
+
+                <Style TargetType="loginentry:SignUp" x:Key="Valid">
+                    <Setter Property="BackgroundColor" Value="White"/>
+                </Style>
+            </ResourceDictionary>
+        </ContentPage.Resources>
     
     <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
         <Grid RowDefinitions="*,1.1*">
@@ -20,9 +33,30 @@
             </Grid>
             <Grid Grid.Row="1" RowDefinitions="*,*" Margin="0,-20,0,0" Padding="24,10">
                 <Grid RowDefinitions="*,*,auto" ColumnDefinitions="*,auto">
-                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="First Name" EntryPlaceholder="First Name" Grid.Row="0" Grid.ColumnSpan="2"/>
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}"
+                                       LabelIsVisible="False" LabelText="Email" EntryText="{Binding Email}"
+                                       EntryPlaceholder="Email Address" Grid.Row="0" Grid.ColumnSpan="2">
+                        <loginentry:SignUp.Triggers>
+                            <DataTrigger TargetType="loginentry:SignUp" Binding="{Binding Source={x:Reference EmailBehave}, Path=IsNotValid}" Value="True">
+                                <Setter Property="LabelIsVisible" Value="True" />
+                                <Setter Property="LabelText" Value="Wrong Email Format"/>
+                            </DataTrigger>
+                        </loginentry:SignUp.Triggers>
+                        <loginentry:SignUp.EntryBehavior>
+                            <xct:EmailValidationBehavior x:Name="EmailBehave" 
+                                                         IsValid="{Binding EmailValid}"                                                       
+                                                         ValidStyle="{StaticResource Valid}"
+                                                         InvalidStyle="{StaticResource Invalid}"/>
+                        </loginentry:SignUp.EntryBehavior>
+                    </loginentry:SignUp>
 
-                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}" LabelIsVisible="False" LabelText="Password" EntryPlaceholder="Password" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}"
+                                       LabelIsVisible="False" LabelText="Password" EntryText="{Binding Password}"
+                                       EntryPlaceholder="Password" Grid.Row="1" Grid.ColumnSpan="2">
+                        <loginentry:SignUp.EntryBehavior>
+                            <b:PasswordBehaviour IsValid="{Binding PasswordValid}"/>
+                        </loginentry:SignUp.EntryBehavior>
+                    </loginentry:SignUp>
 
                     <Label Grid.Row="2" Grid.Column="1" Text="Forgot your password?" FontAttributes="Bold" Margin="0,-25,0,0" FontFamily="TitilliumSemiBold" FontSize="15" TextColor="{DynamicResource SkipBlue}">
                         <Label.GestureRecognizers>

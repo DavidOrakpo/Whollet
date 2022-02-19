@@ -6,16 +6,25 @@ using Whollet.Views.Login;
 using Whollet.ViewModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Whollet.Model;
+using System.Linq;
 
 namespace Whollet.ViewModel
 {
     public class VerificationViewModel : BaseViewModel
     {
-        private string entryText;
+        private string entryText, _email, pincode;
+        private User _user;
 
         public VerificationViewModel()
         {
             entryText = "";
+        }
+
+        public VerificationViewModel(string email)
+        {
+            entryText = "";
+            _email = email;
         }
 
         public string EntryText
@@ -31,12 +40,13 @@ namespace Whollet.ViewModel
         public Command ButtonPressed => new Command(async (x) =>
         {
             EntryText += x;
-            string pincode;
             if (EntryText.Length == 4)
             {
+                var table = await App.GetDatabase.GetTableAsync<User>();
+                _user = table.Where((u) => u.Email == _email).FirstOrDefault();
                 try
                 {
-                    pincode = await SecureStorage.GetAsync("oath_token");
+                    pincode = await SecureStorage.GetAsync(_user.Pincode);
 
                 }
                 catch (Exception ex)
@@ -54,6 +64,7 @@ namespace Whollet.ViewModel
                     
                     var nextviewmodel = new KycTabModel2(TabPage); 
                     TabPage.BindingContext = nextviewmodel;
+                    await Application.Current.MainPage.DisplayAlert("Success", "Logging you in", "Ok");
                     GoToPageAsync(TabPage);
                   RemoveCurrentPage();
                    
