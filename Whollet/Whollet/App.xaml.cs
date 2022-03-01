@@ -1,10 +1,13 @@
 ﻿using System;
+using Xamarin.Essentials;
+using Whollet.Model.Helpers;
 using Whollet.Views;
 using Whollet.Views.FirstTimeInApp;
 using Whollet.Views.KYC;
 using Whollet.Views.Login;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.IO;
 
 [assembly: ExportFont("TitilliumWeb-Black.tff", Alias ="TitilliumNormal")]
 [assembly: ExportFont("TitilliumWeb-Bold.tff", Alias ="TitilliumBold")]
@@ -29,6 +32,20 @@ namespace Whollet
 
             //NTczNTcxQDMxMzkyZTM0MmUzMFZ4ODIxR29WNnNIdjVSMFlyVDg1NmF3dGpsdkNIMTRhRTFqSWhiRFRSSjg9
             MainPage = new NavigationPage(new WelcomeView());
+        }
+
+        private static readonly string Databasename = "WholletDatabase.db3";
+        static Database getDatabase;
+        public static Database GetDatabase
+        {
+            get
+            {
+                if (getDatabase == null)
+                {
+                    getDatabase = new Database(Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory,Databasename));
+                }
+                return getDatabase;
+            }
         }
 
         protected override void OnStart()

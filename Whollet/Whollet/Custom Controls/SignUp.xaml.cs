@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,9 +29,13 @@ namespace Whollet.Custom_Controls
             {
                 EntryControl.Behaviors.Add(EntryBehavior);
             }
-            
-            
-            
+
+            //if (!(AttachedEntryBehavior == null))
+            //{
+            //    EntryControl.Visual = (IVisual)AttachedEntryBehavior;
+            //}
+
+
             EntryControl.SetBinding(Entry.IsPasswordProperty, new Binding("ShowPasswordTrigger.HidePassword"));
             EntryControl.BindingContext = ShowPasswordTrigger;
             
@@ -104,8 +108,18 @@ namespace Whollet.Custom_Controls
                                                                                                 default(string),
                                                                                                 BindingMode.TwoWay);
 
-        public static readonly BindableProperty EntryBehaviorProperty = BindableProperty.Create(nameof(EntryBehavior), typeof(Behavior<LoginEntry>),
-                                                                                                    typeof(SignUp), default(Behavior<LoginEntry>), BindingMode.TwoWay);
+        public static readonly BindableProperty EntryBehaviorProperty = BindableProperty.Create(nameof(EntryBehavior),
+                                                                                                    typeof(BaseBehavior<VisualElement>),
+                                                                                                    typeof(SignUp), 
+                                                                                                    default(BaseBehavior<VisualElement>),
+                                                                                                    BindingMode.TwoWay);
+
+        //public static readonly BindableProperty AttachedEntryBehaviorProperty = BindableProperty.CreateAttached(nameof(AttachedEntryBehavior),
+        //                                                                                            typeof(VisualElement),
+        //                                                                                            typeof(SignUp),
+        //                                                                                            default(VisualElement),
+        //                                                                                            BindingMode.TwoWay);
+
 
         //  public string LabelPlaceholder 
         //   {
@@ -118,10 +132,15 @@ namespace Whollet.Custom_Controls
         //         SetValue(LabelPlaceholderProperty, value);
         //     }
         //   }
+        //public VisualElement AttachedEntryBehavior
+        //{
+        //    get { return (VisualElement)GetValue(AttachedEntryBehaviorProperty); }
+        //    set { SetValue(AttachedEntryBehaviorProperty, value); }
+        //}
 
-        public Behavior<LoginEntry> EntryBehavior 
+        public BaseBehavior<VisualElement> EntryBehavior 
         { 
-            get { return (Behavior<LoginEntry>)GetValue(EntryBehaviorProperty); } 
+            get { return (BaseBehavior<VisualElement>)GetValue(EntryBehaviorProperty); } 
             set { SetValue(EntryBehaviorProperty, value); } 
         }
 
@@ -191,6 +210,10 @@ namespace Whollet.Custom_Controls
             {
                 EntryControl.Behaviors.Add(EntryBehavior);
             }
+            //if (AttachedEntryBehaviorProperty.PropertyName == temp)
+            //{
+            //    EntryControl.Visual = (IVisual)AttachedEntryBehavior;
+            //}
         }
 
 
