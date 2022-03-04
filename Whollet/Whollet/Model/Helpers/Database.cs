@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensionsAsync.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Whollet.Model.Helpers
             // write each statement for the amount of tables you wish to create
             _database.CreateTableAsync<User>().Wait();
             _database.CreateTableAsync<Address>().Wait();
+            
         }
 
         // Show the registers
@@ -34,7 +36,7 @@ namespace Whollet.Model.Helpers
             return _database.InsertAsync(model);
         }
 
-        public Task<T> GetWithChidsAsync<T>(int objectID) where T : new()
+        public Task<T> GetAsync<T>(int objectID) where T : new()
         {
             return _database.GetAsync<T>(objectID);
         }
@@ -55,6 +57,17 @@ namespace Whollet.Model.Helpers
         public Task<int> UpdateAsync<T>(T model) where T: new()
         {
             return _database.UpdateAsync(model);
+            
+        }
+
+        public Task UpdateWithChildAsync<T>(T model) where T : new()
+        {
+            return _database.UpdateWithChildrenAsync(model);
+        }
+
+        public Task<T> GetWithChildAsync<T>(int model) where T : new()
+        {
+            return _database.GetWithChildrenAsync<T>(model);
         }
     }
 }

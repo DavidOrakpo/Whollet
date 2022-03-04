@@ -47,7 +47,9 @@
                                                          IsValid="{Binding EmailValid}"                                                       
                                                          ValidStyle="{StaticResource Valid}"
                                                          InvalidStyle="{StaticResource Invalid}"/>
+                            
                         </loginentry:SignUp.EntryBehavior>
+                        
                     </loginentry:SignUp>
 
                     <loginentry:SignUp EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}"
@@ -55,7 +57,10 @@
                                        EntryPlaceholder="Password" Grid.Row="1" Grid.ColumnSpan="2">
                         <loginentry:SignUp.EntryBehavior>
                             <b:PasswordBehaviour IsValid="{Binding PasswordValid}"/>
+                           
                         </loginentry:SignUp.EntryBehavior>
+                       
+                        
                     </loginentry:SignUp>
 
                     <Label Grid.Row="2" Grid.Column="1" Text="Forgot your password?" FontAttributes="Bold" Margin="0,-25,0,0" FontFamily="TitilliumSemiBold" FontSize="15" TextColor="{DynamicResource SkipBlue}">

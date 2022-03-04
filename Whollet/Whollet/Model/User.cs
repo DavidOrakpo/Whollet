@@ -40,6 +40,9 @@ namespace Whollet.Model
         public string Passport { get; set; } = String.Empty;
         public string Drivers_license { get; set; } = String.Empty; 
 
+        [ForeignKey(typeof(Address))]
+        public int AddressID { get; set; }
+
         [OneToOne(CascadeOperations = CascadeOperation.All)]
         public Address address { get; set; }
        

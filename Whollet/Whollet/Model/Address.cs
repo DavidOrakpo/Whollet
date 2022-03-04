@@ -23,7 +23,7 @@ namespace Whollet.Model
 
         [ForeignKey(typeof(User))]
         public int UserID { get; set; }
-        [OneToOne]
+        [OneToOne(CascadeOperations = CascadeOperation.All)]
         public User Owner { get; set; }
     }
 }

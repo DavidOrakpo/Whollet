@@ -6,11 +6,17 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:Whollet.ViewModel"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:convert="clr-namespace:Whollet.Converters"
              BackgroundColor="{DynamicResource BackGroundWhite}"
              x:Class="Whollet.Views.KYC.PersonalInformationPage">
     <ContentPage.BindingContext>
         <vm:PersonalInformationViewModel/>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:MultiTriggerConverter x:Key="Multiconverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     
     <ContentPage.Content>
         <Grid RowDefinitions="0.2*,0.8*">
@@ -33,23 +39,45 @@
             <Grid Grid.Row="1">
                 <Frame CornerRadius="20" Padding="20">
                     <Grid RowDefinitions="*,*,*,*,*,*,2*">
-                        <control:SignUp Grid.Row="0" LabelText="First Name" LabelIsVisible="False"
+                        <control:SignUp x:Name="firstnameEntry" Grid.Row="0" LabelText="First Name" LabelIsVisible="False"
+                                        EntryText="{Binding FirstName}"
                                         EntryPlaceholder="First Name" EntryIsPassword="False" />
-                        <control:SignUp Grid.Row="1" LabelText="Last Name" LabelIsVisible="False"
+                        <control:SignUp x:Name="lastnameEntry" Grid.Row="1" LabelText="Last Name" LabelIsVisible="False"
+                                        EntryText="{Binding LastName}"
                                         EntryPlaceholder="Last Name" EntryIsPassword="False" />
-                        <control:SignUp Grid.Row="2" LabelText="Address" LabelIsVisible="False"
+                        <control:SignUp x:Name="addressEntry" Grid.Row="2" LabelText="Address" LabelIsVisible="False"
+                                        EntryText="{Binding Address}"
                                         EntryPlaceholder="Address" EntryIsPassword="False"/>
-                        <control:SignUp Grid.Row="3" LabelText="City" LabelIsVisible="False"
+                        <control:SignUp x:Name="cityEntry" Grid.Row="3" LabelText="City" LabelIsVisible="False"
+                                        EntryText="{Binding City}"
                                         EntryPlaceholder="City" EntryIsPassword="False"/>
-                        <control:SignUp Grid.Row="4" LabelText="Zip Area/Code" LabelIsVisible="False"
+                        <control:SignUp x:Name="areacodeEntry" Grid.Row="4" LabelText="Zip Area/Code" LabelIsVisible="False"
+                                        EntryText="{Binding AreaCode}"
                                         EntryPlaceholder="Zip Area/Code" EntryIsPassword="False"/>
-                        <control:SignUp Grid.Row="5" LabelText="Citizenship" LabelIsVisible="False"
+                        <control:SignUp x:Name="citizenEntry" Grid.Row="5" LabelText="Citizenship" LabelIsVisible="False"
+                                        EntryText="{Binding Citizenship}"
                                         EntryPlaceholder="Citizenship" EntryIsPassword="False"/>
                         <Button Grid.Row="6" Text="Next Step"
                                 TextColor="{DynamicResource PureWhite}"
                                 FontAttributes="Bold"
+                                IsEnabled="False"
                                 Command="{Binding GoToNextPage}"
-                                Style="{StaticResource CommonPageButton}"/>
+                                Style="{StaticResource CommonPageButton}">
+                            <Button.Triggers>
+                                <MultiTrigger TargetType="Button">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference citizenEntry}, Path=EntryText.Length, Converter={StaticResource Multiconverter}}" Value="true"/>
+                                        <BindingCondition Binding="{Binding Source={x:Reference firstnameEntry}, Path=EntryText.Length, Converter={StaticResource Multiconverter}}" Value="true"/>
+                                        <BindingCondition Binding="{Binding Source={x:Reference lastnameEntry}, Path=EntryText.Length, Converter={StaticResource Multiconverter}}" Value="true"/>
+                                        <BindingCondition Binding="{Binding Source={x:Reference addressEntry}, Path=EntryText.Length, Converter={StaticResource Multiconverter}}" Value="true"/>
+                                        <BindingCondition Binding="{Binding Source={x:Reference cityEntry}, Path=EntryText.Length, Converter={StaticResource Multiconverter}}" Value="true"/>
+                                        <BindingCondition Binding="{Binding Source={x:Reference areacodeEntry}, Path=EntryText.Length, Converter={StaticResource Multiconverter}}" Value="true"/>
+                                        
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiTrigger>
+                            </Button.Triggers>
+                        </Button>
 
                     </Grid>
                 </Frame>

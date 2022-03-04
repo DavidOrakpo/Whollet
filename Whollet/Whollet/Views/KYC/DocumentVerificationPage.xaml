@@ -45,6 +45,7 @@
 
                         <pcake:PancakeView Grid.Row="1" HeightRequest="20" Padding="20"
                                            CornerRadius="40"
+                                           
                                            xct:TouchEffect.AnimationDuration="250"
                                            xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
                                            xct:TouchEffect.PressedScale="0.85"

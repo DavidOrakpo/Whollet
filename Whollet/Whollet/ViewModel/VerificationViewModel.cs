@@ -64,6 +64,7 @@ namespace Whollet.ViewModel
                     
                     var nextviewmodel = new KycTabModel2(TabPage); 
                     TabPage.BindingContext = nextviewmodel;
+                    App.LoggedInUser = _user;
                     await Application.Current.MainPage.DisplayAlert("Success", "Logging you in", "Ok");
                     GoToPageAsync(TabPage);
                   RemoveCurrentPage();

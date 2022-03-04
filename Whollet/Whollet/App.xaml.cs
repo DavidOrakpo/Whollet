@@ -8,6 +8,7 @@ using Whollet.Views.Login;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.IO;
+using Whollet.Model;
 
 [assembly: ExportFont("TitilliumWeb-Black.tff", Alias ="TitilliumNormal")]
 [assembly: ExportFont("TitilliumWeb-Bold.tff", Alias ="TitilliumBold")]
@@ -47,6 +48,18 @@ namespace Whollet
                 return getDatabase;
             }
         }
+
+        private static User getUser;
+
+        public static User LoggedInUser
+        {
+            get 
+            {
+                return getUser;
+            }
+            set { getUser = value; }
+        }
+
 
         protected override void OnStart()
         {

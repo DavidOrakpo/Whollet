@@ -25,9 +25,13 @@ namespace Whollet.Custom_Controls
             EntryControl.TextChanged += Entry_TextChanged;
             EntryControl.Focused += Entry_Focused;
             EntryControl.Unfocused += Entry_Unfocused;
-            if (!(EntryBehavior == null))
+            if (!(EntryBehavior == null && !(EntryControl.Behaviors == null)))
             {
-                EntryControl.Behaviors.Add(EntryBehavior);
+                //for (int i = 0; i < EntryBehavior.Count; i++)
+                //{
+                //    EntryControl.Behaviors.Add(EntryBehavior[i]);
+                //}
+                  EntryControl.Behaviors.Add(EntryBehavior);
             }
 
             //if (!(AttachedEntryBehavior == null))
@@ -208,6 +212,10 @@ namespace Whollet.Custom_Controls
             }
             if (EntryBehaviorProperty.PropertyName == temp)
             {
+                //for (int i = 0; i < EntryBehavior.Count; i++)
+                //{
+                //    EntryControl.Behaviors.Add(EntryBehavior[i]);
+                //}
                 EntryControl.Behaviors.Add(EntryBehavior);
             }
             //if (AttachedEntryBehaviorProperty.PropertyName == temp)
