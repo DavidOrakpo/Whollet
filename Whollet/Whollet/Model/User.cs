@@ -36,9 +36,9 @@ namespace Whollet.Model
             }
         }
         public string Pincode { get; set; }
-        public string NationalID { get; set; } = String.Empty;
-        public string Passport { get; set; } = String.Empty;
-        public string Drivers_license { get; set; } = String.Empty; 
+        public byte[] NationalID { get; set; } 
+        public byte[] Passport { get; set; } 
+        public byte[] Drivers_license { get; set; }
 
         [ForeignKey(typeof(Address))]
         public int AddressID { get; set; }

@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.IO;
 using Whollet.Model;
+using Whollet.Views.CamViews;
 
 [assembly: ExportFont("TitilliumWeb-Black.tff", Alias ="TitilliumNormal")]
 [assembly: ExportFont("TitilliumWeb-Bold.tff", Alias ="TitilliumBold")]
@@ -32,7 +33,7 @@ namespace Whollet
             InitializeComponent();
 
             //NTczNTcxQDMxMzkyZTM0MmUzMFZ4ODIxR29WNnNIdjVSMFlyVDg1NmF3dGpsdkNIMTRhRTFqSWhiRFRSSjg9
-            MainPage = new NavigationPage(new WelcomeView());
+            MainPage = new NavigationPage(new CameraPage());
         }
 
         private static readonly string Databasename = "WholletDatabase.db3";

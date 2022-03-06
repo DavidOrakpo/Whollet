@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:Whollet.ViewModel.CameraPage"
+             
+             NavigationPage.HasNavigationBar="False"
+             x:Class="Whollet.Views.CamViews.CameraPage">
+    <ContentPage.BindingContext>
+        <vm:CameraPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <xct:CameraView 
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                x:Name="cameraview"
+               
+                
+                CaptureMode="Photo"
+                FlashMode="Off">
+                <xct:CameraView.Behaviors>
+                    <xct:EventToCommandBehavior EventName="MediaCaptured" Command="{Binding ProcessImageCommand}"/>
+                </xct:CameraView.Behaviors>
+            </xct:CameraView>
+            <Button AbsoluteLayout.LayoutBounds="0.5,0.9,100,50"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    CornerRadius="20"
+                    Text="Snap"
+                    Opacity=".8" 
+                    Clicked="Button_Clicked"
+                    BackgroundColor="AliceBlue"
+                    TextColor="Black"
+                    FontAttributes="Bold"/>
+            <Image x:Name="previewpicture"
+                   IsVisible="{Binding PreviewIsVisible}"
+                   Source="{Binding PreviewSource}"
+                   AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
+                   AbsoluteLayout.LayoutFlags="All"
+                   Aspect="AspectFit"
+                   />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

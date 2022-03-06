@@ -34,4 +34,11 @@ namespace Whollet.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
+
+    public enum ImageForm
+    {
+        NationalID,
+        Passport,
+        Drivers_License
+    }
 }

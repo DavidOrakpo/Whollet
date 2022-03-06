@@ -3,6 +3,7 @@
              xmlns:control="clr-namespace:Whollet.Custom_Controls"
              NavigationPage.HasNavigationBar="False"
              xmlns:progbar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+             
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:Whollet.ViewModel"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
