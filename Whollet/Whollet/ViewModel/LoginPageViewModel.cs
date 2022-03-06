@@ -73,7 +73,7 @@ namespace Whollet.ViewModel
         {
             var table = await App.GetDatabase.GetTableAsync<User>();
             var tempUser = table.Where(x => x.Email == Email && x.Password == Password).FirstOrDefault();
-            tempUser = await App.GetDatabase.GetWithChildAsync<User>(tempUser.ID);
+            
             if (tempUser is null)
             {
               await Application.Current.MainPage.DisplayAlert("Uh oh", "Invalid Username or Password, try again", "Ok");
@@ -81,7 +81,7 @@ namespace Whollet.ViewModel
             else
             {
                 //TODO: Put a base clause to check for address registration
-              
+                tempUser = await App.GetDatabase.GetWithChildAsync<User>(tempUser.ID);
                 var verifyvm = new VerificationViewModel(tempUser.Email);
                 var nextpage = new VerificationPage
                 {

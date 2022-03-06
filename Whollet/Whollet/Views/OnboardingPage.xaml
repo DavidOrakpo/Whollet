@@ -14,7 +14,8 @@
             <Frame CornerRadius="20" AbsoluteLayout.LayoutBounds="0,1.15,1,0.6" AbsoluteLayout.LayoutFlags="All">
 
             </Frame>
-            <Grid RowDefinitions="auto,4*,*" >
+            
+            <Grid RowDefinitions="auto,4*,*" AbsoluteLayout.LayoutBounds="0,1,1,1" AbsoluteLayout.LayoutFlags="All">
                 <Label Grid.Row="0" Margin="0,30,20,0" Text="Skip" FontSize="19" HorizontalOptions="End" FontFamily="TitiliumSemiBold" 
                        TextColor="{DynamicResource SkipBlue}">
                     <Label.GestureRecognizers>
@@ -25,10 +26,12 @@
                     <CarouselView Grid.Row="1" ItemsSource="{Binding OnboardLayout}" Margin="0,30,0,0"  IndicatorView="{Reference InView}">
                         <CarouselView.ItemTemplate>
                             <DataTemplate>
-                                <Grid RowDefinitions="*,*">
-                                    <Image Margin="0,-35,0,0" Scale="0.8" Grid.Row="0" Source="{Binding OnboardingImage}"/>
-                                    <Grid Grid.Row="1" Padding="40" RowDefinitions="1.7*,*" Margin="0,20,0,0">
-                                        <Label FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="0,0,0,0" Text="{Binding Title}" FontFamily="TitilliumBold" FontSize="36" TextColor="{DynamicResource TitleBlack}"/>
+                                <Grid RowDefinitions="1*,2*">
+                                    <Image Margin="0,40,0,0" Scale="1.5" Grid.Row="0"  Aspect="AspectFit" 
+                                           VerticalOptions="End"
+                                           Source="{Binding OnboardingImage}"/>
+                                    <Grid Grid.Row="1" Padding="40" RowDefinitions="1.7*,*" Margin="0,30,0,0">
+                                        <Label FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="End" Margin="0,0,0,0" Text="{Binding Title}" FontFamily="TitilliumBold" FontSize="36" TextColor="{DynamicResource TitleBlack}"/>
                                         <Label HorizontalTextAlignment="Center" Grid.Row="1" Text="{Binding Description}" FontFamily="TitilliumRegular" FontSize="15" TextColor="{DynamicResource DescriptionBlack}"/>
                                     </Grid>
                                 </Grid>
@@ -38,18 +41,40 @@
 
 
 
-                <Grid Grid.Row="2" Padding="0">
+                <!--<Grid Grid.Row="2" Padding="0">
                 
                     <Grid RowDefinitions="*,*">
-                        <IndicatorView VerticalOptions="Start" x:Name="InView" IndicatorColor="{DynamicResource BackGroundWhite}" SelectedIndicatorColor="{DynamicResource SkipBlue}" Grid.Row="0"
-                                    IndicatorsShape="Circle" IndicatorSize="10" Margin="0,-280,0,0" />
-                        <Button HorizontalOptions="Center" BorderColor="{DynamicResource SkipBlue}" CornerRadius="50" BorderWidth="1.5" Scale="1" TextColor="{DynamicResource SkipBlue}"
-                                WidthRequest="200" Clicked="Button_Clicked" HeightRequest="46" Text="Next Step" BackgroundColor="Transparent" Grid.Row="1" Margin="0,-100,0,120"/>
+                        --><!--<IndicatorView VerticalOptions="Start" x:Name="InView"
+                                       IndicatorColor="{DynamicResource BackGroundWhite}" 
+                                       SelectedIndicatorColor="{DynamicResource SkipBlue}"
+                                    IndicatorsShape="Circle" IndicatorSize="10" 
+                                       AbsoluteLayout.LayoutBounds="0.5,1.2,80,30"
+                                       AbsoluteLayout.LayoutFlags="PositionProportional"/>-->
+                        <!--<Button HorizontalOptions="Center" BorderColor="{DynamicResource SkipBlue}"
+                                CornerRadius="50" BorderWidth="1.5" Scale="1" TextColor="{DynamicResource SkipBlue}"
+                                WidthRequest="200" Clicked="Button_Clicked"
+                                HeightRequest="46" Text="Next Step"
+                                BackgroundColor="Transparent" Grid.Row="1" Margin="0,-100,0,120"/>--><!--
                     </Grid>
                     
                 
-            </Grid>
-        </Grid>
+                </Grid>-->
+           </Grid>
+            <Button HorizontalOptions="Center" BorderColor="{DynamicResource SkipBlue}"
+                                CornerRadius="50" BorderWidth="1.5" Scale="1" TextColor="{DynamicResource SkipBlue}"
+                                WidthRequest="200" 
+                                Clicked="Button_Clicked"
+                                AbsoluteLayout.LayoutBounds="0.5,0.85,200,46"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                HeightRequest="46"
+                                Text="Next Step"
+                                BackgroundColor="Transparent"/>
+            <IndicatorView VerticalOptions="Start" x:Name="InView"
+                                    IndicatorColor="{DynamicResource BackGroundWhite}" 
+                                    SelectedIndicatorColor="{DynamicResource SkipBlue}"
+                                IndicatorsShape="Circle" IndicatorSize="10" 
+                                    AbsoluteLayout.LayoutBounds="0.5,0.5,80,30"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional"/>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

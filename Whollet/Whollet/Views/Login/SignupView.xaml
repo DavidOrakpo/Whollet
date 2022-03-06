@@ -28,10 +28,10 @@
     
     <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
         <Grid RowDefinitions="*,1.1*">
-            <Grid Padding="25" Grid.Row="0" RowDefinitions="0.3*,*">
+            <Grid Padding="25,10" Grid.Row="0" RowDefinitions="0.3*,*">
                 <Label FontSize="26" FontFamily="TitilliumSemiBold" HorizontalOptions="Center" VerticalOptions="Center"
                        Text="Create Accout" TextColor="{DynamicResource TitleBlack}" Grid.Row="0"/>
-                <Image Grid.Row="1" Source="loginimage3" Margin="-40,5,-40,-40"/>
+                <Image Grid.Row="1" Source="loginimage3" Aspect="AspectFit" Scale="1" VerticalOptions="End" Margin="0,0,0,0" />
             </Grid>
             <Grid Grid.Row="1" RowDefinitions="2*,*" Margin="0,-20,0,0" Padding="24,10">
                 <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,auto">
@@ -70,9 +70,13 @@
                         </loginentry:SignUp.EntryBehavior>   
                     </loginentry:SignUp>
                 </Grid>
-                <control:GoToNextPage Grid.Row="1" ButtonBackgroundColor="{DynamicResource SkipBlue}" DescriptionLabelTextColor="{DynamicResource DescriptionBlack}"
-                                      ButtonText="Let's get started" ButtonFontSize="18" DescriptionLabelText="Already have an account?" ButtonCommand="{Binding GotoPin}"
-                                      ActionLabelText="Login!" ButtonTextColor="White" ActionLabelTextColor="{DynamicResource SkipBlue}">
+                <control:GoToNextPage Grid.Row="1" ButtonBackgroundColor="{DynamicResource SkipBlue}"
+                                      ButtonText="Let's get started"
+                                      ButtonFontSize="18" 
+                                      DescriptionLabelTextColor="{DynamicResource DescriptionBlack}"
+                                      ActionLabelTextColor="{DynamicResource SkipBlue}"
+                                      DescriptionLabelText="Already have an account?" ButtonCommand="{Binding GotoPin}"
+                                      ActionLabelText="Login!" ButtonTextColor="White" >
                     <control:GoToNextPage.LabelTap>
                         <TapGestureRecognizer Command="{Binding GotoLogin}"/>
                     </control:GoToNextPage.LabelTap>
