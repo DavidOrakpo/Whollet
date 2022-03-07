@@ -36,9 +36,12 @@ namespace Whollet.Model
             }
         }
         public string Pincode { get; set; }
-        public byte[] NationalID { get; set; } 
-        public byte[] Passport { get; set; } 
+        public byte[] NationalID { get; set; }
+        public byte[] NationalIDBackScan { get; set; }
+        public byte[] Passport { get; set; }
+        public byte[] PassportBackScan { get; set; }
         public byte[] Drivers_license { get; set; }
+        public byte[] Drivers_licenseBackScan { get; set; }
 
         [ForeignKey(typeof(Address))]
         public int AddressID { get; set; }

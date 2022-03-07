@@ -19,7 +19,39 @@ namespace Whollet.ViewModel
         public FrontDocumentScanViewModel(ImageForm form)
         {
             Form = form;
+            MediaSet(Form);
         }
+
+        void MediaSet(ImageForm form)
+        {
+            switch (form)
+            {
+                case ImageForm.NationalID:
+                    if (App.LoggedInUser.NationalID != null || App.LoggedInUser.NationalID.Length != 0)
+                    {
+                        var ms = new MemoryStream(App.LoggedInUser.NationalID);
+                        ImSource = ImageSource.FromStream(() => ms);
+                    }
+                    break;
+                case ImageForm.Passport:
+                    if (App.LoggedInUser.Passport != null || App.LoggedInUser.Passport.Length != 0)
+                    {
+                        var ms = new MemoryStream(App.LoggedInUser.Passport);
+                        ImSource = ImageSource.FromStream(() => ms);
+                    }
+                    break;
+                case ImageForm.Drivers_License:
+                    if (App.LoggedInUser.Drivers_license != null || App.LoggedInUser.Drivers_license.Length != 0)
+                    {
+                        var ms = new MemoryStream(App.LoggedInUser.Drivers_license);
+                        ImSource = ImageSource.FromStream(() => ms);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+            
 
         async void MediaPick(ImageForm form)
         {
@@ -37,8 +69,8 @@ namespace Whollet.ViewModel
                     App.LoggedInUser.NationalID = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
                     //THIS CODE WILL BE UPDATED TO INCLUDE BACK DOCUMENT VIEW AFTER TESTING
-                    var vm = new FinalConfirmationPageViewModel(form);
-                    var nextpage = new FinalConfirmationPage()
+                    var vm = new BackDocumentScanViewModel(form);
+                    var nextpage = new BackDocumentScan()
                     {
                         BindingContext = vm
                     };
@@ -47,8 +79,8 @@ namespace Whollet.ViewModel
                 case ImageForm.Passport:
                     App.LoggedInUser.Passport = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
-                    var vm1 = new FinalConfirmationPageViewModel(form);
-                    var nextpage1 = new FinalConfirmationPage()
+                    var vm1 = new BackDocumentScanViewModel(form);
+                    var nextpage1 = new BackDocumentScan()
                     {
                         BindingContext = vm1
                     };
@@ -57,8 +89,8 @@ namespace Whollet.ViewModel
                 case ImageForm.Drivers_License:
                     App.LoggedInUser.Drivers_license = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
-                    var vm2 = new FinalConfirmationPageViewModel(form);
-                    var nextpage2 = new FinalConfirmationPage()
+                    var vm2 = new BackDocumentScanViewModel(form);
+                    var nextpage2 = new BackDocumentScan()
                     {
                         BindingContext = vm2
                     };

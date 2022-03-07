@@ -143,6 +143,8 @@
 
                         <Button Grid.Row="4" Style="{StaticResource CommonPageButton}"
                                 FontSize="18" FontAttributes="Bold"
+                                VerticalOptions="End"
+                                Command="{Binding FinishedRegisteringCommand}"
                                 Text="Finished!" IsVisible="{Binding IsRegistered, TargetNullValue=False}"/>
 
                     </Grid>

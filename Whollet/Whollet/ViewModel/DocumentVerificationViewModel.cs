@@ -78,7 +78,7 @@ namespace Whollet.ViewModel
 
         public Command FinishedRegisteringCommand => new Command(() =>
         {
-
+            GoToPageAsync(new KycLastConfirmed());
         });
 
         public Command GoToScan => new Command((x) => 

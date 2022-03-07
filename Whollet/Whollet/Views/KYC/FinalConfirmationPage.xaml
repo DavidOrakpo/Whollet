@@ -44,14 +44,14 @@
                                 
                             </Label>
                             <Grid Grid.Row="1" Padding="0,10,0,0">
-                                <Image Source="{Binding ImSource, TargetNullValue='frontcard.png'}" Aspect="AspectFit" xct:CornerRadiusEffect.CornerRadius="10"/>
+                                <Image Source="{Binding ImSource, TargetNullValue='frontcard.png'}" Aspect="AspectFit" xct:CornerRadiusEffect.CornerRadius="20"/>
                             </Grid>
 
                             <Grid Grid.Row="2" Padding="0,20,0,0" RowDefinitions="auto,*,auto">
                                 <Label Grid.Row="0" Text="Back Side"
                                        FontSize="24" HorizontalOptions="Center"
                                        TextColor="{DynamicResource TextGrey}"/>
-                                <Image Grid.Row="1" Source="backcard.png" Aspect="Fill"/>
+                                <Image Grid.Row="1" Source="{Binding BackImSource, TargetNullValue='backcard.png'}" Aspect="AspectFit" xct:CornerRadiusEffect.CornerRadius="20"/>
                                 <Label Grid.Row="2"
                                        FontSize="18"
                                        Text="Scan
