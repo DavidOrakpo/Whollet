@@ -14,30 +14,48 @@ namespace Whollet.ViewModel
         {
             FirstName = App.LoggedInUser.FirstName;
             LastName = App.LoggedInUser.LastName;
+            if (App.LoggedInUser.address != null)
+            {
+                Address = App.LoggedInUser.address.MyProperty;
+                AreaCode = App.LoggedInUser.address.AreaCode;
+                City = App.LoggedInUser.address.City;
+                Citizenship = App.LoggedInUser.address.Citizenship;
+            }
+            
             
             GoToNextPage = new Command(async () => {
 
-                if (String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName) || String.IsNullOrEmpty(City) ||
+                if (App.LoggedInUser.address == null)
+                {
+                    if (String.IsNullOrEmpty(FirstName) || String.IsNullOrEmpty(LastName) || String.IsNullOrEmpty(City) ||
                     String.IsNullOrEmpty(Citizenship) || String.IsNullOrEmpty(AreaCode) || String.IsNullOrEmpty(Address))
                     {
                         await Application.Current.MainPage.DisplayAlert("Uh Oh", "Please fill in the empty fields", "Ok");
                     }
+                    else
+                    {
+                        _address = new Address
+                        {
+                            MyProperty = Address,
+                            City = City,
+                            Citizenship = Citizenship,
+                            AreaCode = AreaCode,
+                            Owner = App.LoggedInUser
+                        };
+                        await App.GetDatabase.SaveAsync<Address>(_address);
+
+                        App.LoggedInUser.address = _address;
+                        await App.GetDatabase.UpdateWithChildAsync<User>(App.LoggedInUser);
+
+                        GoToPageAsync(new DocumentVerificationPage());
+                    }
+                }
                 else
                 {
-                    _address = new Address
-                    {
-                        MyProperty = Address,
-                        City = City,
-                        Citizenship = Citizenship,
-                        AreaCode = AreaCode,
-                        Owner = App.LoggedInUser
-                    };
-                    await App.GetDatabase.SaveAsync<Address>(_address);
-                    App.LoggedInUser.address = _address;
-                    await App.GetDatabase.UpdateWithChildAsync<User>(App.LoggedInUser);
-                    
                     GoToPageAsync(new DocumentVerificationPage());
                 }
+
+                
                    
             });
         }

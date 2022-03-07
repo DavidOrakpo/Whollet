@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
@@ -32,6 +33,13 @@ namespace Whollet.ViewModel
         public void OnPropertyChanged([CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public byte[] StreamToByteArray(Stream input)
+        {
+            MemoryStream ms = new MemoryStream();
+            input.CopyTo(ms);
+            return ms.ToArray();
         }
     }
 

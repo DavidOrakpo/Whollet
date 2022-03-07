@@ -33,7 +33,7 @@ namespace Whollet
             InitializeComponent();
 
             //NTczNTcxQDMxMzkyZTM0MmUzMFZ4ODIxR29WNnNIdjVSMFlyVDg1NmF3dGpsdkNIMTRhRTFqSWhiRFRSSjg9
-            MainPage = new NavigationPage(new CameraPage());
+            MainPage = new NavigationPage(new WelcomeView());
         }
 
         private static readonly string Databasename = "WholletDatabase.db3";

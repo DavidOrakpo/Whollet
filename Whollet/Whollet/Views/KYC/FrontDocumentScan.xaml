@@ -31,7 +31,9 @@
 
                 <Grid Grid.Row="1" RowDefinitions="*,auto" RowSpacing="30">
                     <BoxView Color="#c7c7c7" CornerRadius="20"/>
-                    <Image Source="creditcardtemplate.png" Aspect="Fill"/>
+                    <Image Source="{Binding ImSource, TargetNullValue='creditcardtemplate.png'}" 
+                           xct:CornerRadiusEffect.CornerRadius="20"
+                           Aspect="Fill"/>
                     <Label Grid.Row="1" FontSize="15" HorizontalOptions="Center" HorizontalTextAlignment="Center"
                           TextColor="{DynamicResource PureWhite}" Margin="0,-10,0,-30"
                            Text="Position your document inside the frame. Make sure that all the data is clearly visible."/>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:control="clr-namespace:Whollet.Custom_Controls"
+             xmlns:converter="clr-namespace:Whollet.Converters"
              xmlns:vm="clr-namespace:Whollet.ViewModel"
              BackgroundColor="{DynamicResource BackGroundWhite}"
              NavigationPage.HasNavigationBar="False"
@@ -12,6 +13,12 @@
     <ContentPage.BindingContext>
         <vm:DocumentVerificationViewModel/>
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:StringtoColorConverter x:Key="BoolToColorConverter" DefaultColor="#edf1f9" ChangedColor="SkyBlue"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     
     <ContentPage.Content>
         <Grid RowDefinitions="0.2*,0.8*">
@@ -27,7 +34,7 @@
                                              xct:ShadowEffect.Opacity="1" HeightRequest="10"
                                              xct:ShadowEffect.Color="{DynamicResource SkipBlue}"
                                              WidthRequest="240" HorizontalOptions="CenterAndExpand"
-                                             Progress="50" TrackHeight="32" Padding="2"/>
+                                             Progress="{Binding Progress}" TrackHeight="32" Padding="2"/>
 
             </Grid>
 
@@ -51,7 +58,8 @@
                                            xct:TouchEffect.PressedScale="0.85"
                                            xct:TouchEffect.PressedOpacity="0.8"
                                            xct:TouchEffect.LongPressCommand="{Binding GoToScan}"
-                                           BackgroundColor="{DynamicResource BackGroundWhite}">
+                                           xct:TouchEffect.LongPressCommandParameter="NationalID"
+                                           BackgroundColor="{Binding NationalIDCompleted, Converter={StaticResource BoolToColorConverter}}">
                             <Grid ColumnDefinitions="auto,*,auto">
                                 <Image Grid.Column="0"
                                        xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
@@ -76,11 +84,12 @@
                                            Padding="20"
                                            xct:TouchEffect.AnimationDuration="250"
                                            xct:TouchEffect.LongPressCommand="{Binding GoToScan}"
+                                           xct:TouchEffect.LongPressCommandParameter="Passport"
                                            xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
                                            xct:TouchEffect.PressedScale="0.85"
                                            xct:TouchEffect.PressedOpacity="0.8"
                                            CornerRadius="40"
-                                           BackgroundColor="{DynamicResource BackGroundWhite}">
+                                           BackgroundColor="{Binding PassportCompleted, Converter={StaticResource BoolToColorConverter}}">
                             <Grid ColumnDefinitions="auto,*,auto" ColumnSpacing="10">
                                 <Image Grid.Column="0" Source="earthicon.png"
                                        BackgroundColor="Transparent" 
@@ -111,7 +120,8 @@
                                            xct:TouchEffect.PressedScale="0.85"
                                            xct:TouchEffect.PressedOpacity="0.8"
                                            xct:TouchEffect.LongPressCommand="{Binding GoToScan}"
-                                           BackgroundColor="{DynamicResource BackGroundWhite}">
+                                           xct:TouchEffect.LongPressCommandParameter="Drivers_License"
+                                           BackgroundColor="{Binding DriversLicenseCompleted, Converter={StaticResource BoolToColorConverter}}">
                             <Grid ColumnDefinitions="auto,*,auto">
                                 <Image Grid.Column="0" 
                                        xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
@@ -131,7 +141,9 @@
                             </Grid>
                         </pcake:PancakeView>
 
-                        <pcake:PancakeView Grid.Row="4"/>
+                        <Button Grid.Row="4" Style="{StaticResource CommonPageButton}"
+                                FontSize="18" FontAttributes="Bold"
+                                Text="Finished!" IsVisible="{Binding IsRegistered, TargetNullValue=False}"/>
 
                     </Grid>
                 </Frame>

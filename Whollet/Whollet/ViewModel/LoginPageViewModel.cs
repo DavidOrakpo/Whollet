@@ -72,6 +72,7 @@ namespace Whollet.ViewModel
         public Command GotoVerify => new Command(async () =>
         {
             var table = await App.GetDatabase.GetTableAsync<User>();
+            var table2 = await App.GetDatabase.GetTableAsync<Address>();
             var tempUser = table.Where(x => x.Email == Email && x.Password == Password).FirstOrDefault();
             
             if (tempUser is null)

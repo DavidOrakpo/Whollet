@@ -12,8 +12,8 @@
         <vm:FinalConfirmationPageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <ScrollView>
-            <Grid RowDefinitions="0.2*,0.8*">
+        <ScrollView >
+            <Grid RowDefinitions="auto,*">
                 <Grid RowDefinitions="*,*" ColumnDefinitions="auto,*" Padding="20">
                     <ImageButton  Source="backicon.png" BackgroundColor="Transparent"/>
                     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
@@ -31,19 +31,20 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Frame CornerRadius="20">
-                        <Grid RowDefinitions="auto,*,*,auto" Padding="20">
+                        <Grid RowDefinitions="auto,auto,auto,auto" Padding="20,20">
                             <Label Grid.Row="0" FontSize="15"
                                    HorizontalOptions="CenterAndExpand"
-                                   Margin="0,-20,0,0"
+                                   Margin="0,0,0,0"
                                    Text="Have a final check if all data is clearly visible and that it matches the information you have 
                                     entered in previous steps."
                                    VerticalOptions="StartAndExpand"
                                    HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"
                                    TextColor="{DynamicResource PlaceholderGrey}">
                                 
                             </Label>
-                            <Grid Grid.Row="1" Padding="0,20,0,0">
-                                <Image Source="frontcard.png" Aspect="Fill"/>
+                            <Grid Grid.Row="1" Padding="0,10,0,0">
+                                <Image Source="{Binding ImSource, TargetNullValue='frontcard.png'}" Aspect="AspectFit" xct:CornerRadiusEffect.CornerRadius="10"/>
                             </Grid>
 
                             <Grid Grid.Row="2" Padding="0,20,0,0" RowDefinitions="auto,*,auto">
