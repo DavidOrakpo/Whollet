@@ -10,9 +10,7 @@
              xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:progbar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
              x:Class="Whollet.Views.KYC.DocumentVerificationPage">
-    <ContentPage.BindingContext>
-        <vm:DocumentVerificationViewModel/>
-    </ContentPage.BindingContext>
+    
 
     <ContentPage.Resources>
         <ResourceDictionary>

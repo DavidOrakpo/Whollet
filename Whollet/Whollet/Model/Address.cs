@@ -11,7 +11,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace Whollet.Model
 {
-    public class Address
+    public class Address : IAddress
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

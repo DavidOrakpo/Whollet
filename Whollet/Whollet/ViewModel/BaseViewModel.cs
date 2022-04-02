@@ -43,10 +43,5 @@ namespace Whollet.ViewModel
         }
     }
 
-    public enum ImageForm
-    {
-        NationalID,
-        Passport,
-        Drivers_License
-    }
+    
 }

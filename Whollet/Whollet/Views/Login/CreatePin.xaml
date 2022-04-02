@@ -8,9 +8,7 @@
              xmlns:trigger="clr-namespace:Whollet.Triggers"
              xmlns:control="clr-namespace:Whollet.Custom_Controls"
              BackgroundColor="{DynamicResource BackGroundWhite}">
-    <ContentPage.BindingContext>
-        <viewmodel:CreatePinViewModel/>
-    </ContentPage.BindingContext>
+    
     
     <ContentPage.Resources>
         <ResourceDictionary>

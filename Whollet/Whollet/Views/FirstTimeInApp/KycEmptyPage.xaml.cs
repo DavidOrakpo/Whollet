@@ -14,21 +14,22 @@ namespace Whollet.Views.FirstTimeInApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class KycEmptyPage : ContentPage
     {
-        public KycEmptyPage()
+        public KycEmptyPage(KycTabModel2 vm)
         {
             InitializeComponent();
+            BindingContext = vm;
             KycTabView.SelectedIndex = 1;
             
            // Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 1]);
         }
 
-        public KycEmptyPage(int index)
-        {
-            if (index != -1 && index < KycTabView.TabItems.Count)
-            {
-                KycTabView.SelectedIndex = index;
-            }
-        }
+        //public KycEmptyPage(int index)
+        //{
+        //    if (index != -1 && index < KycTabView.TabItems.Count)
+        //    {
+        //        KycTabView.SelectedIndex = index;
+        //    }
+        //}
 
        
     }

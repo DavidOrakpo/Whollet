@@ -15,7 +15,7 @@ namespace Whollet.ViewModel
 
         public Command DepositCommand => new Command(() => 
         {
-            GoToPageAsync(new PersonalInformationPage());
+            GoToPageAsync(Startup.Resolve<PersonalInformationPage>());
         });
     }
 }

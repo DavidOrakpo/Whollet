@@ -8,9 +8,7 @@
              BackgroundColor="{DynamicResource BackGroundWhite}"
              xmlns:LengthtoColor="clr-namespace:MasterClass.Converters"
              x:Class="Whollet.Views.Login.ConfirmPin">
-    <ContentPage.BindingContext>
-        <viewmodel:ConfirmPinViewModel/>
-    </ContentPage.BindingContext>
+    
     
     <ContentPage.Resources>
         <ResourceDictionary>

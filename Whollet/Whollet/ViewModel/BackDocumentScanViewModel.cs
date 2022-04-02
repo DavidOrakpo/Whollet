@@ -5,6 +5,8 @@ using Whollet.Views.KYC;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Whollet.ViewModel
 {
@@ -21,54 +23,53 @@ namespace Whollet.ViewModel
             Form = form;
         }
 
-        public Command GoToNextPage => new Command(() =>
-        {
-            MediaPick(Form);
-           // GoToPageAsync(new FinalConfirmationPage());
-        });
-
-        async void MediaPick(ImageForm form)
+        private async Task<byte[]> SnapPictureAsync()
         {
             var result = await MediaPicker.CapturePhotoAsync();
             var stream = await result.OpenReadAsync();
-            result.ContentType = "image/jpg";
+            //result.ContentType = "image/jpg";
             //ImSource = ImageSource.FromStream(() => stream);
 
             var arr = StreamToByteArray(stream);
             MemoryStream memoryStream = new MemoryStream(arr);
-            ImSource = ImageSource.FromStream(() => memoryStream);
+
+            ImSource = ImageSource.FromStream(() => stream);
+            return arr;
+        }
+
+        public Command GoToNextPage => new Command(async () =>
+        {
+            var t = await SnapPictureAsync();
+            await MediaPick(Form, t);
+            // GoToPageAsync(new FinalConfirmationPage());
+        });
+
+        async Task MediaPick(ImageForm form, byte[] arr)
+        {
+            
             switch (form)
             {
                 case ImageForm.NationalID:
                     App.LoggedInUser.NationalIDBackScan = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
                     //THIS CODE WILL BE UPDATED TO INCLUDE BACK DOCUMENT VIEW AFTER TESTING
-                    var vm = new FinalConfirmationPageViewModel(form);
-                    var nextpage = new FinalConfirmationPage()
-                    {
-                        BindingContext = vm
-                    };
-                    GoToPageAsync(nextpage);
+                    var vm = ActivatorUtilities.CreateInstance<FinalConfirmationPage>(Startup.serviceprovider, form);
+                    
+                    GoToPageAsync(vm);
                     break;
                 case ImageForm.Passport:
                     App.LoggedInUser.PassportBackScan = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
-                    var vm1 = new FinalConfirmationPageViewModel(form);
-                    var nextpage1 = new FinalConfirmationPage()
-                    {
-                        BindingContext = vm1
-                    };
-                    GoToPageAsync(nextpage1);
+                    var vm1 = ActivatorUtilities.CreateInstance<BackDocumentScan>(Startup.serviceprovider, form);
+                    
+                    GoToPageAsync(vm1);
                     break;
                 case ImageForm.Drivers_License:
                     App.LoggedInUser.Drivers_licenseBackScan = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
-                    var vm2 = new FinalConfirmationPageViewModel(form);
-                    var nextpage2 = new FinalConfirmationPage()
-                    {
-                        BindingContext = vm2
-                    };
-                    GoToPageAsync(nextpage2);
+                    var vm2 = ActivatorUtilities.CreateInstance<BackDocumentScan>(Startup.serviceprovider, form);
+                    
+                    GoToPageAsync(vm2);
                     break;
                 default:
                     break;

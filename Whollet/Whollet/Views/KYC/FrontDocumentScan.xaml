@@ -5,9 +5,7 @@
              xmlns:vm="clr-namespace:Whollet.ViewModel"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="Whollet.Views.KYC.FrontDocumentScan">
-    <ContentPage.BindingContext>
-        <vm:FrontDocumentScanViewModel/>
-    </ContentPage.BindingContext>
+    
     
     <ContentPage.Content>
         <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">

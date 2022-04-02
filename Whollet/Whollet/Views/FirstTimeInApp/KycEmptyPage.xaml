@@ -8,9 +8,8 @@
              NavigationPage.HasNavigationBar="False"
              
              x:Class="Whollet.Views.FirstTimeInApp.KycEmptyPage">
-    <ContentPage.BindingContext>
-        <vm:KycTabModel2/>
-    </ContentPage.BindingContext>
+    
+    
     <ContentPage.Resources>
         <ResourceDictionary>
 

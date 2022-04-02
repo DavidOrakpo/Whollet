@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Whollet.Views.KYC;
@@ -78,7 +79,7 @@ namespace Whollet.ViewModel
 
         public Command FinishedRegisteringCommand => new Command(() =>
         {
-            GoToPageAsync(new KycLastConfirmed());
+            GoToPageAsync(Startup.Resolve<KycLastConfirmed>());
         });
 
         public Command GoToScan => new Command((x) => 
@@ -87,28 +88,19 @@ namespace Whollet.ViewModel
             switch (parameter)
             {
                 case ImageForm.NationalID:
-                    var vm = new FrontDocumentScanViewModel(parameter);
-                    var nextpage = new FrontDocumentScan()
-                    {
-                        BindingContext = vm
-                    };
+                    var nextpage = ActivatorUtilities.CreateInstance<FrontDocumentScan>(Startup.serviceprovider, parameter);
+                   
                     GoToPageAsync(nextpage);
                     break;
                 case ImageForm.Passport:
-                    var vm2 = new FrontDocumentScanViewModel(parameter);
-                    var nextpage2 = new FrontDocumentScan()
-                    {
-                        BindingContext = vm2
-                    };
-                    GoToPageAsync(nextpage2);
+                    var vm2 = ActivatorUtilities.CreateInstance<FrontDocumentScan>(Startup.serviceprovider, parameter);
+                    
+                    GoToPageAsync(vm2);
                     break;
                 case ImageForm.Drivers_License:
-                    var vm3 = new FrontDocumentScanViewModel(parameter);
-                    var nextpage3 = new FrontDocumentScan()
-                    {
-                        BindingContext = vm3
-                    };
-                    GoToPageAsync(nextpage3);
+                    var vm3 = ActivatorUtilities.CreateInstance<FrontDocumentScan>(Startup.serviceprovider, parameter);
+                    
+                    GoToPageAsync(vm3);
                     break;
                 default:
                     break;

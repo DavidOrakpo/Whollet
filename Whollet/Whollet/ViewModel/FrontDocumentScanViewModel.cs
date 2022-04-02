@@ -5,6 +5,8 @@ using System.Text;
 using Whollet.Views.KYC;
 using Xamarin.Essentials;
 using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Whollet.ViewModel
 {
@@ -53,48 +55,33 @@ namespace Whollet.ViewModel
         }
             
 
-        async void MediaPick(ImageForm form)
+        async Task MediaPick(ImageForm form, byte[] arr)
         {
-            var result = await MediaPicker.CapturePhotoAsync();
-            var stream = await result.OpenReadAsync();
-            result.ContentType = "image/jpg";
-            //ImSource = ImageSource.FromStream(() => stream);
             
-            var arr = StreamToByteArray(stream);
-            MemoryStream memoryStream = new MemoryStream(arr);
-            ImSource = ImageSource.FromStream(() => memoryStream);
             switch (form)
             {
                 case ImageForm.NationalID:
                     App.LoggedInUser.NationalID = arr;
+                    //memoryStream.Close();
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
                     //THIS CODE WILL BE UPDATED TO INCLUDE BACK DOCUMENT VIEW AFTER TESTING
-                    var vm = new BackDocumentScanViewModel(form);
-                    var nextpage = new BackDocumentScan()
-                    {
-                        BindingContext = vm
-                    };
-                    GoToPageAsync(nextpage);
+                    var vm = ActivatorUtilities.CreateInstance<BackDocumentScan>(Startup.serviceprovider, form);
+                    
+                    GoToPageAsync(vm);
                     break;
                 case ImageForm.Passport:
                     App.LoggedInUser.Passport = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
-                    var vm1 = new BackDocumentScanViewModel(form);
-                    var nextpage1 = new BackDocumentScan()
-                    {
-                        BindingContext = vm1
-                    };
-                    GoToPageAsync(nextpage1);
+                    var vm1 = ActivatorUtilities.CreateInstance<BackDocumentScan>(Startup.serviceprovider, form);
+                    
+                    GoToPageAsync(vm1);
                     break;
                 case ImageForm.Drivers_License:
                     App.LoggedInUser.Drivers_license = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
-                    var vm2 = new BackDocumentScanViewModel(form);
-                    var nextpage2 = new BackDocumentScan()
-                    {
-                        BindingContext = vm2
-                    };
-                    GoToPageAsync(nextpage2);
+                    var vm2 = ActivatorUtilities.CreateInstance<BackDocumentScan>(Startup.serviceprovider, form);
+                    
+                    GoToPageAsync(vm2);
                     break;
                 default:
                     break;
@@ -113,10 +100,26 @@ namespace Whollet.ViewModel
         }
 
 
-        public Command GoToNextPage => new Command(() => 
+        public Command GoToNextPage => new Command(async () => 
         {
-            MediaPick(Form);
-          // GoToPageAsync(new FinalConfirmationPage());
+          var t =  await SnapPictureAsync();
+          await  MediaPick(Form,t);
+        //  GoToPageAsync(new FinalConfirmationPage());
         });
+
+        private async Task<byte[]> SnapPictureAsync()
+        {
+            var result = await MediaPicker.CapturePhotoAsync();
+            var stream = await result.OpenReadAsync();
+            //result.ContentType = "image/jpg";
+           // ImSource = ImageSource.FromStream(() => stream);
+            
+            var arr = StreamToByteArray(stream);
+            
+            MemoryStream memoryStream = new MemoryStream(arr);
+
+            ImSource = ImageSource.FromStream(() => memoryStream);
+            return arr;
+        }
     }
 }

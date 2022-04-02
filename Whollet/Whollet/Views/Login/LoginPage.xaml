@@ -8,9 +8,7 @@
              xmlns:loginentry="clr-namespace:Whollet.Custom_Controls" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              BackgroundColor="{DynamicResource BackGroundWhite}"
              x:Class="Whollet.Views.Login.LoginPage">
-    <ContentPage.BindingContext>
-        <bind:LoginPageViewModel/>
-    </ContentPage.BindingContext>
+    
     
         <ContentPage.Resources>
             <ResourceDictionary>

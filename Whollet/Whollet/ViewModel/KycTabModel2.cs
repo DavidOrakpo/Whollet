@@ -16,19 +16,12 @@ namespace Whollet.ViewModel
         private Dictionary<string, ContentView> ContentViewDictionary = new Dictionary<string, ContentView>();
         ContentView currentview;
 
+
         public KycTabModel2()
         {
-            ContentViewDictionary.Add("First_View", new EmptyStateView());
-            ContentViewDictionary.Add("Second_View", new EmptyStatePending());
-            ContentViewDictionary.Add("Third_View", new EmptyStateFinished());
-            Currentview = ContentViewDictionary["First_View"];
-        }
-
-        public KycTabModel2(KycEmptyPage tabbedpage)
-        {
-            ContentViewDictionary.Add("First_View", new EmptyStateView());
-            ContentViewDictionary.Add("Second_View", new EmptyStatePending());
-            ContentViewDictionary.Add("Third_View", new EmptyStateFinished());
+            ContentViewDictionary.Add("First_View", Startup.Resolve<EmptyStateView>());
+            ContentViewDictionary.Add("Second_View", Startup.Resolve<EmptyStatePending>());
+            ContentViewDictionary.Add("Third_View", Startup.Resolve<EmptyStateFinished>());
             Currentview = ContentViewDictionary["First_View"];
         }
 
@@ -39,7 +32,7 @@ namespace Whollet.ViewModel
             {              
                     Currentview = ContentViewDictionary["Second_View"];
                     Currentview.BindingContext = this;
-                    OnPropertyChanged(nameof(Currentview));
+                    
             }
             else if (Currentview == ContentViewDictionary["Second_View"])
             {

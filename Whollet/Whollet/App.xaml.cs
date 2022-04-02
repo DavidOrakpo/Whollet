@@ -31,9 +31,9 @@ namespace Whollet
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NTczNTcxQDMxMzkyZTM0MmUzMFZ4ODIxR29WNnNIdjVSMFlyVDg1NmF3dGpsdkNIMTRhRTFqSWhiRFRSSjg9");
             InitializeComponent();
-
+            Startup.ConfigureServices();
             //NTczNTcxQDMxMzkyZTM0MmUzMFZ4ODIxR29WNnNIdjVSMFlyVDg1NmF3dGpsdkNIMTRhRTFqSWhiRFRSSjg9
-            MainPage = new NavigationPage(new WelcomeView());
+            MainPage = new NavigationPage(Startup.Resolve<WelcomeView>());
         }
 
         private static readonly string Databasename = "WholletDatabase.db3";

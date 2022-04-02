@@ -47,12 +47,12 @@ namespace Whollet.ViewModel
                         App.LoggedInUser.address = _address;
                         await App.GetDatabase.UpdateWithChildAsync<User>(App.LoggedInUser);
 
-                        GoToPageAsync(new DocumentVerificationPage());
+                        GoToPageAsync(Startup.Resolve<DocumentVerificationPage>());
                     }
                 }
                 else
                 {
-                    GoToPageAsync(new DocumentVerificationPage());
+                    GoToPageAsync(Startup.Resolve<DocumentVerificationPage>());
                 }
 
                 

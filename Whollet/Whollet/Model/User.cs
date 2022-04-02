@@ -10,16 +10,17 @@ using System.Linq;
 using System.Security.Cryptography;
 
 namespace Whollet.Model
-{   [Table("Users")]
-    public class User
+{
+    [Table("Users")]
+    public class User : IUser
     {
         [AutoIncrement, PrimaryKey]
         public int ID { get; set; }
-        
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password 
+        public string Password
         {
             get
             {
@@ -32,7 +33,7 @@ namespace Whollet.Model
                 var _passKey = RandomString(20);
                 SecureStorage.SetAsync(FirstName + LastName + "key", _passKey);
                 SecureStorage.SetAsync(_passKey, value);
-               // _password = value;
+                // _password = value;
             }
         }
         public string Pincode { get; set; }
@@ -48,7 +49,7 @@ namespace Whollet.Model
 
         [OneToOne(CascadeOperations = CascadeOperation.All)]
         public Address address { get; set; }
-       
+
 
         public string RandomString(int size, bool lowerCase = false)
         {
@@ -72,6 +73,6 @@ namespace Whollet.Model
             return lowerCase ? builder.ToString().ToLower() : builder.ToString();
         }
     }
-    
+
 
 }

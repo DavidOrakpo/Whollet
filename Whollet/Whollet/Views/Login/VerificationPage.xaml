@@ -8,9 +8,7 @@
              xmlns:viewmodel="clr-namespace:Whollet.ViewModel"
              xmlns:LengthtoColor="clr-namespace:MasterClass.Converters"
              x:Class="Whollet.Views.Login.VerificationPage">
-    <ContentPage.BindingContext>
-        <viewmodel:VerificationViewModel/>
-    </ContentPage.BindingContext>
+    
     
     <ContentPage.Resources>
         <ResourceDictionary>

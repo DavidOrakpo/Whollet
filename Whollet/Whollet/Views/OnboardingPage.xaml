@@ -5,10 +5,7 @@
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="{DynamicResource BackGroundWhite}"
              x:Class="Whollet.Views.OnboardingPage">
-    <ContentPage.BindingContext>
-        <viewmodel:OnboardingViewModel/>
-    </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
         <AbsoluteLayout>
             <Frame CornerRadius="20" AbsoluteLayout.LayoutBounds="0,1.15,1,0.6" AbsoluteLayout.LayoutFlags="All">

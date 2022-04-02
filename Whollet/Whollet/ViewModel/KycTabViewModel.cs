@@ -89,7 +89,7 @@ namespace Whollet.ViewModel
             ///////////////////////////////////////////////////////////////////////
             if (PIndex[0].PageIndex == 3)
             {
-                GoToPageAsync(new PersonalInformationPage());
+                GoToPageAsync(Startup.Resolve<PersonalInformationPage>());
                 PIndex[0].PageIndex--;
             }
             if (PIndex[0].PageIndex < 3)

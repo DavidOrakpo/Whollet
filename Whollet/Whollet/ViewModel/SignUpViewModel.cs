@@ -5,10 +5,11 @@ using System.Linq;
 using Whollet.Views.Login;
 using Whollet.Model;
 using Xamarin.Forms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Whollet.ViewModel
 {
-    internal class SignUpViewModel : BaseViewModel
+    public class SignUpViewModel : BaseViewModel
     {
         private string firstName;
         private string lastName;
@@ -115,33 +116,28 @@ namespace Whollet.ViewModel
                         if (temp != null)
                         {
                             await App.GetDatabase.UpdateAsync(temp);
-                            var createpinvm = new CreatePinViewModel(_user.Email);
-                            var nextpage = new CreatePin
-                            {
-                                BindingContext = createpinvm
-                            };
-                            GoToPageAsync(nextpage);
+                            
+                            var createpin = ActivatorUtilities.CreateInstance<CreatePin>(Startup.serviceprovider, _user.Email);
+                            
+                            GoToPageAsync(createpin);
+
+
                         }
                         else
                         {
                             await App.GetDatabase.SaveAsync<User>(_user);
-                            var createpinvm = new CreatePinViewModel(_user.Email);
-                            var nextpage = new CreatePin
-                            {
-                                BindingContext = createpinvm
-                            };
-                            GoToPageAsync(nextpage);
+                            var createpin = ActivatorUtilities.CreateInstance<CreatePin>(Startup.serviceprovider, _user.Email);
+
+                            GoToPageAsync(createpin);
+                           
                         }
                     }
                     else
                     {
                         await App.GetDatabase.SaveAsync<User>(_user);
-                        var createpinvm = new CreatePinViewModel(_user.Email);
-                        var nextpage = new CreatePin
-                        {
-                            BindingContext = createpinvm
-                        };
-                        GoToPageAsync(nextpage);
+                        var createpin = ActivatorUtilities.CreateInstance<CreatePin>(Startup.serviceprovider, _user.Email);
+
+                        GoToPageAsync(createpin);
                     }
 
                 }
@@ -160,10 +156,10 @@ namespace Whollet.ViewModel
 
         });
 
-        public Command GotoLogin => new Command(async () =>
+        public Command GotoLogin => new Command(() =>
         {
 
-            await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+            GoToPageAsync(Startup.Resolve<LoginPage>());
             RemoveCurrentPage();
 
         });

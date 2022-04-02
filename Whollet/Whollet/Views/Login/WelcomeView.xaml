@@ -6,9 +6,7 @@
              xmlns:control="clr-namespace:Whollet.Custom_Controls"
              BackgroundColor="{DynamicResource SkipBlue}"
              x:Class="Whollet.Views.Login.WelcomeView">
-    <ContentPage.BindingContext>
-        <vmodel:WelcomeViewModel/>
-    </ContentPage.BindingContext>
+    
     
     <ContentPage.Content>
         <Grid RowDefinitions="1.5*,0.6*" Padding="20">

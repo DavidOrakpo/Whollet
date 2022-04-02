@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Whollet.Model
 {
-    class CryptImages
+    public class CryptImages
     {
         public CryptImages()
         {

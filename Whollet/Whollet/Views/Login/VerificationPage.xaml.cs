@@ -1,10 +1,11 @@
 ﻿using MasterClass.Converters;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Whollet.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,10 +15,11 @@ namespace Whollet.Views.Login
     public partial class VerificationPage : ContentPage
     {
         BooltoStringConverter convert = new BooltoStringConverter();
-        public VerificationPage()
+        public VerificationPage(VerificationViewModel vm, string email)
         {
+            vm = ActivatorUtilities.CreateInstance<VerificationViewModel>(Startup.serviceprovider, email);
             InitializeComponent();
-            
+            BindingContext = vm;
             //IncomeColorString="#00FF00" ExpenseColorString="#9EA5B1"
             convert.IncomeColorString = "#00FF00";
             convert.ExpenseColorString = "#9EA5B1";

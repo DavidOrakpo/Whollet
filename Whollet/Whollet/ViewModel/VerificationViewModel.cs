@@ -52,25 +52,16 @@ namespace Whollet.ViewModel
                 catch (Exception ex)
                 {
 
-                    throw;
+                    await Application.Current.MainPage.DisplayAlert("Error", $"Error message: {ex}", "ok");
                 }
                 if (Int32.Parse(EntryText) == Int32.Parse(pincode))
                 {
-                 // await App.Current.MainPage.DisplayAlert("Success!", "You entered the right pin", "Ok");
-
-                   
-                 // GoToPageAsync(new KycEmptyPage());
-                    var TabPage = new KycEmptyPage();
-                    
-                    var nextviewmodel = new KycTabModel2(TabPage); 
-                    TabPage.BindingContext = nextviewmodel;
+                    var TabPage = Startup.Resolve<KycEmptyPage>();
                     _user = await App.GetDatabase.GetWithChildAsync<User>(_user.ID);
                     App.LoggedInUser = _user;
                     await Application.Current.MainPage.DisplayAlert("Success", "Logging you in", "Ok");
                     GoToPageAsync(TabPage);
-                  RemoveCurrentPage();
-                   
-
+                    RemoveCurrentPage();
                 }
                 else
                 {

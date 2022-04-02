@@ -19,7 +19,7 @@ namespace Whollet.Views.Login
 
         private void ButtonControl_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new CheckEmailPage());
+            Navigation.PushAsync(Startup.Resolve<CheckEmailPage>());
         }
     }
 }

@@ -7,6 +7,7 @@ using Xamarin.Essentials;
 using Whollet.Views.Login;
 using Xamarin.Forms;
 using Whollet.Model;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Whollet.ViewModel
 {
@@ -61,12 +62,9 @@ namespace Whollet.ViewModel
                 }
                 finally
                 {
-                    var confirmpinvm = new ConfirmPinViewModel(_email);
-                    var nextpage = new ConfirmPin
-                    {
-                        BindingContext = confirmpinvm
-                    };
-                    GoToPageAsync(nextpage);
+                    var confirm = ActivatorUtilities.CreateInstance<ConfirmPin>(Startup.serviceprovider, _email);
+                    
+                    GoToPageAsync(confirm);
                 }
               
             }

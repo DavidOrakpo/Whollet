@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace Whollet.ViewModel
 {
-    internal class WelcomeViewModel : BaseViewModel
+    public class WelcomeViewModel : BaseViewModel
     {
         public WelcomeViewModel()
         {
@@ -16,14 +16,14 @@ namespace Whollet.ViewModel
         public Command GotoLogin => new Command(() =>
         {
 
-            Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+            GoToPageAsync(Startup.Resolve<LoginPage>());
 
         });
 
         public Command GotoSignup => new Command(() =>
         {
 
-            Application.Current.MainPage.Navigation.PushAsync(new SignupView());
+            GoToPageAsync(Startup.Resolve<SignupView>());
 
 
         });

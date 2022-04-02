@@ -8,9 +8,7 @@
              xmlns:vm="clr-namespace:Whollet.ViewModel"
              xmlns:progbar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
              x:Class="Whollet.Views.KYC.FinalConfirmationPage">
-    <ContentPage.BindingContext>
-        <vm:FinalConfirmationPageViewModel/>
-    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <ScrollView >
             <Grid RowDefinitions="auto,*">

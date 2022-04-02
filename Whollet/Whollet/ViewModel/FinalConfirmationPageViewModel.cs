@@ -22,9 +22,9 @@ namespace Whollet.ViewModel
             {
                 case ImageForm.NationalID:
                     MemoryStream memoryStream = new MemoryStream(App.LoggedInUser.NationalID);
-                    var memoryStreambackID = new MemoryStream(App.LoggedInUser.NationalIDBackScan);
+               //     var memoryStreambackID = new MemoryStream(App.LoggedInUser.NationalIDBackScan);
                     ImSource = ImageSource.FromStream(() => memoryStream);
-                    BackImSource = ImageSource.FromStream(() => memoryStreambackID);
+                //    BackImSource = ImageSource.FromStream(() => memoryStreambackID);
                     break;
                 case ImageForm.Passport:
                     MemoryStream memoryStream1 = new MemoryStream(App.LoggedInUser.Passport);
@@ -66,7 +66,7 @@ namespace Whollet.ViewModel
         {
 
             //GoToPageAsync(new KycLastConfirmed());  THIS WILL LATER BE IMPLEMENTED AND REACHED
-            GoToPageAsync(new DocumentVerificationPage());
+            GoToPageAsync(Startup.Resolve<DocumentVerificationPage>());
         });
     }
 }

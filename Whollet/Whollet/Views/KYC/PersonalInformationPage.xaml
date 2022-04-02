@@ -10,9 +10,7 @@
              xmlns:convert="clr-namespace:Whollet.Converters"
              BackgroundColor="{DynamicResource BackGroundWhite}"
              x:Class="Whollet.Views.KYC.PersonalInformationPage">
-    <ContentPage.BindingContext>
-        <vm:PersonalInformationViewModel/>
-    </ContentPage.BindingContext>
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <convert:MultiTriggerConverter x:Key="Multiconverter"/>

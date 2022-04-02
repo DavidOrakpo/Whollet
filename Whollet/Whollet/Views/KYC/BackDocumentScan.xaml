@@ -5,9 +5,7 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="Whollet.Views.KYC.BackDocumentScan">
-    <ContentPage.BindingContext>
-        <vm:BackDocumentScanViewModel/>
-    </ContentPage.BindingContext>
+   
     
     <ContentPage.Content>
         <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">

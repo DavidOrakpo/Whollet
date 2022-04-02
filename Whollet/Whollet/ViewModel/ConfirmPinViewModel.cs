@@ -58,7 +58,7 @@ namespace Whollet.ViewModel
                     if (Int32.Parse(EntryText) == Int32.Parse(pcode))
                     {
                         await App.Current.MainPage.DisplayAlert("Success!", "Your pin has been registered, Proceed to login", "Ok");
-                        GoToPageAsync(new LoginPage());
+                        GoToPageAsync(Startup.Resolve<LoginPage>());
                         RemovePagesFromStack(3);
                     }
                     else
