@@ -8,10 +8,12 @@
              xmlns:bind="clr-namespace:Whollet.ViewModel"
              xmlns:control="clr-namespace:Whollet.Custom_Controls"
              BackgroundColor="{DynamicResource BackGroundWhite}"
-             xmlns:passtrigger="clr-namespace:Whollet.Triggers"
+             xmlns:passtrigger="clr-namespace:Whollet.Triggers" x:DataType="bind:SignUpViewModel"
              x:Class="Whollet.Views.Login.SignupView">
-    
 
+    <ContentPage.BindingContext>
+        <bind:SignUpViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="loginentry:SignUp" x:Key="Invalid">
@@ -54,7 +56,7 @@
                         
                         <loginentry:SignUp.EntryBehavior>
                             <xct:EmailValidationBehavior x:Name="EmailBehave" 
-                                                         IsValid="{Binding EmailValid}"                                                       
+                                                         IsValid="{Binding EmailValid, Mode=TwoWay}"                                                       
                                                          ValidStyle="{StaticResource Valid}"
                                                          InvalidStyle="{StaticResource Invalid}"/>
                         </loginentry:SignUp.EntryBehavior>
@@ -63,7 +65,7 @@
                     <loginentry:SignUp x:Name="PassEntry" EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}"
                                        LabelIsVisible="False" EntryText="{Binding Password}" LabelText="Password" EntryPlaceholder="Password" Grid.Row="3" Grid.ColumnSpan="2">
                         <loginentry:SignUp.EntryBehavior>
-                            <b:PasswordBehaviour IsValid="{Binding PasswordValid,  Mode=OneWayToSource}"/>
+                            <b:PasswordBehaviour IsValid="{Binding PasswordValid,  Mode=TwoWay}"/>
                             
                         </loginentry:SignUp.EntryBehavior>   
                     </loginentry:SignUp>

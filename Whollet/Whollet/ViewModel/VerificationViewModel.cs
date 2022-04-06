@@ -8,6 +8,8 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Whollet.Model;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Whollet.Enums;
 
 namespace Whollet.ViewModel
 {
@@ -56,7 +58,7 @@ namespace Whollet.ViewModel
                 }
                 if (Int32.Parse(EntryText) == Int32.Parse(pincode))
                 {
-                    var TabPage = Startup.Resolve<KycEmptyPage>();
+                    var TabPage = ActivatorUtilities.CreateInstance<KycEmptyPage>(Startup.serviceprovider, TabViewManager.FirstView, 1);
                     _user = await App.GetDatabase.GetWithChildAsync<User>(_user.ID);
                     App.LoggedInUser = _user;
                     await Application.Current.MainPage.DisplayAlert("Success", "Logging you in", "Ok");

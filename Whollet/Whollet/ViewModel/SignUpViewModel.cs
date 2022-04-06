@@ -16,8 +16,8 @@ namespace Whollet.ViewModel
         private string email;
         private string password;
         private bool passwordValid;
-        private bool emailValid = false;
-        private bool alltrue;
+        private bool emailValid;
+        
 
         public SignUpViewModel()
         {
@@ -88,7 +88,7 @@ namespace Whollet.ViewModel
             {
                 emailValid = value;
                 OnPropertyChanged();
-                GotoPin.ChangeCanExecute();
+                
             }
         }
 

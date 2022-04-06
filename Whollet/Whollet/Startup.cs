@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Whollet.Model;
+using Microsoft.Extensions.Http;
 using Whollet.ViewModel;
 using Whollet.Views;
 using Whollet.Views.FirstTimeInApp;
 using Whollet.Views.KYC;
 using Whollet.Views.Login;
+using Whollet.Services.CoinMarketCap;
 
 namespace Whollet
 {
@@ -22,6 +25,13 @@ namespace Whollet
             //add servicecs
             services.AddSingleton<IUser, User>();
             services.AddSingleton<IAddress, Address>();
+            services.AddHttpClient<ICryptoService, CryptoService>(c =>
+            {
+                c.BaseAddress = new Uri("https://pro-api.coinmarketcap.com");
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+                c.DefaultRequestHeaders.Add("Accept-Encoding", "deflate, gzip");
+                c.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", "69278825-fee4-431c-8546-fe8995d5372f");
+            });
 
             //add viewmodels
             services.AddTransient<OnboardingViewModel>();
