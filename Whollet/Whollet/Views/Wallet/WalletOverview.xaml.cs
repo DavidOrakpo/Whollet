@@ -7,12 +7,12 @@ using Whollet.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Whollet.Views.KYC
+namespace Whollet.Views.Wallet
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class KycLastConfirmed : ContentPage
+    public partial class WalletOverview : ContentView
     {
-        public KycLastConfirmed(KycLastConfirmedViewModel vm)
+        public WalletOverview(WalletOverviewViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;

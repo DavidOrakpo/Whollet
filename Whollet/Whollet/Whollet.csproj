@@ -63,6 +63,7 @@
 
   <ItemGroup>
     <Folder Include="Control Templates\" />
+    <Folder Include="ViewModel\EmptyStateModels\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -140,6 +141,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\OnboardingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Wallet\WalletOverview.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

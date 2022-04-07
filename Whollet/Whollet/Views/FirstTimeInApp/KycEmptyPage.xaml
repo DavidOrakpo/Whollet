@@ -137,9 +137,15 @@
         <Grid>
             <xct:TabView x:Name="KycTabView"
                          x:FieldModifier="Public"
+                         
                          Style="{StaticResource CustomTabStyle}">
+                <xct:TabView.Behaviors>
+                    <xct:EventToCommandBehavior EventName="SelectionChanged" Command="{Binding TabChanged}"/>
+
+
+                </xct:TabView.Behaviors>
                 <xct:TabView.TabStripBackgroundView>
-                    <BoxView Color="{DynamicResource PureWhite}" CornerRadius="20,20,0,0"/>
+                    <BoxView Color="{DynamicResource BackGroundWhite}" CornerRadius="20,20,0,0"/>
                 </xct:TabView.TabStripBackgroundView>
             <!-- FIRST TAB ITEM -->
                 <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}"
@@ -147,7 +153,9 @@
                     <xct:TabViewItem.IconSelected>
                         <ImageSource>transactions</ImageSource>
                     </xct:TabViewItem.IconSelected>
-                    <views:TransactionsView/>
+                    <ContentView Content="{Binding FirstView}">
+
+                    </ContentView>
                 </xct:TabViewItem>
                 <!-- SECOND TAB ITEM -->
 
@@ -160,7 +168,7 @@
                                  Style="{StaticResource TabItemStyle}"
                                  Icon="deposit.png">
 
-                    <ContentView Content="{Binding Currentview}">
+                    <ContentView Content="{Binding SecondView}">
 
                     </ContentView>
                     
@@ -168,7 +176,10 @@
                 <!-- THIRD TAB ITEM -->
                 <xct:TabViewItem ControlTemplate="{StaticResource TabItemTemplate}"
                                  Text="Portfolio" Icon="portfolio.png" Style="{StaticResource TabItemStyle}">
-                    <views:PortfolioView/>
+                    <ContentView Content="{Binding ThirdView}">
+                        
+                    </ContentView>
+                    
                 </xct:TabViewItem>
 
             </xct:TabView>

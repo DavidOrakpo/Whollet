@@ -11,6 +11,7 @@ using Whollet.Views.FirstTimeInApp;
 using Whollet.Views.KYC;
 using Whollet.Views.Login;
 using Whollet.Services.CoinMarketCap;
+using Whollet.Views.Wallet;
 
 namespace Whollet
 {
@@ -47,7 +48,7 @@ namespace Whollet
             services.AddTransient<DocumentVerificationViewModel>();
             services.AddTransient<FinalConfirmationPageViewModel>();
             services.AddTransient<FrontDocumentScanViewModel>();
-                    //-----kyc last confirmed-----------
+            services.AddTransient<KycLastConfirmedViewModel>();
             services.AddTransient<KycTabModel2>();
             services.AddTransient<PersonalInformationViewModel>();
                     //-----Empty State finished---------
@@ -55,6 +56,7 @@ namespace Whollet
                     //-----Empty State View-------------
             services.AddTransient<PortfolioViewModel>();
             services.AddTransient<TransactionsViewModel>();
+            services.AddTransient<WalletOverviewViewModel>();
 
             //add pages/views
             services.AddTransient<OnboardingPage>();
@@ -81,7 +83,8 @@ namespace Whollet
             services.AddTransient<KycEmptyPage>();
             services.AddTransient<PortfolioView>();
             services.AddTransient<TransactionsView>();
-
+                    //Wallet
+            services.AddTransient<WalletOverview>();
 
             
 

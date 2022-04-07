@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             BackgroundColor="{DynamicResource SkipBlue}"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="Whollet.Views.Wallet.WalletOverview">
+    <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
+        <ScrollView Padding="20">
+            <Grid RowDefinitions="*,1.1*">
+                <Grid RowDefinitions="auto,auto,*,auto">
+                    <Grid ColumnDefinitions="auto,*,auto">
+                        <ImageButton Source="backicon.png" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
+                                     xct:IconTintColorEffect.TintColor="White"/>
+                        <Label Grid.Column="1"
+                               Text="Portfolio"
+                               FontFamily="TittiliumBold"
+                               HorizontalOptions="Center"
+                               TextColor="{DynamicResource PureWhite}"
+                               FontSize="26"
+                               VerticalOptions="Center"/>
+                        <ImageButton Source="backicon.png"
+                                     Grid.Column="2"
+                                     RotationY="180"
+                                     BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
+                                     xct:IconTintColorEffect.TintColor="White"/>
+                    </Grid>
+                </Grid>
+
+                <Grid RowDefinitions="*,auto,*,auto">
+                    <CollectionView ItemsSource="{Binding .}">
+                        <CollectionView.Header>
+                            <Label Text="Assets"/>
+                        </CollectionView.Header>
+                        <CollectionView.EmptyView>
+                            <ContentView>
+                                <pcake:PancakeView Grid.Row="1" HeightRequest="20" Padding="20"
+                                           CornerRadius="40"
+                                           xct:TouchEffect.AnimationDuration="250"
+                                           xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                           xct:TouchEffect.PressedScale="0.85"
+                                           xct:TouchEffect.PressedOpacity="0.8"
+                                           
+                                           BackgroundColor="{DynamicResource BackGroundWhite}">
+                                    <Grid ColumnDefinitions="auto,*,auto">
+                                        <Image Grid.Column="0"
+                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
+                                       Source="creditcardicon.png"/>
+                                        <Label Grid.Column="1" 
+                                       Text="National ID"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold"
+                                       FontSize="20" 
+                                       TextColor="{DynamicResource DescriptionBlack}"
+                                       Margin="0,-5,0,0"
+                                       FontFamily="TitilliumBold"
+                                       VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                                        <Image Grid.Column="2" 
+                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
+                                       Source="fowardarrowicon.png"/>
+                                    </Grid>
+                                </pcake:PancakeView>
+                            </ContentView>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentView>
+</ContentView>

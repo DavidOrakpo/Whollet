@@ -16,24 +16,33 @@ namespace Whollet.Views.FirstTimeInApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class KycEmptyPage : ContentPage
     {
+        private KycTabModel2 _model;
         public KycEmptyPage(TabViewManager view, int index)
         {
-            var vm = ActivatorUtilities.CreateInstance<KycTabModel2>(Startup.serviceprovider, view);
+            _model = ActivatorUtilities.CreateInstance<KycTabModel2>(Startup.serviceprovider, view, index);
             InitializeComponent();
-            BindingContext = vm;
+            BindingContext = _model;
             KycTabView.SelectedIndex = index;
             
            // Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 1]);
         }
 
-        //public KycEmptyPage(int index)
+        
+
+        //protected override bool OnBackButtonPressed()
         //{
-        //    if (index != -1 && index < KycTabView.TabItems.Count)
+        //    if (_model.ChangeViewCommand.CanExecute(null))  // You can add parameters if any
         //    {
-        //        KycTabView.SelectedIndex = index;
+        //        _model.ChangeViewCommand.Execute(null); // You can add parameters if any
+        //        return false;
+
         //    }
+        //    //MessagingCenter.Subscribe<KycEmptyPage>(this, "Hi", (sender) =>
+        //    //{
+        //    //    // Do something whenever the "Hi" message is received
+        //    //});
+        //    return base.OnBackButtonPressed();
         //}
 
-       
     }
 }
