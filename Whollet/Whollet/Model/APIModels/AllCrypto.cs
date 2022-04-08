@@ -16,10 +16,10 @@ namespace Whollet.Model.APIModels
         public int is_active { get; set; }
         public DateTime first_historical_data { get; set; }
         public DateTime last_historical_data { get; set; }
-        public Platform platform { get; set; }
+        public Platform2 platform { get; set; }
     }
 
-    public class Platform
+    public class Platform2
     {
         public int id { get; set; }
         public string name { get; set; }

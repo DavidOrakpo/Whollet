@@ -9,7 +9,7 @@ namespace Whollet.Services.CoinMarketCap
     public interface ICryptoService
     {
 
-        Task<IEnumerable<CryptoList>> GetLatest();
+        Task<IEnumerable<LatestListing>> GetLatest(int limit = 20);
         Task<IEnumerable<AllCrypto>> AllCryptoCoins();
         Task<IEnumerable<CryptoList>> GetSpecific(List<int> ids);
         //Task Create(CryptoList book);

@@ -12,6 +12,8 @@ using Whollet.Views.KYC;
 using Whollet.Views.Login;
 using Whollet.Services.CoinMarketCap;
 using Whollet.Views.Wallet;
+using System.Net.Http;
+using System.Net;
 
 namespace Whollet
 {
@@ -32,6 +34,10 @@ namespace Whollet
                 c.DefaultRequestHeaders.Add("Accept", "application/json");
                 c.DefaultRequestHeaders.Add("Accept-Encoding", "deflate, gzip");
                 c.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", "69278825-fee4-431c-8546-fe8995d5372f");
+                
+            }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             });
 
             //add viewmodels
