@@ -29,21 +29,21 @@ namespace Whollet.ViewModel
             switch (form)
             {
                 case ImageForm.NationalID:
-                    if (App.LoggedInUser.NationalID != null || App.LoggedInUser.NationalID.Length != 0)
+                    if (App.LoggedInUser?.NationalID is not null && App.LoggedInUser?.NationalID?.Length is not 0)
                     {
                         var ms = new MemoryStream(App.LoggedInUser.NationalID);
                         ImSource = ImageSource.FromStream(() => ms);
                     }
                     break;
                 case ImageForm.Passport:
-                    if (App.LoggedInUser.Passport != null || App.LoggedInUser.Passport.Length != 0)
+                    if (App.LoggedInUser.Passport != null && App.LoggedInUser.Passport.Length != 0)
                     {
                         var ms = new MemoryStream(App.LoggedInUser.Passport);
                         ImSource = ImageSource.FromStream(() => ms);
                     }
                     break;
                 case ImageForm.Drivers_License:
-                    if (App.LoggedInUser.Drivers_license != null || App.LoggedInUser.Drivers_license.Length != 0)
+                    if (App.LoggedInUser.Drivers_license != null && App.LoggedInUser.Drivers_license.Length != 0)
                     {
                         var ms = new MemoryStream(App.LoggedInUser.Drivers_license);
                         ImSource = ImageSource.FromStream(() => ms);

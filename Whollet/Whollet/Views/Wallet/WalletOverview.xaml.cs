@@ -13,29 +13,42 @@ namespace Whollet.Views.Wallet
     public partial class WalletOverview : ContentView
     {
         Color buttoncolor;
+        Label lastElementSelected;
         public WalletOverview(WalletOverviewViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;
         }
 
-        private void Button_Pressed(object sender, EventArgs e)
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-
-            var b = (Button)sender;
-            buttoncolor = b.BackgroundColor;
-            b.BackgroundColor = Color.White;
-            b.Opacity = 0.1;
-            b.TextColor = Color.Black;
+            if (lastElementSelected is not null)
+            {
+                VisualStateManager.GoToState(lastElementSelected, "UnSelected");
+            }
+            VisualStateManager.GoToState((Label)sender, "Selected");
+            lastElementSelected = (Label)sender;
         }
 
-        private void Button_Released(object sender, EventArgs e)
-        {
-            var b = (Button)sender;
-            
-            b.BackgroundColor = buttoncolor;
-            b.Opacity = 1;
-            b.TextColor = Color.White;
-        }
+
+
+        //private void Button_Pressed(object sender, EventArgs e)
+        //{
+
+        //    var b = (Button)sender;
+        //    buttoncolor = b.BackgroundColor;
+        //    b.BackgroundColor = Color.White;
+        //    b.Opacity = 0.1;
+        //    b.TextColor = Color.White;
+        //}
+
+        //private void Button_Released(object sender, EventArgs e)
+        //{
+        //    var b = (Button)sender;
+
+        //    b.BackgroundColor = buttoncolor;
+        //    b.Opacity = 1;
+        //    b.TextColor = Color.White;
+        //}
     }
 }

@@ -6,7 +6,7 @@
              x:Class="Whollet.Views.Wallet.WalletOverview">
     <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
         
-            <Grid RowDefinitions="*,1.1*" Padding="20,20,20,50">
+            <Grid RowDefinitions="*,1.1*" Padding="20,20,20,40">
                 
                 <Grid RowDefinitions="auto,auto,auto,auto">
                     <Grid ColumnDefinitions="auto,*,auto">
@@ -26,48 +26,177 @@
                                      xct:IconTintColorEffect.TintColor="White"/>
                     </Grid>
                     <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*,*">
-                        <Button Text="Day" BackgroundColor="Transparent" TextColor="{DynamicResource PureWhite}" TextTransform="None" Pressed="Button_Pressed" CornerRadius="5" Released="Button_Released"/>
-                        <Button Grid.Column="1"  Text="Week" BackgroundColor="Transparent" TextColor="{DynamicResource PureWhite}" TextTransform="None" Pressed="Button_Pressed" CornerRadius="5" Released="Button_Released"/>
-                        <Button Grid.Column="2" Text="Month" BackgroundColor="Transparent" TextColor="{DynamicResource PureWhite}" TextTransform="None" Pressed="Button_Pressed" CornerRadius="5" Released="Button_Released"/>
-                        <Button Grid.Column="3" Text="Year" BackgroundColor="Transparent" TextColor="{DynamicResource PureWhite}" TextTransform="None" Pressed="Button_Pressed" CornerRadius="5" Released="Button_Released"/>
-                        <Button Grid.Column="4" Text="All" BackgroundColor="Transparent" TextColor="{DynamicResource PureWhite}" TextTransform="None" Pressed="Button_Pressed" CornerRadius="5" Released="Button_Released"/>
-                        
+                        <Label Text="Day" BackgroundColor="Transparent"
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                               TextColor="{DynamicResource PureWhite}" 
+                               WidthRequest="60"
+                               
+                               HorizontalTextAlignment="Center"
+                               HeightRequest="30"
+                               TextTransform="None"
+                               xct:CornerRadiusEffect.CornerRadius="15">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                            <Setter Property="TextColor" Value="White"/>
+                                            
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="UnSelected">
+                                        <VisualState.Setters>
+                                            
+                                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            
+                                    </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                        </Label>
+                        <Label Grid.Column="1" 
+                               Text="Week" BackgroundColor="Transparent" 
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                               WidthRequest="60"
+                               HorizontalTextAlignment="Center"
+                               HeightRequest="30"
+                               TextColor="{DynamicResource PureWhite}" TextTransform="None" xct:CornerRadiusEffect.CornerRadius="5">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                        <Setter Property="TextColor" Value="White"/>
+                                    </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="UnSelected">
+                                        <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                        <Label Grid.Column="2" Text="Month" 
+                               BackgroundColor="Transparent"
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               FontAttributes="Bold"
+                               WidthRequest="60"
+                               HorizontalTextAlignment="Center"
+                               HeightRequest="30"
+                               TextColor="{DynamicResource PureWhite}"
+                               TextTransform="None" xct:CornerRadiusEffect.CornerRadius="5">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                        <Setter Property="TextColor" Value="White"/>
+                                    </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="UnSelected">
+                                        <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                        <Label Grid.Column="3"
+                               Text="Year"
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               FontAttributes="Bold"
+                               WidthRequest="60"
+                               HorizontalTextAlignment="Center"
+                               HeightRequest="30"
+                               BackgroundColor="Transparent"
+                               TextColor="{DynamicResource PureWhite}" TextTransform="None" xct:CornerRadiusEffect.CornerRadius="5">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                        <Setter Property="TextColor" Value="White"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="UnSelected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                        <Label Grid.Column="4" 
+                               Text="All"
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               WidthRequest="60"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"
+                               HeightRequest="30"
+                               BackgroundColor="Transparent" TextColor="{DynamicResource PureWhite}" TextTransform="None" xct:CornerRadiusEffect.CornerRadius="5">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                        <Setter Property="TextColor" Value="White"/>
+                                    </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="UnSelected">
+                                        <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
                     </Grid>
                 </Grid>
                 <ScrollView Grid.Row="1">
                     <Grid RowDefinitions="auto,*,*,auto" Grid.Row="1">
                         <StackLayout Grid.Row="0">
-                            <Label Text="Assets" TextColor="Black"/>
+                            <Label Text="Assets" TextColor="Black" FontAttributes="Bold"/>
                             <CollectionView ItemsSource="{Binding LatestListings}">
 
                             <CollectionView.EmptyView>
                                 <ContentView Padding="10">
-                                    <pcake:PancakeView Grid.Row="1" HeightRequest="90" Padding="20"
-                                           CornerRadius="40"
-                                           xct:TouchEffect.AnimationDuration="250"
-                                           xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
-                                           xct:TouchEffect.PressedScale="0.85"
-                                           xct:TouchEffect.PressedOpacity="0.8"
-                                           
-                                           BackgroundColor="{DynamicResource BackGroundWhite}">
-                                        <Grid ColumnDefinitions="auto,*,auto">
-                                            <Image Grid.Column="0"
-                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
-                                       Source="creditcardicon.png"/>
-                                            <Label Grid.Column="1" 
-                                       Text="National ID"
-                                       VerticalTextAlignment="Center"
-                                       FontAttributes="Bold"
-                                       FontSize="20" 
-                                       TextColor="{DynamicResource DescriptionBlack}"
-                                       Margin="0,-5,0,0"
-                                       FontFamily="TitilliumBold"
-                                       VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
-                                            <Image Grid.Column="2" 
-                                       xct:IconTintColorEffect.TintColor="{DynamicResource DescriptionBlack}"
-                                       Source="fowardarrowicon.png"/>
-                                        </Grid>
-                                    </pcake:PancakeView>
+                                    <StackLayout>
+                                        <ActivityIndicator VerticalOptions="Start" IsRunning="True" HorizontalOptions="Center"/>
+                                        <Label Text="Loading..." FontSize="28" TextColor="#0D1F3C" VerticalOptions="Start" HorizontalOptions="Center"/>
+                                    </StackLayout>
                                 </ContentView>
                             </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
