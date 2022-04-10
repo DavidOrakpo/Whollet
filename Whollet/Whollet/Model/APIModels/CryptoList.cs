@@ -14,6 +14,7 @@ public class LatestListing
     public string name { get; set; }
     public string symbol { get; set; }
     public double price { get; set; }
+    public string slug { get; set; }
     public double volume_24h { get; set; }
     public Uri Logo { get; set; }
 }

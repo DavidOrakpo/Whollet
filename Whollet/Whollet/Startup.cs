@@ -14,13 +14,15 @@ using Whollet.Services.CoinMarketCap;
 using Whollet.Views.Wallet;
 using System.Net.Http;
 using System.Net;
+using Whollet.Services.Roqqu;
+using Whollet.Services.CoinGecko;
 
 namespace Whollet
 {
     public static class Startup
     {
         public static IServiceProvider serviceprovider;
-
+        
         public static void ConfigureServices()
         {
             var services = new ServiceCollection();
@@ -38,6 +40,22 @@ namespace Whollet
             }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
             {
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            });
+            services.AddHttpClient<IRoqquPriceService, RoqquPriceService>(c =>
+            {
+                c.BaseAddress = new Uri("https://api.roqqu.com");
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+                c.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "RQ-SEC-eU09IDeMFhcKwOMA717q");
+            });
+            services.AddHttpClient<IGeckoPriceHistoryService, GeckoPriceHistoryService>(c =>
+            {
+                c.BaseAddress = new Uri("https://api.coingecko.com/api/v3/");
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+                c.DefaultRequestHeaders.Add("User-Agent", "C");
+
+            }).ConfigurePrimaryHttpMessageHandler(x => new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
             });
 
             //add viewmodels

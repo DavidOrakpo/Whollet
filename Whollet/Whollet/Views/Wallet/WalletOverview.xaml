@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              BackgroundColor="{DynamicResource SkipBlue}"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="Whollet.Views.Wallet.WalletOverview">
     <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
         
-            <Grid RowDefinitions="*,1.1*" Padding="20,20,20,40">
+            <Grid RowDefinitions="*,1.1*" Padding="20,20,20,30">
                 
                 <Grid RowDefinitions="auto,auto,auto,auto">
-                    <Grid ColumnDefinitions="auto,*,auto">
+                    <Grid Grid.Row="0" ColumnDefinitions="auto,*,auto">
                         <ImageButton Source="backicon.png" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
                                      xct:IconTintColorEffect.TintColor="White"/>
                         <Label Grid.Column="1"
@@ -25,6 +26,18 @@
                                      BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
                                      xct:IconTintColorEffect.TintColor="White"/>
                     </Grid>
+                    <Grid Grid.Row="1" RowDefinitions="*,*">
+                        <Label Text="{Binding CoinPrice, StringFormat='${0:F2}'}" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" TextColor="{DynamicResource PureWhite}"/>
+                        <Label Grid.Row="1" Text="Wallet Assets" FontSize="15" HorizontalOptions="Center" TextColor="{DynamicResource PureWhite}" Opacity=".8"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="-20,0,-20,0">
+                        
+                        <microcharts:ChartView x:Name="chartView"
+                                               VerticalOptions="Start"
+                                               xct:CornerRadiusEffect.CornerRadius="20"
+                                               BackgroundColor="Transparent"
+                                               Chart="{Binding PriceChart}" HeightRequest="180"/>
+                    </Grid>
                     <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*,*">
                         <Label Text="Day" BackgroundColor="Transparent"
                                HorizontalOptions="Center" 
@@ -33,7 +46,8 @@
                                VerticalTextAlignment="Center"
                                TextColor="{DynamicResource PureWhite}" 
                                WidthRequest="60"
-                               
+                               xct:TouchEffect.Command="{Binding TimeChartCommand}"
+                               xct:TouchEffect.CommandParameter="1"
                                HorizontalTextAlignment="Center"
                                HeightRequest="30"
                                TextTransform="None"
@@ -64,6 +78,8 @@
                                Text="Week" BackgroundColor="Transparent" 
                                HorizontalOptions="Center" 
                                VerticalOptions="Center"
+                               xct:TouchEffect.Command="{Binding TimeChartCommand}"
+                               xct:TouchEffect.CommandParameter="7"
                                FontAttributes="Bold"
                                VerticalTextAlignment="Center"
                                WidthRequest="60"
@@ -95,6 +111,8 @@
                                HorizontalOptions="Center" 
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
+                               xct:TouchEffect.Command="{Binding TimeChartCommand}"
+                               xct:TouchEffect.CommandParameter="30"
                                FontAttributes="Bold"
                                WidthRequest="60"
                                HorizontalTextAlignment="Center"
@@ -127,6 +145,8 @@
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
                                FontAttributes="Bold"
+                               xct:TouchEffect.Command="{Binding TimeChartCommand}"
+                               xct:TouchEffect.CommandParameter="365"
                                WidthRequest="60"
                                HorizontalTextAlignment="Center"
                                HeightRequest="30"
@@ -155,6 +175,8 @@
                         <Label Grid.Column="4" 
                                Text="All"
                                HorizontalOptions="Center" 
+                               xct:TouchEffect.Command="{Binding TimeChartCommand}"
+                               xct:TouchEffect.CommandParameter="999"
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
                                WidthRequest="60"

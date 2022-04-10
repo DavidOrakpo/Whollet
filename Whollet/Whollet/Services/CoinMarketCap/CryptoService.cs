@@ -47,7 +47,8 @@ namespace Whollet.Services.CoinMarketCap
                 name = i.name,
                 symbol = i.symbol,
                 price = i.quote.USD.price,
-                volume_24h = i.quote.USD.volume_24h
+                volume_24h = i.quote.USD.volume_24h,
+                slug = i.slug
 
             });
 
@@ -60,6 +61,7 @@ namespace Whollet.Services.CoinMarketCap
                 symbol=i.symbol,
                 price = i.price,
                 volume_24h = i.volume_24h,
+                slug = i.slug,
                 Logo = o.Logo
             });
             return joined;
