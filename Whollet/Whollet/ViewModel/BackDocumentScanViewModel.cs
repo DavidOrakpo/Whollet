@@ -60,14 +60,14 @@ namespace Whollet.ViewModel
                 case ImageForm.Passport:
                     App.LoggedInUser.PassportBackScan = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
-                    var vm1 = ActivatorUtilities.CreateInstance<BackDocumentScan>(Startup.serviceprovider, form);
+                    var vm1 = ActivatorUtilities.CreateInstance<FinalConfirmationPage>(Startup.serviceprovider, form);
                     
                     GoToPageAsync(vm1);
                     break;
                 case ImageForm.Drivers_License:
                     App.LoggedInUser.Drivers_licenseBackScan = arr;
                     await App.GetDatabase.UpdateAsync(App.LoggedInUser);
-                    var vm2 = ActivatorUtilities.CreateInstance<BackDocumentScan>(Startup.serviceprovider, form);
+                    var vm2 = ActivatorUtilities.CreateInstance<FinalConfirmationPage>(Startup.serviceprovider, form);
                     
                     GoToPageAsync(vm2);
                     break;
