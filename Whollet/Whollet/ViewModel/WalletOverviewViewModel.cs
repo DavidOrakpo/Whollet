@@ -30,7 +30,7 @@ namespace Whollet.ViewModel
         }
         public async Task PopulateList()
         {
-            var temp = await _geckoPriceHistory.GetGeckoLatest();
+            var temp = await _geckoPriceHistory.GetGeckoLatest(limit: 20);
             LatestListings = new ObservableCollection<LatestListings>(temp);
             CoinPrice = LatestListings.Where(i => i.symbol == "btc").Select(p => p.price).FirstOrDefault();
         }
