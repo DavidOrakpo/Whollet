@@ -47,7 +47,7 @@
                                TextColor="{DynamicResource PureWhite}" 
                                WidthRequest="60"
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,1', StringFormat='{0},1'}"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.id, FallbackValue='bitcoin,1', StringFormat='{0},1'}"
                                HorizontalTextAlignment="Center"
                                HeightRequest="30"
                                TextTransform="None"
@@ -79,7 +79,7 @@
                                HorizontalOptions="Center" 
                                VerticalOptions="Center"
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,7', StringFormat='{0},7'}"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.id, FallbackValue='bitcoin,7', StringFormat='{0},7'}"
                                FontAttributes="Bold"
                                VerticalTextAlignment="Center"
                                WidthRequest="60"
@@ -112,7 +112,7 @@
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,30', StringFormat='{0},30'}"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.id, FallbackValue='bitcoin,30', StringFormat='{0},30'}"
                                FontAttributes="Bold"
                                WidthRequest="60"
                                HorizontalTextAlignment="Center"
@@ -146,7 +146,7 @@
                                VerticalTextAlignment="Center"
                                FontAttributes="Bold"
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,365', StringFormat='{0},365'}"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.id, FallbackValue='bitcoin,365', StringFormat='{0},365'}"
                                WidthRequest="60"
                                HorizontalTextAlignment="Center"
                                HeightRequest="30"
@@ -176,7 +176,7 @@
                                Text="All"
                                HorizontalOptions="Center" 
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,999', StringFormat='{0},999'}"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.id, FallbackValue='bitcoin,999', StringFormat='{0},999'}"
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
                                WidthRequest="60"
@@ -226,7 +226,8 @@
                             </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid x:Name="itemgrid" Padding="0,8" xct:TouchEffect.Command="{Binding Path=BindingContext.GridStateCommand, Source={x:Reference RootPage}}"
+                                    <Grid x:Name="itemgrid" Padding="0,8" 
+                                          xct:TouchEffect.Command="{Binding Path=BindingContext.GridStateCommand, Source={x:Reference RootPage}}"
                                           xct:TouchEffect.CommandParameter="{Binding Source={x:Reference itemgrid}, Path=.}">
                                         
                                         <VisualStateManager.VisualStateGroups>
