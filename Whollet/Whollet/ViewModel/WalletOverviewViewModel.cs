@@ -21,18 +21,18 @@ namespace Whollet.ViewModel
         private IGeckoPriceHistoryService _geckoPriceHistory;
         private Grid gridselected;
 
-        public WalletOverviewViewModel(ICryptoService cryptoService, IGeckoPriceHistoryService geckoPriceHistory)
+        public WalletOverviewViewModel(IGeckoPriceHistoryService geckoPriceHistory)
         {
-            _cryptoservice = cryptoService;
+           // _cryptoservice = cryptoService;
             _geckoPriceHistory = geckoPriceHistory;
             PopulateListCommand.Execute(this);
             PopulateChartCommand.Execute(this);
         }
         public async Task PopulateList()
         {
-            var temp = await _cryptoservice.GetLatest();
-            LatestListings = new ObservableCollection<LatestListing>(temp);
-            CoinPrice = LatestListings.Where(i => i.symbol == "BTC").Select(p => p.price).FirstOrDefault();
+            var temp = await _geckoPriceHistory.GetGeckoLatest();
+            LatestListings = new ObservableCollection<LatestListings>(temp);
+            CoinPrice = LatestListings.Where(i => i.symbol == "btc").Select(p => p.price).FirstOrDefault();
         }
 
         private double coinPrice;
@@ -54,11 +54,11 @@ namespace Whollet.ViewModel
             await PopChartAsync();
         });
 
-        private async Task PopChartAsync(LatestListing coin = null)
+        private async Task PopChartAsync(LatestListings coin = null)
         {
             var currentTime = DateTime.Now;
             var oneMonthAgo = DateTime.Today.AddMonths(-3);
-            var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, coin?.slug);
+            var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, coin?.id);
             var pricelist = PriceObject.prices.ToList();
             var minprice = pricelist.Select(p => p[1]).Min();
             var maxprice = pricelist.Select(p => p[1]).Max();
@@ -119,7 +119,7 @@ namespace Whollet.ViewModel
         public Command TimeChartCommand => new Command(async (x) =>
         {
             var parameterarray = x.ToString().Split(",");
-            var slug = parameterarray[0];
+            var id = parameterarray[0];
             var timespan = Int32.Parse(parameterarray[1]);
            // var temp = int.Parse(x.ToString());
             DateTime currentTime, oneMonthAgo;
@@ -128,7 +128,7 @@ namespace Whollet.ViewModel
                 case 1:
                     currentTime = DateTime.Now;
                     oneMonthAgo = DateTime.Today.AddDays(-1);
-                    var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
+                    var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, id);
                     var pricelist = PriceObject.prices.ToList();
                     var minprice = pricelist.Select(p => p[1]).Min();
                     var maxprice = pricelist.Select(p => p[1]).Max();
@@ -158,7 +158,7 @@ namespace Whollet.ViewModel
                 case 7:
                     currentTime = DateTime.Now;
                     oneMonthAgo = DateTime.Today.AddDays(-7);
-                    var PriceObject2 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
+                    var PriceObject2 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, id);
                     var pricelist2 = PriceObject2.prices.ToList();
                     var minprice2 = pricelist2.Select(p => p[1]).Min();
                     var maxprice2 = pricelist2.Select(p => p[1]).Max();
@@ -187,7 +187,7 @@ namespace Whollet.ViewModel
                 case 30:
                     currentTime = DateTime.Now;
                     oneMonthAgo = DateTime.Today.AddMonths(-1);
-                    var PriceObject3 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
+                    var PriceObject3 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, id);
                     var pricelist3 = PriceObject3.prices.ToList();
                     var minprice3 = pricelist3.Select(p => p[1]).Min();
                     var maxprice3 = pricelist3.Select(p => p[1]).Max();
@@ -216,7 +216,7 @@ namespace Whollet.ViewModel
                 case 365:
                     currentTime = DateTime.Now;
                     oneMonthAgo = DateTime.Today.AddYears(-1);
-                    var PriceObject4 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
+                    var PriceObject4 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, id);
                     var pricelist4 = PriceObject4.prices.ToList();
                     var minprice4 = pricelist4.Select(p => p[1]).Min();
                     var maxprice4 = pricelist4.Select(p => p[1]).Max();
@@ -245,7 +245,7 @@ namespace Whollet.ViewModel
                 case 999:
                     currentTime = DateTime.Now;
                     oneMonthAgo = DateTime.Today.AddYears(-8);
-                    var PriceObject5 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
+                    var PriceObject5 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, id);
                     var pricelist5 = PriceObject5.prices.ToList();
                     var minprice5 = pricelist5.Select(p => p[1]).Min();
                     var maxprice5 = pricelist5.Select(p => p[1]).Max();
@@ -301,15 +301,15 @@ namespace Whollet.ViewModel
         public Command GetCoinCommand => new Command(async (e) =>
         {
 
-            var coin = e as LatestListing;
+            var coin = e as LatestListings;
             await PopChartAsync(coin);
             CoinPrice = coin.price;
 
         });
 
-        private ObservableCollection<LatestListing> _LatestListing;
+        private ObservableCollection<LatestListings> _LatestListing;
 
-        public ObservableCollection<LatestListing> LatestListings
+        public ObservableCollection<LatestListings> LatestListings
         {
             get { return _LatestListing; }
             set { _LatestListing = value; OnPropertyChanged(); }

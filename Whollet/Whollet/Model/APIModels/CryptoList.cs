@@ -8,6 +8,7 @@ public class CryptoList
     public Status status { get; set; }
     public Datum[] data { get; set; }
 }
+
 public class LatestListing
 {
     public int id { get; set; }
@@ -18,6 +19,18 @@ public class LatestListing
     public double volume_24h { get; set; }
     public Uri Logo { get; set; }
 }
+
+public class LatestListings
+{
+    public string id { get; set; }
+    public string name { get; set; }
+    public string symbol { get; set; }
+    public double price { get; set; }
+    
+    public double price_change_24h { get; set; }
+    public Uri Logo { get; set; }
+}
+
 public class Status
 {
     public DateTime timestamp { get; set; }
