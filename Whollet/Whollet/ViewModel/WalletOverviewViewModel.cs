@@ -11,6 +11,7 @@ using Xamarin.Forms;
 using Whollet.Services.CoinGecko;
 using Microcharts;
 using SkiaSharp;
+using System.Globalization;
 
 namespace Whollet.ViewModel
 {
@@ -18,13 +19,14 @@ namespace Whollet.ViewModel
     {
         private readonly ICryptoService _cryptoservice;
         private IGeckoPriceHistoryService _geckoPriceHistory;
+        private Grid gridselected;
 
         public WalletOverviewViewModel(ICryptoService cryptoService, IGeckoPriceHistoryService geckoPriceHistory)
         {
             _cryptoservice = cryptoService;
             _geckoPriceHistory = geckoPriceHistory;
             PopulateListCommand.Execute(this);
-            PopulateChart.Execute(this);
+            PopulateChartCommand.Execute(this);
         }
         public async Task PopulateList()
         {
@@ -47,43 +49,89 @@ namespace Whollet.ViewModel
             await PopulateList();
         });
 
-        public Command PopulateChart => new Command(async () =>
+        public Command PopulateChartCommand => new Command(async () =>
+        {
+            await PopChartAsync();
+        });
+
+        private async Task PopChartAsync(LatestListing coin = null)
         {
             var currentTime = DateTime.Now;
             var oneMonthAgo = DateTime.Today.AddMonths(-3);
-            
-
-            var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime);
+            var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, coin?.slug);
             var pricelist = PriceObject.prices.ToList();
             var minprice = pricelist.Select(p => p[1]).Min();
             var maxprice = pricelist.Select(p => p[1]).Max();
             List<ChartEntry> chartEntries = new List<ChartEntry>();
+            var i = 0;
             foreach (var price in pricelist)
             {
-                ChartEntry chartEntry = new ChartEntry(float.Parse(price[1].ToString()))
+
+                //i++;
+                if (i  == 30)
                 {
-                    Color = SKColor.Parse("#FFFFFF")
-                }; 
-                chartEntries.Add(chartEntry);
+
+                    var x = Decimal.Parse(price[0].ToString(), NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
+                    var timestring = long.Parse(x.ToString());
+                    var dateTime = DateTimeOffset.FromUnixTimeMilliseconds(timestring);
+                    var t = dateTime.DateTime;
+                    var time = t.ToShortDateString();
+                    ChartEntry chartEntry = new ChartEntry(float.Parse(price[1].ToString()))
+                    {
+                        ValueLabel = price[1].ToString(),
+                        ValueLabelColor = SKColor.Parse("#FFFFFFFF"),
+                        Label = time,
+
+                        Color = SKColor.Parse("#FFFFFF")
+                    };
+                    chartEntries.Add(chartEntry);
+                }
+                else
+                {
+                    ChartEntry chartEntry = new ChartEntry(float.Parse(price[1].ToString()))
+                    {
+
+                        Color = SKColor.Parse("#FFFFFF")
+                    };
+                    chartEntries.Add(chartEntry);
+                }
+
             }
-           // Chart chartName => new BarChart() { Entries = entries }
-            PriceChart = new LineChart() { Entries = chartEntries, EnableYFadeOutGradient = false, LineAreaAlpha = 0, PointMode = PointMode.None,
-                MaxValue = maxprice, MinValue = minprice, LineMode = LineMode.Straight, BackgroundColor = SKColor.Empty };
-        });
+            // Chart chartName => new BarChart() { Entries = entries }
+            PriceChart = new LineChart()
+            {
+                Entries = chartEntries,
+                //LabelColor = SKColor.Parse("#FFFFFF"),
+               // LabelOrientation = Orientation.Vertical,
+               // ValueLabelOrientation = Orientation.Vertical,
+               // LabelTextSize = 18,
+
+                EnableYFadeOutGradient = false,
+                LineAreaAlpha = 0,
+                PointMode = PointMode.None,
+                MaxValue = maxprice,
+                MinValue = minprice,
+                LineMode = LineMode.Straight,
+                BackgroundColor = SKColor.Empty
+            };
+        }
 
         public Command TimeChartCommand => new Command(async (x) =>
         {
-            var temp = int.Parse(x.ToString());
+            var parameterarray = x.ToString().Split(",");
+            var slug = parameterarray[0];
+            var timespan = Int32.Parse(parameterarray[1]);
+           // var temp = int.Parse(x.ToString());
             DateTime currentTime, oneMonthAgo;
-            switch (temp)
+            switch (timespan)
             {
                 case 1:
-                     currentTime = DateTime.Now;
-                     oneMonthAgo = DateTime.Today.AddDays(-1);
-                     var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime);
-                     var pricelist = PriceObject.prices.ToList();
-                      var minprice = pricelist.Select(p => p[1]).Min();
-                      var maxprice = pricelist.Select(p => p[1]).Max();
+                    currentTime = DateTime.Now;
+                    oneMonthAgo = DateTime.Today.AddDays(-1);
+                    var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
+                    var pricelist = PriceObject.prices.ToList();
+                    var minprice = pricelist.Select(p => p[1]).Min();
+                    var maxprice = pricelist.Select(p => p[1]).Max();
                     List<ChartEntry> chartEntries = new List<ChartEntry>();
                     foreach (var price in pricelist)
                     {
@@ -110,7 +158,7 @@ namespace Whollet.ViewModel
                 case 7:
                     currentTime = DateTime.Now;
                     oneMonthAgo = DateTime.Today.AddDays(-7);
-                    var PriceObject2 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime);
+                    var PriceObject2 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
                     var pricelist2 = PriceObject2.prices.ToList();
                     var minprice2 = pricelist2.Select(p => p[1]).Min();
                     var maxprice2 = pricelist2.Select(p => p[1]).Max();
@@ -139,7 +187,7 @@ namespace Whollet.ViewModel
                 case 30:
                     currentTime = DateTime.Now;
                     oneMonthAgo = DateTime.Today.AddMonths(-1);
-                    var PriceObject3 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime);
+                    var PriceObject3 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
                     var pricelist3 = PriceObject3.prices.ToList();
                     var minprice3 = pricelist3.Select(p => p[1]).Min();
                     var maxprice3 = pricelist3.Select(p => p[1]).Max();
@@ -168,7 +216,7 @@ namespace Whollet.ViewModel
                 case 365:
                     currentTime = DateTime.Now;
                     oneMonthAgo = DateTime.Today.AddYears(-1);
-                    var PriceObject4 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime);
+                    var PriceObject4 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
                     var pricelist4 = PriceObject4.prices.ToList();
                     var minprice4 = pricelist4.Select(p => p[1]).Min();
                     var maxprice4 = pricelist4.Select(p => p[1]).Max();
@@ -196,17 +244,20 @@ namespace Whollet.ViewModel
                     break;
                 case 999:
                     currentTime = DateTime.Now;
-                    oneMonthAgo = DateTime.Today.AddDays(-1);
-                    var PriceObject5 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime);
+                    oneMonthAgo = DateTime.Today.AddYears(-8);
+                    var PriceObject5 = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, slug);
                     var pricelist5 = PriceObject5.prices.ToList();
                     var minprice5 = pricelist5.Select(p => p[1]).Min();
                     var maxprice5 = pricelist5.Select(p => p[1]).Max();
                     List<ChartEntry> chartEntries5 = new List<ChartEntry>();
+                    var i = 0;
                     foreach (var price in pricelist5)
                     {
+
                         ChartEntry chartEntry = new ChartEntry(float.Parse(price[1].ToString()))
                         {
                             Color = SKColor.Parse("#FFFFFF")
+
                         };
                         chartEntries5.Add(chartEntry);
                     }
@@ -226,9 +277,6 @@ namespace Whollet.ViewModel
                 default:
                     break;
             }
-            
-
-            
         });
 
         private Chart priceChart;
@@ -240,6 +288,25 @@ namespace Whollet.ViewModel
 
         }
 
+        public Command GridStateCommand => new Command((x) =>
+        {
+            if (gridselected is not null)
+            {
+                VisualStateManager.GoToState(gridselected, "UnSelected");
+            }
+            VisualStateManager.GoToState((Grid)x, "Selected");
+            gridselected = (Grid)x;
+        });
+
+        public Command GetCoinCommand => new Command(async (e) =>
+        {
+
+            var coin = e as LatestListing;
+            await PopChartAsync(coin);
+            CoinPrice = coin.price;
+
+        });
+
         private ObservableCollection<LatestListing> _LatestListing;
 
         public ObservableCollection<LatestListing> LatestListings
@@ -248,13 +315,7 @@ namespace Whollet.ViewModel
             set { _LatestListing = value; OnPropertyChanged(); }
         }
 
-        public long DateTimetoEpochConverter(DateTime dateTime)
-        {
-            //var dateTime = new DateTime(2021, 02, 21, 22, 0, 0, DateTimeKind.Utc);
-            var dateWithOffset = new DateTimeOffset(dateTime).ToUniversalTime();
-            long timestamp = dateWithOffset.ToUnixTimeMilliseconds();
-            return timestamp;
-        }
+        
 
     }
 }

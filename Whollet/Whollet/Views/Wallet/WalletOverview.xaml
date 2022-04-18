@@ -5,7 +5,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="Whollet.Views.Wallet.WalletOverview">
-    <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}">
+    <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}" x:Name="RootPage">
         
             <Grid RowDefinitions="*,1.1*" Padding="20,20,20,30">
                 
@@ -27,16 +27,16 @@
                                      xct:IconTintColorEffect.TintColor="White"/>
                     </Grid>
                     <Grid Grid.Row="1" RowDefinitions="*,*">
-                        <Label Text="{Binding CoinPrice, StringFormat='${0:F2}'}" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" TextColor="{DynamicResource PureWhite}"/>
+                        <Label Text="{Binding CoinPrice, StringFormat='${0:N2}'}" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" TextColor="{DynamicResource PureWhite}"/>
                         <Label Grid.Row="1" Text="Wallet Assets" FontSize="15" HorizontalOptions="Center" TextColor="{DynamicResource PureWhite}" Opacity=".8"/>
                     </Grid>
-                    <Grid Grid.Row="2" Margin="-20,0,-20,0">
+                    <Grid Grid.Row="2" Margin="-20,0,-20,-10">
                         
                         <microcharts:ChartView x:Name="chartView"
                                                VerticalOptions="Start"
                                                xct:CornerRadiusEffect.CornerRadius="20"
                                                BackgroundColor="Transparent"
-                                               Chart="{Binding PriceChart}" HeightRequest="180"/>
+                                               Chart="{Binding PriceChart}" HeightRequest="200"/>
                     </Grid>
                     <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*,*">
                         <Label Text="Day" BackgroundColor="Transparent"
@@ -47,7 +47,7 @@
                                TextColor="{DynamicResource PureWhite}" 
                                WidthRequest="60"
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="1"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,1', StringFormat='{0},1'}"
                                HorizontalTextAlignment="Center"
                                HeightRequest="30"
                                TextTransform="None"
@@ -79,7 +79,7 @@
                                HorizontalOptions="Center" 
                                VerticalOptions="Center"
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="7"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,7', StringFormat='{0},7'}"
                                FontAttributes="Bold"
                                VerticalTextAlignment="Center"
                                WidthRequest="60"
@@ -112,7 +112,7 @@
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="30"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,30', StringFormat='{0},30'}"
                                FontAttributes="Bold"
                                WidthRequest="60"
                                HorizontalTextAlignment="Center"
@@ -146,7 +146,7 @@
                                VerticalTextAlignment="Center"
                                FontAttributes="Bold"
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="365"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,365', StringFormat='{0},365'}"
                                WidthRequest="60"
                                HorizontalTextAlignment="Center"
                                HeightRequest="30"
@@ -176,7 +176,7 @@
                                Text="All"
                                HorizontalOptions="Center" 
                                xct:TouchEffect.Command="{Binding TimeChartCommand}"
-                               xct:TouchEffect.CommandParameter="999"
+                               xct:TouchEffect.CommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem.slug, FallbackValue='bitcoin,999', StringFormat='{0},999'}"
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
                                WidthRequest="60"
@@ -211,11 +211,14 @@
                     <Grid RowDefinitions="auto,*,*,auto" Grid.Row="1">
                         <StackLayout Grid.Row="0">
                             <Label Text="Assets" TextColor="Black" FontAttributes="Bold"/>
-                            <CollectionView ItemsSource="{Binding LatestListings}">
+                            <CollectionView x:Name="cview" ItemsSource="{Binding LatestListings}"
+                                            SelectionMode="Single" 
+                                            SelectionChangedCommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem}"  
+                                            SelectionChangedCommand="{Binding GetCoinCommand}">
 
                             <CollectionView.EmptyView>
                                 <ContentView Padding="10">
-                                    <StackLayout>
+                                    <StackLayout VerticalOptions="Start">
                                         <ActivityIndicator VerticalOptions="Start" IsRunning="True" HorizontalOptions="Center"/>
                                         <Label Text="Loading..." FontSize="28" TextColor="#0D1F3C" VerticalOptions="Start" HorizontalOptions="Center"/>
                                     </StackLayout>
@@ -223,25 +226,58 @@
                             </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Padding="0,8">
+                                    <Grid x:Name="itemgrid" Padding="0,8" xct:TouchEffect.Command="{Binding Path=BindingContext.GridStateCommand, Source={x:Reference RootPage}}"
+                                          xct:TouchEffect.CommandParameter="{Binding Source={x:Reference itemgrid}, Path=.}">
+                                        
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup>
+                                                <VisualState Name="Selected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                                        <Setter TargetName="Pview" Property="pcake:PancakeView.BackgroundColor" Value="#347AF0"/>
+                                                        <Setter TargetName="CoinNameLabel" Property="Label.TextColor" Value="White"/>
+                                                        <Setter TargetName="CoinSymbolLabel" Property="Label.TextColor" Value="White"/>
+                                                        <Setter TargetName="CoinPriceLabel" Property="Label.TextColor" Value="White"/>
+
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                                <VisualState Name="UnSelected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                                        <Setter TargetName="Pview" Property="pcake:PancakeView.BackgroundColor" Value="{DynamicResource BackGroundWhite}"/>
+                                                        <Setter TargetName="CoinNameLabel" Property="Label.TextColor" Value="#0D1F3C"/>
+                                                        <Setter TargetName="CoinSymbolLabel" Property="Label.TextColor" Value="Black"/>
+                                                        <Setter TargetName="CoinPriceLabel" Property="Label.TextColor" Value="#0D1F3C"/>
+
+                                                    </VisualState.Setters>
+                                                </VisualState>
+
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
                                         <pcake:PancakeView HeightRequest="40" Padding="15,10"
-                                            
+                                            x:Name="Pview"
                                             CornerRadius="40"
                                             BackgroundColor="{DynamicResource BackGroundWhite}">
+                                            
                                             <Grid RowDefinitions="*,*" ColumnDefinitions="auto,*,auto">
+                                                
                                                 <Image Grid.RowSpan="2" Source="{Binding Logo}"/>
-                                                <Label Grid.Column="1" 
+                                                <Label 
+                                                       x:Name="CoinNameLabel"
+                                                       Grid.Column="1" 
                                                        Margin="10,0,0,0"
                                                        Grid.Row="0" 
                                                        Text="{Binding name}" 
                                                        FontAttributes="Bold" FontSize="15" TextColor="#0D1F3C"/>
                                                 <Label Grid.Column="1"
+                                                       x:Name="CoinSymbolLabel"
                                                        Margin="10,0,0,0"
                                                        Grid.Row="1" Text="{Binding symbol}" TextColor="Black"/>
                                                 <Label Grid.Column="2" Grid.RowSpan="2" 
                                                        VerticalOptions="Center"
+                                                       x:Name="CoinPriceLabel"
                                                        FontAttributes="Bold"
-                                                       Text="{Binding price, StringFormat='${0:F2}'}" FontSize="15" TextColor="#0D1F3C"/>
+                                                       Text="{Binding price, StringFormat='${0:N2}'}" FontSize="15" TextColor="#0D1F3C"/>
                                             </Grid>
                                         </pcake:PancakeView>
                                     </Grid>

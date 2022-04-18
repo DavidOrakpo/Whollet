@@ -28,7 +28,16 @@ namespace Whollet.Services.CoinGecko
 
             var startDateEpoch = DateTimetoEpochConverter(startdate);
             var endDateEpoch = DateTimetoEpochConverter(enddate);
-            var response = await _httpClient.GetAsync($"coins/{id}/market_chart/range?vs_currency={currency}&from={startDateEpoch}&to={endDateEpoch}");
+            var response = new HttpResponseMessage();
+            if (id is null)
+            {
+                 response = await _httpClient.GetAsync($"coins/bitcoin/market_chart/range?vs_currency={currency}&from={startDateEpoch}&to={endDateEpoch}");
+            }
+            else
+            {
+                 response = await _httpClient.GetAsync($"coins/{id}/market_chart/range?vs_currency={currency}&from={startDateEpoch}&to={endDateEpoch}");
+            }
+            
             response.EnsureSuccessStatusCode();
             var responseStream =  await response.Content.ReadAsStreamAsync();
             var responseObject = await JsonSerializer.DeserializeAsync<CoinGeckoPrice>(responseStream);
