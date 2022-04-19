@@ -209,11 +209,36 @@
                     </Grid>
                 </Grid>
                 <ScrollView Grid.Row="1">
-                    <Grid RowDefinitions="auto,*,*,auto" Grid.Row="1">
-                        <StackLayout Grid.Row="0">
-                            <Label Text="Assets" TextColor="Black" FontAttributes="Bold"/>
+                    <Grid RowDefinitions="auto,*,*,auto" ColumnDefinitions="*,auto" Grid.Row="1">
+                        <StackLayout Grid.Row="0" >
+                            <Grid ColumnDefinitions="*,auto" HeightRequest="35" Padding="10,0,-10,0" >
+                                <Label Text="Assets" VerticalOptions="Center" TextColor="{DynamicResource SkipBlue}" FontAttributes="Bold"/>
+                                <dxe:ComboBoxEdit Grid.Row="0" Grid.Column="1" IsLabelFloating="True" 
+                                                  FocusedBorderColor="{DynamicResource SkipBlue}"
+                                                  Margin="0,-10,0,0"
+                                                  FocusedBorderThickness="2"
+                                                  Scale="0.7"
+                                                  WidthRequest="170"
+                                                  LabelText="Sort"
+                                                  LabelColor="Black"
+                                                  CornerRadius="10"
+                                                  BoxHeight="35"
+                                                  LabelFontSize="15"
+                                                  SelectionChangedCommand="{Binding SortCommand}"
+                                                  VerticalOptions="StartAndExpand"
+                                                  IsFilterEnabled="True"
+                                                  FilterMode="StartsWith"
+                                                  FilterComparisonType="CurrentCultureIgnoreCase"
+                                                  x:Name="combobox"
+                                                  SelectionChangedCommandParameter="{Binding Source={x:Reference combobox}, Path=SelectedItem}"
+                                                   ItemsSource="{Binding SortValues}">
+
+                                </dxe:ComboBoxEdit>
+                            </Grid>
+                            
                             <CollectionView x:Name="cview" ItemsSource="{Binding LatestListings}"
                                             SelectionMode="Single" 
+                                            
                                             SelectionChangedCommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem}"  
                                             SelectionChangedCommand="{Binding GetCoinCommand}">
 

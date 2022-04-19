@@ -288,6 +288,41 @@ namespace Whollet.ViewModel
 
         }
 
+        public List<string> SortValues { get;  } = new List<string>
+        {
+            "Name",
+            "Price",
+            "Price Change"
+        };
+
+        public Command SortCommand => new Command((x) =>
+        {
+            
+            var parameter = x.ToString();
+            switch (parameter)
+            {
+                case "Name":
+                    var temp = LatestListings.OrderByDescending(i => i.name).Reverse().ToList();
+                    LatestListings.Clear();
+                    LatestListings = new ObservableCollection<LatestListings>(temp);
+                    break;
+                case "Price":
+                    var temp1 = LatestListings.OrderByDescending(i => i.price).ToList();
+                    LatestListings.Clear();
+                    LatestListings = new ObservableCollection<LatestListings>(temp1);
+                    break;
+                case "Price Change":
+                    var temp2 = LatestListings.OrderByDescending(i => i.price_change_24h).ToList();
+                    LatestListings.Clear();
+                    LatestListings = new ObservableCollection<LatestListings>(temp2);
+                    break;
+                default:
+                    break;
+            }
+            
+             
+        });
+
         public Command GridStateCommand => new Command((x) =>
         {
             if (gridselected is not null)
