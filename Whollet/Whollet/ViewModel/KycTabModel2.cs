@@ -15,11 +15,18 @@ namespace Whollet.ViewModel
 {
     public class KycTabModel2 : BaseViewModel
     {
-        private TabViewManager firstviewposition, secondviewposition, thirdviewposition;
-        private Dictionary<TabViewManager, ContentView> FirstViewDictionary = new Dictionary<TabViewManager, ContentView>();
-        private Dictionary<TabViewManager, ContentView> SecondViewDictionary = new Dictionary<TabViewManager, ContentView>();
-        private Dictionary<TabViewManager, ContentView> ThirdViewDictionary = new Dictionary<TabViewManager, ContentView>();
+        // These position keep stock of which Content View to show at any given moment, within the 3 tabs we're working with
+        private TabViewManager TransactionViewPosition, DepositViewPosition, portfolioViewPosition;
+
+        //These dictionaries store Content views, with their positions as keys for the three tabs
+        private Dictionary<TabViewManager, ContentView> TransactionsDictionary = new Dictionary<TabViewManager, ContentView>();
+        private Dictionary<TabViewManager, ContentView> DepositDictionary = new Dictionary<TabViewManager, ContentView>();
+        private Dictionary<TabViewManager, ContentView> PortfolioDictionary = new Dictionary<TabViewManager, ContentView>();
+
+        //These ContentView connects to the Xaml via data binding for dynamic changes via INotifyPropertyChanged
         ContentView firstview, secondview, thirdview;
+
+        //The index keeps track of which tab is on screen at any given moment via the Tab Changed Event
         private int _index;
 
         public KycTabModel2(TabViewManager position, int index)
@@ -27,18 +34,23 @@ namespace Whollet.ViewModel
 
             // Content view dictionaries populated
             //First view dictionary
-            FirstViewDictionary.Add(TabViewManager.FirstView, Startup.Resolve<TransactionsView>());
+            TransactionsDictionary.Add(TabViewManager.FirstView, Startup.Resolve<TransactionsView>());
             //Second view dictionary
-            SecondViewDictionary.Add(TabViewManager.FirstView, Startup.Resolve<EmptyStateView>());
-            SecondViewDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
-            SecondViewDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
-            SecondViewDictionary.Add(TabViewManager.FourthView, Startup.Resolve<WalletOverview>());
+            DepositDictionary.Add(TabViewManager.FirstView, Startup.Resolve<EmptyStateView>());
+            DepositDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
+            DepositDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
+         //   DepositDictionary.Add(TabViewManager.FourthView, Startup.Resolve<WalletOverview>());
             //Third view dictionary
-            ThirdViewDictionary.Add(TabViewManager.FirstView, Startup.Resolve<PortfolioView>());
+            PortfolioDictionary.Add(TabViewManager.FirstView, Startup.Resolve<PortfolioView>());
+            PortfolioDictionary.Add(TabViewManager.SecondView, Startup.Resolve<WalletOverview>());
             //TabPage assignment
             _index = index;
             ViewSwitcher(_index, position);
             LoadOtherViews();
+            if (ThirdView == PortfolioDictionary[portfolioViewPosition])
+            {
+                SecondView = null;
+            }
 
         }
 
@@ -63,16 +75,16 @@ namespace Whollet.ViewModel
             switch (index)
             {
                 case 0:
-                    firstviewposition = position;
-                    FirstView = FirstViewDictionary[firstviewposition];
+                    TransactionViewPosition = position;
+                    FirstView = TransactionsDictionary[TransactionViewPosition];
                     break;
                 case 1:
-                    secondviewposition = position;
-                    SecondView = SecondViewDictionary[secondviewposition];
+                    DepositViewPosition = position;
+                    SecondView = DepositDictionary[DepositViewPosition];
                     break;
                 case 2:
-                    thirdviewposition = position;
-                    ThirdView = ThirdViewDictionary[thirdviewposition];
+                    portfolioViewPosition = position;
+                    ThirdView = PortfolioDictionary[portfolioViewPosition];
                     break;
                 default:
                     break;
@@ -86,13 +98,13 @@ namespace Whollet.ViewModel
             switch (_index)
             {
                 case 0:
-                    ViewSwitcher(_index, firstviewposition);
+                    ViewSwitcher(_index, TransactionViewPosition);
                     break;
                 case 1:
-                    ViewSwitcher(_index, secondviewposition);
+                    ViewSwitcher(_index, DepositViewPosition);
                     break;
                 case 2:
-                    ViewSwitcher(_index, thirdviewposition);
+                    ViewSwitcher(_index, portfolioViewPosition);
                     break;
                 default:
                     break;
@@ -108,41 +120,41 @@ namespace Whollet.ViewModel
                 //use Index to determine which tab page is currently on screen. 
                 switch (_index)
                 {   case 0:
-                        switch (firstviewposition)
+                        switch (TransactionViewPosition)
                         {
                             case TabViewManager.FirstView:
-                                FirstView = FirstViewDictionary[TabViewManager.SecondView];
+                                FirstView = TransactionsDictionary[TabViewManager.SecondView];
                                 FirstView.BindingContext = this;
-                                firstviewposition = TabViewManager.SecondView;
+                                TransactionViewPosition = TabViewManager.SecondView;
                                 // MessagingCenter.Send<object>(this, "Hi");
                                 break;
                             case TabViewManager.SecondView:
-                                FirstView = FirstViewDictionary[TabViewManager.SecondView];
+                                FirstView = TransactionsDictionary[TabViewManager.SecondView];
                                 FirstView.BindingContext = this;
-                                firstviewposition = TabViewManager.SecondView;
+                                TransactionViewPosition = TabViewManager.SecondView;
                                 break;
                             case TabViewManager.ThirdView:
-                                FirstView = FirstViewDictionary[TabViewManager.SecondView];
+                                FirstView = TransactionsDictionary[TabViewManager.SecondView];
                                 FirstView.BindingContext = this;
-                                firstviewposition = TabViewManager.SecondView;
+                                TransactionViewPosition = TabViewManager.SecondView;
                                 //Currentview = ContentViewDictionary[TabViewManager.FourthView];
                                 //Currentview.BindingContext = this;
                                 //_position = TabViewManager.FourthView;
                                 break;
                             case TabViewManager.FourthView:
-                                SecondView = SecondViewDictionary[TabViewManager.FifthView];
+                                SecondView = DepositDictionary[TabViewManager.FifthView];
                                 //  Currentview.BindingContext = this;
                                 //  _position = TabViewManager.FifthView;
                                 break;
                             case TabViewManager.FifthView:
-                                SecondView = SecondViewDictionary[TabViewManager.SixthView];
+                                SecondView = DepositDictionary[TabViewManager.SixthView];
                                 SecondView.BindingContext = this;
-                                secondviewposition = TabViewManager.SixthView;
+                                DepositViewPosition = TabViewManager.SixthView;
                                 break;
                             case TabViewManager.SixthView:
-                                SecondView = SecondViewDictionary[TabViewManager.SeventhView];
+                                SecondView = DepositDictionary[TabViewManager.SeventhView];
                                 SecondView.BindingContext = this;
-                                secondviewposition = TabViewManager.SeventhView;
+                                DepositViewPosition = TabViewManager.SeventhView;
                                 break;
                             case TabViewManager.SeventhView:
                                 break;
@@ -152,18 +164,18 @@ namespace Whollet.ViewModel
                         // Write code controlling view navigation within first tab
                         break;
                     case 1:
-                        switch (secondviewposition)
+                        switch (DepositViewPosition)
                         {
                             case TabViewManager.FirstView:
-                                SecondView = SecondViewDictionary[TabViewManager.SecondView];
+                                SecondView = DepositDictionary[TabViewManager.SecondView];
                                 SecondView.BindingContext = this;
-                                secondviewposition = TabViewManager.SecondView;
+                                DepositViewPosition = TabViewManager.SecondView;
                                 // MessagingCenter.Send<object>(this, "Hi");
                                 break;
                             case TabViewManager.SecondView:
-                                SecondView = SecondViewDictionary[TabViewManager.ThirdView];
+                                SecondView = DepositDictionary[TabViewManager.ThirdView];
                                 SecondView.BindingContext = this;
-                                secondviewposition = TabViewManager.ThirdView;
+                                DepositViewPosition = TabViewManager.ThirdView;
                                 break;
                             case TabViewManager.ThirdView:
                                 SecondView.BindingContext = this;
@@ -173,19 +185,19 @@ namespace Whollet.ViewModel
                                 //_position = TabViewManager.FourthView;
                                 break;
                             case TabViewManager.FourthView:
-                                SecondView = SecondViewDictionary[TabViewManager.FifthView];
+                                SecondView = DepositDictionary[TabViewManager.FifthView];
                                 //  Currentview.BindingContext = this;
                                 //  _position = TabViewManager.FifthView;
                                 break;
                             case TabViewManager.FifthView:
-                                SecondView = SecondViewDictionary[TabViewManager.SixthView];
+                                SecondView = DepositDictionary[TabViewManager.SixthView];
                                 SecondView.BindingContext = this;
-                                secondviewposition = TabViewManager.SixthView;
+                                DepositViewPosition = TabViewManager.SixthView;
                                 break;
                             case TabViewManager.SixthView:
-                                SecondView = SecondViewDictionary[TabViewManager.SeventhView];
+                                SecondView = DepositDictionary[TabViewManager.SeventhView];
                                 SecondView.BindingContext = this;
-                                secondviewposition = TabViewManager.SeventhView;
+                                DepositViewPosition = TabViewManager.SeventhView;
                                 break;
                             case TabViewManager.SeventhView:
                                 break;
@@ -205,35 +217,35 @@ namespace Whollet.ViewModel
 
         public Command MoveBackCommand => new Command(() =>
         {
-            switch (secondviewposition)
+            switch (DepositViewPosition)
             {
                 case TabViewManager.FirstView:
                     RemoveCurrentPage();
                     break;
                 case TabViewManager.SecondView:
-                    SecondView = SecondViewDictionary[TabViewManager.FirstView];
+                    SecondView = DepositDictionary[TabViewManager.FirstView];
                     SecondView.BindingContext = this;
-                    secondviewposition = TabViewManager.FirstView;
+                    DepositViewPosition = TabViewManager.FirstView;
                     break;
                 case TabViewManager.ThirdView:
-                    SecondView = SecondViewDictionary[TabViewManager.SecondView];
+                    SecondView = DepositDictionary[TabViewManager.SecondView];
                     SecondView.BindingContext = this;
-                    secondviewposition = TabViewManager.SecondView;
+                    DepositViewPosition = TabViewManager.SecondView;
                     break;
                 case TabViewManager.FourthView:
-                    SecondView = SecondViewDictionary[TabViewManager.ThirdView];
+                    SecondView = DepositDictionary[TabViewManager.ThirdView];
                     SecondView.BindingContext = this;
-                    secondviewposition = TabViewManager.ThirdView;
+                    DepositViewPosition = TabViewManager.ThirdView;
                     break;
                 case TabViewManager.FifthView:
-                    SecondView = SecondViewDictionary[TabViewManager.FourthView];
+                    SecondView = DepositDictionary[TabViewManager.FourthView];
                     SecondView.BindingContext = this;
-                    secondviewposition = TabViewManager.FourthView;
+                    DepositViewPosition = TabViewManager.FourthView;
                     break;
                 case TabViewManager.SixthView:
-                    SecondView = SecondViewDictionary[TabViewManager.FifthView];
+                    SecondView = DepositDictionary[TabViewManager.FifthView];
                     SecondView.BindingContext = this;
-                    secondviewposition = TabViewManager.FifthView;
+                    DepositViewPosition = TabViewManager.FifthView;
                     break;
                 case TabViewManager.SeventhView:
                     break;

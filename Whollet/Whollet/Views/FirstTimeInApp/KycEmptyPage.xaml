@@ -137,7 +137,7 @@
         <Grid>
             <xct:TabView x:Name="KycTabView"
                          x:FieldModifier="Public"
-                         
+                         IsSwipeEnabled="False"
                          Style="{StaticResource CustomTabStyle}">
                 <xct:TabView.Behaviors>
                     <xct:EventToCommandBehavior EventName="SelectionChanged" Command="{Binding TabChanged}"/>
@@ -165,6 +165,7 @@
                                  ControlTemplate="{StaticResource FabTabItemTemplate}" 
                                  Text="Deposit"                                
                                  TranslationY="-10"
+                                 
                                  Style="{StaticResource TabItemStyle}"
                                  Icon="deposit.png">
 

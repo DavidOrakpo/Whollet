@@ -295,7 +295,7 @@ namespace Whollet.ViewModel
             "Price Change"
         };
 
-        public Command SortCommand => new Command((x) =>
+        public Command SortCommand => new Command(async (x) =>
         {
             
             var parameter = x.ToString();
@@ -304,16 +304,19 @@ namespace Whollet.ViewModel
                 case "Name":
                     var temp = LatestListings.OrderByDescending(i => i.name).Reverse().ToList();
                     LatestListings.Clear();
+                    await Task.Delay(500);
                     LatestListings = new ObservableCollection<LatestListings>(temp);
                     break;
                 case "Price":
                     var temp1 = LatestListings.OrderByDescending(i => i.price).ToList();
                     LatestListings.Clear();
+                    await Task.Delay(500);
                     LatestListings = new ObservableCollection<LatestListings>(temp1);
                     break;
                 case "Price Change":
                     var temp2 = LatestListings.OrderByDescending(i => i.price_change_24h).ToList();
                     LatestListings.Clear();
+                    await Task.Delay(500);
                     LatestListings = new ObservableCollection<LatestListings>(temp2);
                     break;
                 default:

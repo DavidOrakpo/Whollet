@@ -244,9 +244,9 @@
 
                             <CollectionView.EmptyView>
                                 <ContentView Padding="10">
-                                    <StackLayout VerticalOptions="Start">
-                                        <ActivityIndicator VerticalOptions="Start" IsRunning="True" HorizontalOptions="Center"/>
-                                        <Label Text="Loading..." FontSize="28" TextColor="#0D1F3C" VerticalOptions="Start" HorizontalOptions="Center"/>
+                                    <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+                                        <ActivityIndicator VerticalOptions="Start" IsRunning="True" Color="{DynamicResource SkipBlue}" HorizontalOptions="Center"/>
+                                        <Label Text="Loading..." FontSize="28" TextColor="{DynamicResource SkipBlue}" VerticalOptions="Start" HorizontalOptions="Center"/>
                                     </StackLayout>
                                 </ContentView>
                             </CollectionView.EmptyView>
@@ -299,7 +299,7 @@
                                                 <Label Grid.Column="1"
                                                        x:Name="CoinSymbolLabel"
                                                        Margin="10,0,0,0"
-                                                       Grid.Row="1" Text="{Binding symbol}" TextColor="Black"/>
+                                                       Grid.Row="1" Text="{Binding symbol, StringFormat='{0}'}" TextColor="Black"/>
                                                 <Label Grid.Column="2" Grid.RowSpan="2" 
                                                        VerticalOptions="Center"
                                                        x:Name="CoinPriceLabel"

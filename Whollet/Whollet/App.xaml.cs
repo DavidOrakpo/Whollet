@@ -29,8 +29,9 @@ namespace Whollet
     {
         public App()
         {
+            
             DevExpress.XamarinForms.Editors.Initializer.Init();
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NTczNTcxQDMxMzkyZTM0MmUzMFZ4ODIxR29WNnNIdjVSMFlyVDg1NmF3dGpsdkNIMTRhRTFqSWhiRFRSSjg9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NjE5NTk1QDMyMzAyZTMxMmUzMFp2V1JraXZiN2lPd3doUm4xSnozRThVaEdJa1NjSnIyaThWMlF4c2F2QVk9");
             InitializeComponent();
             Startup.ConfigureServices();
             //NTczNTcxQDMxMzkyZTM0MmUzMFZ4ODIxR29WNnNIdjVSMFlyVDg1NmF3dGpsdkNIMTRhRTFqSWhiRFRSSjg9

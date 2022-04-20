@@ -21,26 +21,26 @@ namespace Whollet.Views.Wallet
             BindingContext = vm;
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            if (lastElementSelected is not null)
-            {
-                VisualStateManager.GoToState(lastElementSelected, "UnSelected");
-            }
-            VisualStateManager.GoToState((Label)sender, "Selected");
-            lastElementSelected = (Label)sender;
-        }
-        private void TapGestureRecognizer_Tapped2(object sender, EventArgs e)
-        {
-            if (gridselected is not null)
-            {
-                VisualStateManager.GoToState(gridselected, "UnSelected");
-            }
-            VisualStateManager.GoToState((Grid)sender, "Selected");
-            gridselected = (Grid)sender;
-          //  var t = cview.SelectedItem;
-          //  cview.SelectionChangedCommand.Execute(this.cview.SelectedItem);
-        }
+        //private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        //{
+        //    if (lastElementSelected is not null)
+        //    {
+        //        VisualStateManager.GoToState(lastElementSelected, "UnSelected");
+        //    }
+        //    VisualStateManager.GoToState((Label)sender, "Selected");
+        //    lastElementSelected = (Label)sender;
+        //}
+        //private void TapGestureRecognizer_Tapped2(object sender, EventArgs e)
+        //{
+        //    if (gridselected is not null)
+        //    {
+        //        VisualStateManager.GoToState(gridselected, "UnSelected");
+        //    }
+        //    VisualStateManager.GoToState((Grid)sender, "Selected");
+        //    gridselected = (Grid)sender;
+        //  //  var t = cview.SelectedItem;
+        //  //  cview.SelectionChangedCommand.Execute(this.cview.SelectedItem);
+        //}
 
 
 
