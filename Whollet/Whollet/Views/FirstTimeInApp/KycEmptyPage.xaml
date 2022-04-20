@@ -137,7 +137,7 @@
         <Grid>
             <xct:TabView x:Name="KycTabView"
                          x:FieldModifier="Public"
-                         IsSwipeEnabled="False"
+                         IsSwipeEnabled="True"
                          Style="{StaticResource CustomTabStyle}">
                 <xct:TabView.Behaviors>
                     <xct:EventToCommandBehavior EventName="SelectionChanged" Command="{Binding TabChanged}"/>
@@ -169,9 +169,9 @@
                                  Style="{StaticResource TabItemStyle}"
                                  Icon="deposit.png">
 
-                    <ContentView Content="{Binding SecondView}">
+                    <!--<ContentView Content="{Binding SecondView}">
 
-                    </ContentView>
+                    </ContentView>-->
                     
                 </xct:TabViewItem>
                 <!-- THIRD TAB ITEM -->

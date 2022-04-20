@@ -16,7 +16,7 @@ namespace Whollet.ViewModel
     public class KycTabModel2 : BaseViewModel
     {
         // These position keep stock of which Content View to show at any given moment, within the 3 tabs we're working with
-        private TabViewManager TransactionViewPosition, DepositViewPosition, portfolioViewPosition;
+        private TabViewManager TransactionViewPosition, DepositViewPosition, PortfolioViewPosition;
 
         //These dictionaries store Content views, with their positions as keys for the three tabs
         private Dictionary<TabViewManager, ContentView> TransactionsDictionary = new Dictionary<TabViewManager, ContentView>();
@@ -36,27 +36,32 @@ namespace Whollet.ViewModel
             //First view dictionary
             TransactionsDictionary.Add(TabViewManager.FirstView, Startup.Resolve<TransactionsView>());
             //Second view dictionary
-            DepositDictionary.Add(TabViewManager.FirstView, Startup.Resolve<EmptyStateView>());
-            DepositDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
-            DepositDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
-         //   DepositDictionary.Add(TabViewManager.FourthView, Startup.Resolve<WalletOverview>());
+                    //DepositDictionary.Add(TabViewManager.FirstView, Startup.Resolve<EmptyStateView>());
+                    //DepositDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
+                    //DepositDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
+            //   DepositDictionary.Add(TabViewManager.FourthView, Startup.Resolve<WalletOverview>());
             //Third view dictionary
-            PortfolioDictionary.Add(TabViewManager.FirstView, Startup.Resolve<PortfolioView>());
-            PortfolioDictionary.Add(TabViewManager.SecondView, Startup.Resolve<WalletOverview>());
+            PortfolioDictionary.Add(TabViewManager.FirstView, Startup.Resolve<EmptyStateView>());
+            PortfolioDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
+            PortfolioDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
+            PortfolioDictionary.Add(TabViewManager.FourthView, Startup.Resolve<PortfolioView>());
+            PortfolioDictionary.Add(TabViewManager.FifthView, Startup.Resolve<WalletOverview>());
             //TabPage assignment
             _index = index;
             ViewSwitcher(_index, position);
             LoadOtherViews();
-            if (ThirdView == PortfolioDictionary[portfolioViewPosition])
-            {
-                SecondView = null;
-            }
+            
+            
+            //if (ThirdView == PortfolioDictionary[portfolioViewPosition])
+            //{
+            //    SecondView = null;
+            //}
 
         }
 
         private void LoadOtherViews()
         {
-            var t = new List<int> { 0, 1, 2 };
+            var t = new List<int> { 0, 1 };
             foreach (var indx in t)
             {
                 if (indx == _index)
@@ -79,12 +84,9 @@ namespace Whollet.ViewModel
                     FirstView = TransactionsDictionary[TransactionViewPosition];
                     break;
                 case 1:
-                    DepositViewPosition = position;
-                    SecondView = DepositDictionary[DepositViewPosition];
-                    break;
-                case 2:
-                    portfolioViewPosition = position;
-                    ThirdView = PortfolioDictionary[portfolioViewPosition];
+                    //removing the deopsit view will cause alot of bugs fml
+                    PortfolioViewPosition = position;
+                    ThirdView = PortfolioDictionary[PortfolioViewPosition];
                     break;
                 default:
                     break;
@@ -101,10 +103,7 @@ namespace Whollet.ViewModel
                     ViewSwitcher(_index, TransactionViewPosition);
                     break;
                 case 1:
-                    ViewSwitcher(_index, DepositViewPosition);
-                    break;
-                case 2:
-                    ViewSwitcher(_index, portfolioViewPosition);
+                    ViewSwitcher(_index, PortfolioViewPosition);
                     break;
                 default:
                     break;
@@ -164,28 +163,29 @@ namespace Whollet.ViewModel
                         // Write code controlling view navigation within first tab
                         break;
                     case 1:
-                        switch (DepositViewPosition)
+                        switch (PortfolioViewPosition)
                         {
                             case TabViewManager.FirstView:
-                                SecondView = DepositDictionary[TabViewManager.SecondView];
-                                SecondView.BindingContext = this;
-                                DepositViewPosition = TabViewManager.SecondView;
+                                ThirdView = PortfolioDictionary[TabViewManager.SecondView];
+                                ThirdView.BindingContext = this;
+                                PortfolioViewPosition = TabViewManager.SecondView;
                                 // MessagingCenter.Send<object>(this, "Hi");
                                 break;
                             case TabViewManager.SecondView:
-                                SecondView = DepositDictionary[TabViewManager.ThirdView];
-                                SecondView.BindingContext = this;
-                                DepositViewPosition = TabViewManager.ThirdView;
+                                ThirdView = PortfolioDictionary[TabViewManager.ThirdView];
+                                ThirdView.BindingContext = this;
+                                PortfolioViewPosition = TabViewManager.ThirdView;
                                 break;
                             case TabViewManager.ThirdView:
-                                SecondView.BindingContext = this;
-                                Application.Current.MainPage.DisplayAlert("Testing", "It works", "Ok");
+                                ThirdView = PortfolioDictionary[TabViewManager.FourthView];
+                                
+                                PortfolioViewPosition = TabViewManager.FourthView;
                                 //Currentview = ContentViewDictionary[TabViewManager.FourthView];
                                 //Currentview.BindingContext = this;
                                 //_position = TabViewManager.FourthView;
                                 break;
                             case TabViewManager.FourthView:
-                                SecondView = DepositDictionary[TabViewManager.FifthView];
+                                
                                 //  Currentview.BindingContext = this;
                                 //  _position = TabViewManager.FifthView;
                                 break;

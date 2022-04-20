@@ -17,7 +17,7 @@ namespace Whollet.ViewModel
 
         public Command GoToWallet => new Command(() =>
         {
-            var walletpage = ActivatorUtilities.CreateInstance<KycEmptyPage>(Startup.serviceprovider, TabViewManager.SecondView, 2);
+            var walletpage = ActivatorUtilities.CreateInstance<KycEmptyPage>(Startup.serviceprovider, TabViewManager.FifthView, 1);
             GoToPageAsync(walletpage);
             RemovePagesFromStack(4);
         });

@@ -22,7 +22,7 @@ namespace Whollet.Views.FirstTimeInApp
             _model = ActivatorUtilities.CreateInstance<KycTabModel2>(Startup.serviceprovider, view, index);
             InitializeComponent();
             BindingContext = _model;
-            KycTabView.SelectedIndex = index;
+            KycTabView.SelectedIndex = index + 1;
             
            // Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 1]);
         }

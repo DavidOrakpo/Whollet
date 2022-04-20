@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevExpress.XamarinForms.Editors" Version="21.2.6" />
+    <PackageReference Include="DevExpress.XamarinForms.Editors" Version="21.2.7" />
     <PackageReference Include="FormsPinView" Version="2.0.0" />
     <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.26.1" />
