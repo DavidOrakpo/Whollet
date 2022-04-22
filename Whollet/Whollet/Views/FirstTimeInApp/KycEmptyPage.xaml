@@ -4,9 +4,10 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:Whollet.ViewModel"           
              xmlns:views="clr-namespace:Whollet.Views.FirstTimeInApp"
-             xmlns:dtemplate="clr-namespace:Whollet.DataTenplateSelectors"
+             xmlns:dtemplate="clr-namespace:Whollet.DataTenplateSelectors" 
+             xmlns:deposit="clr-namespace:Whollet.Views.Deposit"
              NavigationPage.HasNavigationBar="False"
-             
+             x:Name="RootPage"
              x:Class="Whollet.Views.FirstTimeInApp.KycEmptyPage">
     
     
@@ -134,8 +135,10 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid>
+        <Grid RowDefinitions="auto,*">
             <xct:TabView x:Name="KycTabView"
+                         Grid.Row="0"
+                         Grid.RowSpan="2"
                          x:FieldModifier="Public"
                          IsSwipeEnabled="True"
                          Style="{StaticResource CustomTabStyle}">
@@ -165,7 +168,7 @@
                                  ControlTemplate="{StaticResource FabTabItemTemplate}" 
                                  Text="Deposit"                                
                                  TranslationY="-10"
-                                 
+                                 TabTapped="Middle_tab_TabTapped"
                                  Style="{StaticResource TabItemStyle}"
                                  Icon="deposit.png">
 
@@ -184,6 +187,22 @@
                 </xct:TabViewItem>
 
             </xct:TabView>
+            <BoxView
+                x:Name="PageFader"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                BackgroundColor="{StaticResource PageFadeColor}"
+                IsVisible="false"
+                Opacity="0">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="PageFader_Tapped" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <deposit:DepositPopView 
+                x:Name="DepView"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                TranslationY="{Binding Source={x:Reference RootPage}, Path=Height}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

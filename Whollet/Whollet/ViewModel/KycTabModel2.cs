@@ -173,16 +173,16 @@ namespace Whollet.ViewModel
                                 break;
                             case TabViewManager.SecondView:
                                 ThirdView = PortfolioDictionary[TabViewManager.ThirdView];
+                                
                                 ThirdView.BindingContext = this;
                                 PortfolioViewPosition = TabViewManager.ThirdView;
                                 break;
                             case TabViewManager.ThirdView:
                                 ThirdView = PortfolioDictionary[TabViewManager.FourthView];
-                                
+                                var model = Startup.Resolve<PortfolioViewModel>();
+                                ThirdView.BindingContext = model;
                                 PortfolioViewPosition = TabViewManager.FourthView;
-                                //Currentview = ContentViewDictionary[TabViewManager.FourthView];
-                                //Currentview.BindingContext = this;
-                                //_position = TabViewManager.FourthView;
+                                
                                 break;
                             case TabViewManager.FourthView:
                                 
@@ -217,42 +217,81 @@ namespace Whollet.ViewModel
 
         public Command MoveBackCommand => new Command(() =>
         {
-            switch (DepositViewPosition)
+            switch (_index)
             {
-                case TabViewManager.FirstView:
-                    RemoveCurrentPage();
+                case 0:
+                    switch (TransactionViewPosition)
+                    {
+                        case TabViewManager.FirstView:
+                            Application.Current.MainPage.Navigation.PopAsync();
+                            break;
+                        case TabViewManager.SecondView:
+                            FirstView = TransactionsDictionary[TabViewManager.FirstView];
+                            FirstView.BindingContext = this;
+                            TransactionViewPosition = TabViewManager.FirstView;
+                            break;
+                        case TabViewManager.ThirdView:
+                            break;
+                        case TabViewManager.FourthView:
+                            break;
+                        case TabViewManager.FifthView:
+                            break;
+                        case TabViewManager.SixthView:
+                            break;
+                        case TabViewManager.SeventhView:
+                            break;
+                        default:
+                            break;
+                    }
                     break;
-                case TabViewManager.SecondView:
-                    SecondView = DepositDictionary[TabViewManager.FirstView];
-                    SecondView.BindingContext = this;
-                    DepositViewPosition = TabViewManager.FirstView;
-                    break;
-                case TabViewManager.ThirdView:
-                    SecondView = DepositDictionary[TabViewManager.SecondView];
-                    SecondView.BindingContext = this;
-                    DepositViewPosition = TabViewManager.SecondView;
-                    break;
-                case TabViewManager.FourthView:
-                    SecondView = DepositDictionary[TabViewManager.ThirdView];
-                    SecondView.BindingContext = this;
-                    DepositViewPosition = TabViewManager.ThirdView;
-                    break;
-                case TabViewManager.FifthView:
-                    SecondView = DepositDictionary[TabViewManager.FourthView];
-                    SecondView.BindingContext = this;
-                    DepositViewPosition = TabViewManager.FourthView;
-                    break;
-                case TabViewManager.SixthView:
-                    SecondView = DepositDictionary[TabViewManager.FifthView];
-                    SecondView.BindingContext = this;
-                    DepositViewPosition = TabViewManager.FifthView;
-                    break;
-                case TabViewManager.SeventhView:
+                case 1:
+                    switch (PortfolioViewPosition)
+                    {
+                        case TabViewManager.FirstView:
+                            Application.Current.MainPage.Navigation.PopAsync();
+                            break;
+                        case TabViewManager.SecondView:
+                            ThirdView = PortfolioDictionary[TabViewManager.FirstView];
+                            ThirdView.BindingContext = this;
+                            PortfolioViewPosition = TabViewManager.FirstView;
+                            break;
+                        case TabViewManager.ThirdView:
+                            ThirdView = PortfolioDictionary[TabViewManager.SecondView];
+                            ThirdView.BindingContext = this;
+                            PortfolioViewPosition = TabViewManager.SecondView;
+                            break;
+                        case TabViewManager.FourthView:
+                            ThirdView = PortfolioDictionary[TabViewManager.ThirdView];
+                            ThirdView.BindingContext = this;
+                            PortfolioViewPosition = TabViewManager.ThirdView;
+                            break;
+                        case TabViewManager.FifthView:
+                            ThirdView = PortfolioDictionary[TabViewManager.FourthView];
+                            ThirdView.BindingContext = this;
+                            PortfolioViewPosition = TabViewManager.FourthView;
+                            break;
+                        case TabViewManager.SixthView:
+                            ThirdView = PortfolioDictionary[TabViewManager.FifthView];
+                            ThirdView.BindingContext = this;
+                            PortfolioViewPosition = TabViewManager.FifthView;
+                            break;
+                        case TabViewManager.SeventhView:
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
             }
+            
         });
+
+        public Command MyBackPressCommand => new Command(() =>
+        {
+            Application.Current.MainPage.DisplayAlert("It is working", "Nice", "ok");
+        });
+
         public ContentView SecondView
         {
             get

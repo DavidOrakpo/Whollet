@@ -13,6 +13,7 @@
             <SolidColorBrush x:Key="GrayPinBackground">Gray</SolidColorBrush>
             <Color x:Key="PlaceholderGrey">#3D4C63</Color>
             <Color x:Key="DescriptionBlack">#485068</Color>
+            <Color x:Key="PageFadeColor">#AA000000</Color>
             <!--Control Templates-->
             <ControlTemplate x:Key="Login/Welcome Template">
                 <AbsoluteLayout>

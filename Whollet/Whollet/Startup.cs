@@ -16,6 +16,7 @@ using System.Net.Http;
 using System.Net;
 using Whollet.Services.Roqqu;
 using Whollet.Services.CoinGecko;
+using Whollet.Views.Deposit;
 
 namespace Whollet
 {
@@ -83,6 +84,7 @@ namespace Whollet
             services.AddTransient<PortfolioViewModel>();
             services.AddTransient<TransactionsViewModel>();
             services.AddTransient<WalletOverviewViewModel>();
+            services.AddTransient<DepositPopViewModel>();
 
             //add pages/views
             services.AddTransient<OnboardingPage>();
@@ -111,6 +113,8 @@ namespace Whollet
             services.AddTransient<TransactionsView>();
                     //Wallet
             services.AddTransient<WalletOverview>();
+                    //Deposit
+            services.AddTransient<DepositPopView>();
 
             
 

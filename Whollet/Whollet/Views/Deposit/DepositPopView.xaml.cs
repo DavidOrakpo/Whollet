@@ -7,26 +7,21 @@ using Whollet.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Whollet.Views.FirstTimeInApp
+namespace Whollet.Views.Deposit
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PortfolioView : ContentView
+    public partial class DepositPopView : ContentView
     {
-        private PortfolioViewModel viewModel;
-        public PortfolioView(PortfolioViewModel vm)
+        DepositPopViewModel viewModel;
+        public DepositPopView(DepositPopViewModel vm)
         {
-            viewModel = vm;
             InitializeComponent();
+            viewModel = vm;
             BindingContext = viewModel;
         }
-        public PortfolioView()
+        public DepositPopView()
         {
             InitializeComponent();
         }
-
-        //protected virtual void OnAppearing()
-        //{
-        //    BindingContext = viewModel;
-        //}
     }
 }
