@@ -42,6 +42,8 @@ namespace Whollet.Views.Wallet
             //  cview.SelectionChangedCommand.Execute(this.cview.SelectedItem);
         }
 
+         
+
 
 
         //private void Button_Pressed(object sender, EventArgs e)

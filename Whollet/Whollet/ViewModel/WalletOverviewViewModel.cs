@@ -21,6 +21,9 @@ namespace Whollet.ViewModel
         private IGeckoPriceHistoryService _geckoPriceHistory;
         private Grid gridselected;
 
+        
+
+
         public WalletOverviewViewModel(IGeckoPriceHistoryService geckoPriceHistory)
         {
            // _cryptoservice = cryptoService;

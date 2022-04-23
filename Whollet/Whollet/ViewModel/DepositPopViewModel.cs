@@ -6,6 +6,13 @@ namespace Whollet.ViewModel
 {
     public class DepositPopViewModel
     {
+        
+
+        public DepositPopViewModel()
+        {
+
+        }
+
 
     }
 }

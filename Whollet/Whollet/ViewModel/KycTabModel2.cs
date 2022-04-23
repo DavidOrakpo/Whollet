@@ -29,6 +29,8 @@ namespace Whollet.ViewModel
         //The index keeps track of which tab is on screen at any given moment via the Tab Changed Event
         private int _index;
 
+        
+
         public KycTabModel2(TabViewManager position, int index)
         {
 
