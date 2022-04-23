@@ -17,15 +17,19 @@ namespace Whollet.Views.FirstTimeInApp
     public partial class KycEmptyPage : ContentPage
     {
         private KycTabModel2 _model;
+        private bool _showDeposit;
         const uint AnimationSpeed = 300;
         private bool PoppedUp = false;
 
-        public delegate ObservableCollection<LatestListings> DepositSelectedCoin();
-        public DepositSelectedCoin OnDepositTapped { get; set; }
+        //public delegate ObservableCollection<LatestListings> DepositSelectedCoin();
+        //public DepositSelectedCoin OnDepositTapped { get; set; }
 
-        public KycEmptyPage(TabViewManager view, int index)
+        public static event EventHandler OnDepositTapped;
+
+        public KycEmptyPage(TabViewManager view, int index, bool showDeposit = false)
         {
             _model = ActivatorUtilities.CreateInstance<KycTabModel2>(Startup.serviceprovider, view, index);
+            _showDeposit = showDeposit;
             InitializeComponent();
             BindingContext = _model;
             KycTabView.SelectedIndex = index + 1;
@@ -66,14 +70,22 @@ namespace Whollet.Views.FirstTimeInApp
 
         private void Middle_tab_TabTapped(object sender, Xamarin.CommunityToolkit.UI.Views.TabTappedEventArgs e)
         {
-            var rootpageheight = Height;
-            var depviewheight = rootpageheight / 3;
-            PageFader.IsVisible = true;
-            PageFader.FadeTo(1, AnimationSpeed, Easing.SinInOut);
-            DepView.TranslateTo(0, depviewheight, AnimationSpeed, Easing.SinInOut);
-            OnDepositTapped?.Invoke();
+            if (_showDeposit)
+            {
+                var rootpageheight = Height;
+                var depviewheight = rootpageheight / 3;
+                PageFader.IsVisible = true;
+                PageFader.FadeTo(1, AnimationSpeed, Easing.SinInOut);
+                DepView.TranslateTo(0, depviewheight, AnimationSpeed, Easing.SinInOut);
+                OnDepositTapped?.Invoke(this, EventArgs.Empty);
+
+                PoppedUp = true;
+            }
+            else
+            {
+
+            }
             
-            PoppedUp = true;
         }
 
 

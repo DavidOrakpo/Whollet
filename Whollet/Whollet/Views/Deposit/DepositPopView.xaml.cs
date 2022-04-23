@@ -22,6 +22,8 @@ namespace Whollet.Views.Deposit
         public DepositPopView()
         {
             InitializeComponent();
+            viewModel = Startup.Resolve<DepositPopViewModel>();
+            BindingContext = viewModel;
         }
     }
 }

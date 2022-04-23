@@ -12,6 +12,7 @@ using Whollet.Services.CoinGecko;
 using Microcharts;
 using SkiaSharp;
 using System.Globalization;
+using Whollet.Views.FirstTimeInApp;
 
 namespace Whollet.ViewModel
 {
@@ -21,7 +22,7 @@ namespace Whollet.ViewModel
         private IGeckoPriceHistoryService _geckoPriceHistory;
         private Grid gridselected;
 
-        
+        public static event EventHandler<ObservableCollection<LatestListings>> PopulateCarouselView;
 
 
         public WalletOverviewViewModel(IGeckoPriceHistoryService geckoPriceHistory)
@@ -30,7 +31,19 @@ namespace Whollet.ViewModel
             _geckoPriceHistory = geckoPriceHistory;
             PopulateListCommand.Execute(this);
             PopulateChartCommand.Execute(this);
+            KycEmptyPage.OnDepositTapped += KycEmptyPage_OnDepositTapped;
         }
+
+        //~WalletOverviewViewModel()
+        //{
+        //    KycEmptyPage.OnDepositTapped -= KycEmptyPage_OnDepositTapped;
+        //}
+
+        private void KycEmptyPage_OnDepositTapped(object sender, EventArgs e)
+        {
+            PopulateCarouselView?.Invoke(this, LatestListings);
+        }
+
         public async Task PopulateList()
         {
             var temp = await _geckoPriceHistory.GetGeckoLatest(limit: 20);

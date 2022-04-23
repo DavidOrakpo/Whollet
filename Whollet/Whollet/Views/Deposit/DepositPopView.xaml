@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="Whollet.Views.Deposit.DepositPopView">
   <ContentView.Content>
-      <Grid  RowDefinitions="50,*" Padding="0,5,0,0">
-            <BoxView Grid.Row="1" CornerRadius="20,20,0,0" BackgroundColor="White"/>
-            <Ellipse Stroke="White"
+      <Grid  RowDefinitions="35,*" Padding="0,5,0,0">
+            <BoxView Grid.Row="1" CornerRadius="20,20,0,0" BackgroundColor="#EDF1F9"/>
+            <Ellipse Stroke="#EDF1F9"
                 HorizontalOptions="Center"
                 VerticalOptions="Start"
                 Grid.RowSpan="2"
                 StrokeThickness="6"
                 Fill="#347AF0"
-                WidthRequest="100"
-                HeightRequest="100"
+                WidthRequest="80"
+                HeightRequest="80"
                  />
             <ImageButton BackgroundColor="Transparent" Grid.Row="1" Source="deposit.png" Aspect="AspectFit" Rotation="45" Margin="0,-50,0,0" Scale="0.4"
                    HeightRequest="100" WidthRequest="100" VerticalOptions="Start" HorizontalOptions="Center"/>
@@ -24,7 +24,59 @@
 
             <Grid Grid.Row="1" Padding="20" Margin="0,30,0,0" RowDefinitions="auto,auto,auto,auto,auto">
                 <Label Text="Deposit Coins" FontFamily="TitilliumBold" TextColor="{DynamicResource TitleBlack}" FontSize="26" HorizontalOptions="Center"/>
-                
+                <CarouselView Grid.Row="1" Margin="0,20,0,0"  ItemsSource="{Binding LatestListings}" HeightRequest="60" PeekAreaInsets="70" WidthRequest="80">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="30"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HasShadow="False" Padding="10" BackgroundColor="{DynamicResource PureWhite}" HeightRequest="200" WidthRequest="20" CornerRadius="40">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="State">
+                                        <VisualState x:Name="NextItem">
+                                            <VisualState.Setters>
+                                                
+                                                <Setter Property="CornerRadius" Value="40"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="PreviousItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="Opacity"
+                                                                                Value="0.5" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="CurrentItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="Opacity"
+                                                                         Value="0.5" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="DefaultItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="Opacity"
+                                        Value="0.25" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid ColumnDefinitions="auto, *">
+                                    <Image Source="{Binding Logo}"/>
+                                    
+                                    <Label x:Name="CoinNameLabel"
+                                           Grid.Column="0" 
+                                           Grid.ColumnSpan="2"
+                                           Margin="20,0,0,0"
+                                           VerticalOptions="Center"
+                                           Grid.Row="0" 
+                                           HorizontalOptions="Center"
+                                           Text="{Binding name}" 
+                                           FontAttributes="Bold" FontSize="15" TextColor="#0D1F3C"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
             </Grid>
         </Grid>
   </ContentView.Content>
