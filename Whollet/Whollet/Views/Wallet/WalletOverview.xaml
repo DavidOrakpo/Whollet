@@ -31,13 +31,13 @@
                         <Label Text="{Binding CoinPrice, StringFormat='${0:N2}'}" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" TextColor="{DynamicResource PureWhite}"/>
                         <Label Grid.Row="1" Text="Wallet Assets" FontSize="15" HorizontalOptions="Center" TextColor="{DynamicResource PureWhite}" Opacity=".8"/>
                     </Grid>
-                    <Grid Grid.Row="2" Margin="-20,0,-20,-10">
+                    <Grid Grid.Row="2" Margin="-20,0,-20,0">
                         
                         <microcharts:ChartView x:Name="chartView"
                                                VerticalOptions="Start"
                                                xct:CornerRadiusEffect.CornerRadius="20"
                                                BackgroundColor="Transparent"
-                                               Chart="{Binding PriceChart}" HeightRequest="180"/>
+                                               Chart="{Binding PriceChart}" HeightRequest="150"/>
                     </Grid>
                     <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*,*">
                         <Label Text="Day" BackgroundColor="Transparent"

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Whollet.ViewModel
 {
     public class DepositPopViewModel : BaseViewModel
     {
         private ObservableCollection<LatestListings> _LatestListing;
+
+        public static event EventHandler RemoveDepositEvent;
 
         public ObservableCollection<LatestListings> LatestListings
         {
@@ -19,6 +22,11 @@ namespace Whollet.ViewModel
         {
             WalletOverviewViewModel.PopulateCarouselView += WalletOverviewViewModel_PopulateCarouselView;
         }
+
+        public Command RemoveDeposit => new Command(() =>
+        {
+            RemoveDepositEvent?.Invoke(this, EventArgs.Empty);
+        });
 
         //~DepositPopViewModel()
         //{

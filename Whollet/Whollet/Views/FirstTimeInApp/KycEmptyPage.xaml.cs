@@ -33,8 +33,14 @@ namespace Whollet.Views.FirstTimeInApp
             InitializeComponent();
             BindingContext = _model;
             KycTabView.SelectedIndex = index + 1;
+            DepositPopViewModel.RemoveDepositEvent += DepositPopViewModel_RemoveDepositEvent;
             
            // Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 1]);
+        }
+
+        private void DepositPopViewModel_RemoveDepositEvent(object sender, EventArgs e)
+        {
+            Tap();
         }
 
         protected override bool OnBackButtonPressed()
@@ -54,11 +60,8 @@ namespace Whollet.Views.FirstTimeInApp
             return true;
         }
 
-        private void PageFader_Tapped(object sender, EventArgs e)
-        {
-
-            Tap();
-        }
+        private void PageFader_Tapped(object sender, EventArgs e) => Tap();
+        
 
         private async void Tap()
         {
@@ -73,7 +76,7 @@ namespace Whollet.Views.FirstTimeInApp
             if (_showDeposit)
             {
                 var rootpageheight = Height;
-                var depviewheight = rootpageheight / 3;
+                var depviewheight = rootpageheight / 4;
                 PageFader.IsVisible = true;
                 PageFader.FadeTo(1, AnimationSpeed, Easing.SinInOut);
                 DepView.TranslateTo(0, depviewheight, AnimationSpeed, Easing.SinInOut);
