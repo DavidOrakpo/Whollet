@@ -50,7 +50,7 @@ namespace Whollet.ViewModel
                 catch (Exception ex)
                 {
 
-                    throw;
+                    throw new Exception(ex.Message);
                 }
 
                 finally
@@ -59,7 +59,7 @@ namespace Whollet.ViewModel
                     {
                         await App.Current.MainPage.DisplayAlert("Success!", "Your pin has been registered, Proceed to login", "Ok");
                         GoToPageAsync(Startup.Resolve<LoginPage>());
-                        RemovePagesFromStack(3);
+                        await RemovePagesFromStack(3);
                     }
                     else
                     {

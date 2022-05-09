@@ -2,26 +2,29 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using MvvmHelpers;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace Whollet.ViewModel
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : MvvmHelpers.BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        
 
-        public void RemoveCurrentPage()
+        public async Task RemoveCurrentPage()
         {
-            Application.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[App.Current.MainPage.Navigation.NavigationStack.Count - 2]);
+            await Application.Current.MainPage.Navigation.PopAsync();
+           
         }
 
-        public void RemovePagesFromStack(int numToRemove)
+        public async Task RemovePagesFromStack(int numToRemove)
         {
             for (int i = 1; i <= numToRemove; i++)
             {
-                RemoveCurrentPage();
+                await Task.Run(() => Application.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[App.Current.MainPage.Navigation.NavigationStack.Count - 2]));
             }
         }
 
@@ -30,10 +33,7 @@ namespace Whollet.ViewModel
            await Application.Current.MainPage.Navigation.PushAsync(nextpage, animated);
         }
 
-        public void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        
 
         public byte[] StreamToByteArray(Stream input)
         {

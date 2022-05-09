@@ -13,6 +13,7 @@ using Microcharts;
 using SkiaSharp;
 using System.Globalization;
 using Whollet.Views.FirstTimeInApp;
+using MvvmHelpers;
 
 namespace Whollet.ViewModel
 {
@@ -47,7 +48,7 @@ namespace Whollet.ViewModel
         public async Task PopulateList()
         {
             var temp = await _geckoPriceHistory.GetGeckoLatest(limit: 20);
-            LatestListings = new ObservableCollection<LatestListings>(temp);
+            LatestListings = new ObservableRangeCollection<LatestListings>(temp);
             CoinPrice = LatestListings.Where(i => i.symbol == "btc").Select(p => p.price).FirstOrDefault();
         }
 
@@ -73,7 +74,7 @@ namespace Whollet.ViewModel
         private async Task PopChartAsync(LatestListings coin = null)
         {
             var currentTime = DateTime.Now;
-            var oneMonthAgo = DateTime.Today.AddMonths(-3);
+            var oneMonthAgo = DateTime.Today.AddMonths(-2);
             var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, coin?.id);
             var pricelist = PriceObject.prices.ToList();
             var minprice = pricelist.Select(p => p[1]).Min();
@@ -84,7 +85,7 @@ namespace Whollet.ViewModel
             {
 
                 //i++;
-                if (i  == 30)
+                if (i == 30)
                 {
 
                     var x = Decimal.Parse(price[0].ToString(), NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
@@ -319,21 +320,18 @@ namespace Whollet.ViewModel
             {
                 case "Name":
                     var temp = LatestListings.OrderByDescending(i => i.name).Reverse().ToList();
-                    LatestListings.Clear();
-                    await Task.Delay(500);
-                    LatestListings = new ObservableCollection<LatestListings>(temp);
+                    //await Task.Delay(500);
+                    LatestListings.ReplaceRange(temp);
                     break;
                 case "Price":
                     var temp1 = LatestListings.OrderByDescending(i => i.price).ToList();
-                    LatestListings.Clear();
-                    await Task.Delay(500);
-                    LatestListings = new ObservableCollection<LatestListings>(temp1);
+                    //await Task.Delay(500);
+                    LatestListings.ReplaceRange(temp1);
                     break;
                 case "Price Change":
                     var temp2 = LatestListings.OrderByDescending(i => i.price_change_24h).ToList();
-                    LatestListings.Clear();
-                    await Task.Delay(500);
-                    LatestListings = new ObservableCollection<LatestListings>(temp2);
+                    //await Task.Delay(500);                    
+                    LatestListings.ReplaceRange(temp2);
                     break;
                 default:
                     break;
@@ -361,12 +359,12 @@ namespace Whollet.ViewModel
 
         });
 
-        private ObservableCollection<LatestListings> _LatestListing;
+        private ObservableRangeCollection<LatestListings> _LatestListing;
 
-        public ObservableCollection<LatestListings> LatestListings
+        public ObservableRangeCollection<LatestListings> LatestListings
         {
             get { return _LatestListing; }
-            set { _LatestListing = value; OnPropertyChanged(); }
+            set { SetProperty(ref _LatestListing, value); }
         }
 
         

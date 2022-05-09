@@ -43,18 +43,19 @@ namespace Whollet
             {
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             });
-            services.AddHttpClient<IRoqquPriceService, RoqquPriceService>(c =>
-            {
-                c.BaseAddress = new Uri("https://api.roqqu.com");
-                c.DefaultRequestHeaders.Add("Accept", "application/json");
-                c.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "RQ-SEC-eU09IDeMFhcKwOMA717q");
-            });
+
+            //services.AddHttpClient<IRoqquPriceService, RoqquPriceService>(c =>
+            //{
+            //    c.BaseAddress = new Uri("https://api.roqqu.com");
+            //    c.DefaultRequestHeaders.Add("Accept", "application/json");
+            //    c.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "RQ-SEC-eU09IDeMFhcKwOMA717q");
+            //});
             services.AddHttpClient<IGeckoPriceHistoryService, GeckoPriceHistoryService>(c =>
             {
                 c.BaseAddress = new Uri("https://api.coingecko.com/api/v3/");
                 c.DefaultRequestHeaders.Add("Accept", "application/json");
                 c.DefaultRequestHeaders.Add("User-Agent", "C");
-              //  c.DefaultRequestHeaders.Add("Connection", "keep-alive");
+                c.DefaultRequestHeaders.Add("Connection", "keep-alive");
 
             }).ConfigurePrimaryHttpMessageHandler(x => new HttpClientHandler
             {

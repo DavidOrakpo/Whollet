@@ -32,8 +32,7 @@ namespace Whollet.ViewModel
 
             set
             {
-                firstName = value;
-                OnPropertyChanged();
+                SetProperty(ref firstName, value);
             }
         }
         public string LastName
@@ -41,8 +40,7 @@ namespace Whollet.ViewModel
             get => lastName;
             set
             {
-                lastName = value;
-                OnPropertyChanged();
+                SetProperty(ref lastName, value);
             }
         }
         public string Email
@@ -50,8 +48,7 @@ namespace Whollet.ViewModel
             get => email;
             set
             {
-                email = value;
-                OnPropertyChanged();
+                SetProperty<string>(ref email, value);
             }
         }
         public string Password
@@ -59,8 +56,7 @@ namespace Whollet.ViewModel
             get => password;
             set
             {
-                password = value;
-                OnPropertyChanged();
+                SetProperty(ref password, value);
                 
             }
         }
@@ -70,8 +66,7 @@ namespace Whollet.ViewModel
             get => passwordValid;
             set
             {
-                passwordValid = value;
-                OnPropertyChanged();
+                SetProperty(ref passwordValid, value);
                // GotoPin.ChangeCanExecute();
             }
         }
@@ -86,8 +81,7 @@ namespace Whollet.ViewModel
 
             set
             {
-                emailValid = value;
-                OnPropertyChanged();
+                SetProperty(ref emailValid, value);
                 
             }
         }
@@ -156,11 +150,11 @@ namespace Whollet.ViewModel
 
         });
 
-        public Command GotoLogin => new Command(() =>
+        public Command GotoLogin => new Command(async () =>
         {
 
             GoToPageAsync(Startup.Resolve<LoginPage>());
-            RemoveCurrentPage();
+            await RemovePagesFromStack(1);
 
         });
     }

@@ -12,9 +12,11 @@ namespace Whollet.Views.Login
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignupView : ContentPage
     {
+        SignUpViewModel viewModel;
         public SignupView(SignUpViewModel vm)
         {
-            BindingContext = vm;
+            viewModel = vm;
+            BindingContext = viewModel;
             InitializeComponent();
             
         }

@@ -13,10 +13,10 @@ namespace Whollet.ViewModel
 
         }
 
-        public Command GoToLogin => new Command((x) =>
+        public Command GoToLogin => new Command(async (x) =>
         {
             GoToPageAsync(Startup.Resolve<LoginPage>());
-            RemovePagesFromStack(3);
+           await RemovePagesFromStack(3);
 
         });
     }

@@ -54,7 +54,8 @@
                         
                         <loginentry:SignUp.EntryBehavior>
                             <xct:EmailValidationBehavior x:Name="EmailBehave" 
-                                                         IsValid="{Binding EmailValid}"                                                       
+                                                         IsValid="{Binding EmailValid}"  
+                                                         BindingContext="{Binding BindingContext, Source={x:Reference PassEntry}}"
                                                          ValidStyle="{StaticResource Valid}"
                                                          InvalidStyle="{StaticResource Invalid}"/>
                         </loginentry:SignUp.EntryBehavior>
@@ -63,7 +64,7 @@
                     <loginentry:SignUp x:Name="PassEntry" EntryIsPassword="{Binding Source={x:Reference ShowPasswordTrigger}, Path=HidePassword}"
                                        LabelIsVisible="False" EntryText="{Binding Password}" LabelText="Password" EntryPlaceholder="Password" Grid.Row="3" Grid.ColumnSpan="2">
                         <loginentry:SignUp.EntryBehavior>
-                            <b:PasswordBehaviour IsValid="{Binding PasswordValid}"/>
+                            <b:PasswordBehaviour IsValid="{Binding PasswordValid, Mode=TwoWay}" BindingContext="{Binding BindingContext, Source={x:Reference PassEntry}}"/>
                             
                         </loginentry:SignUp.EntryBehavior>   
                     </loginentry:SignUp>

@@ -4,13 +4,21 @@
              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:converter="clr-namespace:MasterClass.Converters"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:converter1="clr-namespace:Whollet.Converters"
              x:Class="Whollet.Views.Wallet.WalletOverview">
     <ContentView ControlTemplate="{DynamicResource Login/Welcome Template}" x:Name="RootPage">
-        
-            <Grid RowDefinitions="*,1.1*" Padding="20,20,20,30">
+
+        <ContentView.Resources>
+            <ResourceDictionary>
+                <converter1:MicroChartHeightConverter x:Key="HeightConverter"/>
+            </ResourceDictionary>
+        </ContentView.Resources>
+        <Grid RowDefinitions="*,1.1*" Padding="20,20,20,30">
                 
-                <Grid RowDefinitions="auto,auto,auto,auto">
+                <Grid RowDefinitions="auto,auto,auto,*" x:Name="TopGrid">
                     <Grid Grid.Row="0" ColumnDefinitions="auto,*,auto">
                         <ImageButton Source="backicon.png" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
                                      xct:IconTintColorEffect.TintColor="White"/>
@@ -27,19 +35,21 @@
                                      BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
                                      xct:IconTintColorEffect.TintColor="White"/>
                     </Grid>
-                    <Grid Grid.Row="1" RowDefinitions="*,*">
-                        <Label Text="{Binding CoinPrice, StringFormat='${0:N2}'}" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold" TextColor="{DynamicResource PureWhite}"/>
+                    <Grid Grid.Row="1" RowDefinitions="auto,auto">
+                        <Label Text="{Binding CoinPrice, StringFormat='${0:N2}'}" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold" TextColor="{DynamicResource PureWhite}"/>
                         <Label Grid.Row="1" Text="Wallet Assets" FontSize="15" HorizontalOptions="Center" TextColor="{DynamicResource PureWhite}" Opacity=".8"/>
                     </Grid>
                     <Grid Grid.Row="2" Margin="-20,0,-20,0">
                         
                         <microcharts:ChartView x:Name="chartView"
-                                               VerticalOptions="Start"
+                                               VerticalOptions="CenterAndExpand"
+                                            
                                                xct:CornerRadiusEffect.CornerRadius="20"
                                                BackgroundColor="Transparent"
-                                               Chart="{Binding PriceChart}" HeightRequest="150"/>
+                                               Chart="{Binding PriceChart}"
+                                               HeightRequest="{Binding Source={x:Reference TopGrid}, Path=Height, Converter={StaticResource HeightConverter}}"/>
                     </Grid>
-                    <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*,*">
+                    <Grid VerticalOptions="Start" Grid.Row="3" ColumnDefinitions="*,*,*,*,*" Margin="0,0,0,0">
                         <Label Text="Day" BackgroundColor="Transparent"
                                HorizontalOptions="Center" 
                                VerticalOptions="Center"

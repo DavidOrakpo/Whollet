@@ -15,11 +15,11 @@ namespace Whollet.ViewModel
 
         }
 
-        public Command GoToWallet => new Command(() =>
+        public Command GoToWallet => new Command(async () =>
         {
             var walletpage = ActivatorUtilities.CreateInstance<KycEmptyPage>(Startup.serviceprovider, TabViewManager.FifthView, 1, true);
             GoToPageAsync(walletpage);
-            RemovePagesFromStack(4);
+            await RemovePagesFromStack(4);
         });
     }
 }

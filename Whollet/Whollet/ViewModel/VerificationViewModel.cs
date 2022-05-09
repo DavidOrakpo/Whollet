@@ -63,7 +63,7 @@ namespace Whollet.ViewModel
                     App.LoggedInUser = _user;
                     await Application.Current.MainPage.DisplayAlert("Success", "Logging you in", "Ok");
                     GoToPageAsync(TabPage);
-                    RemoveCurrentPage();
+                    await RemovePagesFromStack(1);
                 }
                 else
                 {

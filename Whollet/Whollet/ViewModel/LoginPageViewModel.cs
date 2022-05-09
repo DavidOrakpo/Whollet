@@ -103,11 +103,11 @@ namespace Whollet.ViewModel
         });
 
 
-        public Command GotoSignup => new Command(() =>
+        public Command GotoSignup => new Command(async () =>
         {
 
             GoToPageAsync(Startup.Resolve<SignupView>());
-            RemoveCurrentPage();
+            await RemovePagesFromStack(1);
 
         });
     }

@@ -10,30 +10,38 @@ namespace Whollet.Behaviours
     public class PasswordBehaviour : BaseBehavior<VisualElement>
     {
         const string passwordRegex = @"^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$";
+        public Entry AssociatedObject { get; private set; }
+        // public static readonly BindablePropertyKey IsValidPropertyKey = BindableProperty.CreateReadOnly("IsValid", typeof(bool), typeof(PasswordBehaviour), false);
 
-       // public static readonly BindablePropertyKey IsValidPropertyKey = BindableProperty.CreateReadOnly("IsValid", typeof(bool), typeof(PasswordBehaviour), false);
-
-        public static readonly BindableProperty IsValidProperty = BindableProperty.Create("IsValid", typeof(bool), typeof(PasswordBehaviour), false);
+        public static readonly BindableProperty IsValidProperty = BindableProperty.Create("IsValid", typeof(bool),
+            typeof(PasswordBehaviour), false, propertyChanged: (b, o, n) =>
+            {
+                var spv = (PasswordBehaviour)b;
+                spv.IsValid = (bool)n;
+                
+                //do something with spv
+                //o is the old value of the property
+                //n is the new value
+            });
         Color defaultColor;
 
 
         public bool IsValid
         {
             get { return (bool)base.GetValue(IsValidProperty); }
-            private set { base.SetValue(IsValidProperty, value); }
+            set { base.SetValue(IsValidProperty, value);}
         }
 
         protected override void OnAttachedTo(VisualElement bindable)
         {
-            var entry = bindable as Entry;
-            if (!(entry == null))
+            AssociatedObject = bindable as Entry;
+            if (!(AssociatedObject == null))
             {
                 
-                defaultColor = entry.TextColor;
+                defaultColor = AssociatedObject.TextColor;
 
-                entry.TextChanged += HandleTextChanged;
-            }
-            
+                AssociatedObject.TextChanged += HandleTextChanged;
+            }           
         }
 
         void HandleTextChanged(object sender, TextChangedEventArgs e)
@@ -57,9 +65,23 @@ namespace Whollet.Behaviours
 
         protected override void OnDetachingFrom(VisualElement bindable)
         {
-            var entry = bindable as Entry;
-            entry.TextChanged -= HandleTextChanged;
+            AssociatedObject = bindable as Entry;
+            AssociatedObject.TextChanged -= HandleTextChanged;
 
         }
+
+        //protected override void OnPropertyChanged([CallerMemberName] string temp = null)
+        //{
+        //    base.OnPropertyChanged(temp);
+        //    if (IsValidProperty.PropertyName == temp)
+        //    {
+        //        LabelControl.Text = LabelText;
+        //    }
+            
+        //    //if (AttachedEntryBehaviorProperty.PropertyName == temp)
+        //    //{
+        //    //    EntryControl.Visual = (IVisual)AttachedEntryBehavior;
+        //    //}
+        //}
     }
 }

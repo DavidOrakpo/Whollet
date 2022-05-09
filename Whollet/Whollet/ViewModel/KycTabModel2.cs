@@ -217,7 +217,7 @@ namespace Whollet.ViewModel
             };
         }
 
-        public Command MoveBackCommand => new Command(() =>
+        public Command MoveBackCommand => new Command(async () =>
         {
             switch (_index)
             {
@@ -225,7 +225,7 @@ namespace Whollet.ViewModel
                     switch (TransactionViewPosition)
                     {
                         case TabViewManager.FirstView:
-                            Application.Current.MainPage.Navigation.PopAsync();
+                            await Application.Current.MainPage.Navigation.PopAsync();
                             break;
                         case TabViewManager.SecondView:
                             FirstView = TransactionsDictionary[TabViewManager.FirstView];
@@ -250,7 +250,7 @@ namespace Whollet.ViewModel
                     switch (PortfolioViewPosition)
                     {
                         case TabViewManager.FirstView:
-                            Application.Current.MainPage.Navigation.PopAsync();
+                            await RemoveCurrentPage();
                             break;
                         case TabViewManager.SecondView:
                             ThirdView = PortfolioDictionary[TabViewManager.FirstView];
@@ -268,9 +268,7 @@ namespace Whollet.ViewModel
                             PortfolioViewPosition = TabViewManager.ThirdView;
                             break;
                         case TabViewManager.FifthView:
-                            ThirdView = PortfolioDictionary[TabViewManager.FourthView];
-                            ThirdView.BindingContext = this;
-                            PortfolioViewPosition = TabViewManager.FourthView;
+                            await RemoveCurrentPage();
                             break;
                         case TabViewManager.SixthView:
                             ThirdView = PortfolioDictionary[TabViewManager.FifthView];
