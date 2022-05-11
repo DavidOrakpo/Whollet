@@ -10,6 +10,7 @@ using Whollet.Views.FirstTimeInApp;
 using Whollet.Enums;
 using System.Threading.Tasks;
 using Whollet.Views.Wallet;
+using Whollet.Model;
 
 namespace Whollet.ViewModel
 {
@@ -37,23 +38,47 @@ namespace Whollet.ViewModel
             // Content view dictionaries populated
             //First view dictionary
             TransactionsDictionary.Add(TabViewManager.FirstView, Startup.Resolve<TransactionsView>());
-            //Second view dictionary
-                    //DepositDictionary.Add(TabViewManager.FirstView, Startup.Resolve<EmptyStateView>());
-                    //DepositDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
-                    //DepositDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
-            //   DepositDictionary.Add(TabViewManager.FourthView, Startup.Resolve<WalletOverview>());
+
             //Third view dictionary
-            PortfolioDictionary.Add(TabViewManager.FirstView, Startup.Resolve<EmptyStateView>());
-            PortfolioDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
-            PortfolioDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
-            PortfolioDictionary.Add(TabViewManager.FourthView, Startup.Resolve<PortfolioView>());
-            PortfolioDictionary.Add(TabViewManager.FifthView, Startup.Resolve<WalletOverview>());
+            switch (position)
+            {
+                case TabViewManager.FirstView:
+                    if (!PortfolioDictionary.ContainsKey(TabViewManager.FirstView))
+                    {
+                        PortfolioDictionary.Add(TabViewManager.FirstView, Startup.Resolve<EmptyStateView>());
+                    }                    
+                    break;
+                case TabViewManager.SecondView:
+                    if (!PortfolioDictionary.ContainsKey(TabViewManager.SecondView))
+                        PortfolioDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
+                    break;
+                case TabViewManager.ThirdView:
+                    if (!PortfolioDictionary.ContainsKey(TabViewManager.ThirdView))
+                        PortfolioDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
+                    break;
+                case TabViewManager.FourthView:
+                    if (!PortfolioDictionary.ContainsKey(TabViewManager.FourthView))
+                        PortfolioDictionary.Add(TabViewManager.FourthView, Startup.Resolve<PortfolioView>());
+                    break;
+                case TabViewManager.FifthView:
+                    if(!PortfolioDictionary.ContainsKey(TabViewManager.FifthView))
+                        PortfolioDictionary.Add(TabViewManager.FifthView, Startup.Resolve<WalletOverview>());
+                    break;
+                case TabViewManager.SixthView:
+                    break;
+                case TabViewManager.SeventhView:
+                    break;
+                default:
+                    break;
+            }
+
             //TabPage assignment
             _index = index;
             ViewSwitcher(_index, position);
             LoadOtherViews();
-            
-            
+            MyMenu = GetMenus();
+
+
             //if (ThirdView == PortfolioDictionary[portfolioViewPosition])
             //{
             //    SecondView = null;
@@ -168,23 +193,27 @@ namespace Whollet.ViewModel
                         switch (PortfolioViewPosition)
                         {
                             case TabViewManager.FirstView:
+                                if (!PortfolioDictionary.ContainsKey(TabViewManager.SecondView))
+                                    PortfolioDictionary.Add(TabViewManager.SecondView, Startup.Resolve<EmptyStatePending>());
                                 ThirdView = PortfolioDictionary[TabViewManager.SecondView];
                                 ThirdView.BindingContext = this;
                                 PortfolioViewPosition = TabViewManager.SecondView;
                                 // MessagingCenter.Send<object>(this, "Hi");
                                 break;
                             case TabViewManager.SecondView:
-                                ThirdView = PortfolioDictionary[TabViewManager.ThirdView];
-                                
+                                if (!PortfolioDictionary.ContainsKey(TabViewManager.ThirdView))
+                                    PortfolioDictionary.Add(TabViewManager.ThirdView, Startup.Resolve<EmptyStateFinished>());
+                                ThirdView = PortfolioDictionary[TabViewManager.ThirdView];                               
                                 ThirdView.BindingContext = this;
                                 PortfolioViewPosition = TabViewManager.ThirdView;
                                 break;
                             case TabViewManager.ThirdView:
+                                if (!PortfolioDictionary.ContainsKey(TabViewManager.FourthView))
+                                    PortfolioDictionary.Add(TabViewManager.FourthView, Startup.Resolve<PortfolioView>());
                                 ThirdView = PortfolioDictionary[TabViewManager.FourthView];
                                 var model = Startup.Resolve<PortfolioViewModel>();
                                 ThirdView.BindingContext = model;
-                                PortfolioViewPosition = TabViewManager.FourthView;
-                                
+                                PortfolioViewPosition = TabViewManager.FourthView;                  
                                 break;
                             case TabViewManager.FourthView:
                                 
@@ -314,6 +343,27 @@ namespace Whollet.ViewModel
         {
             get { return thirdview; }
             set { thirdview = value; OnPropertyChanged(); }
+        }
+
+        private List<SwipeMenuItems> mymenu;
+
+        public List<SwipeMenuItems> MyMenu
+        {
+            get { return mymenu; }
+            set { mymenu = value; }
+        }
+
+        private List<SwipeMenuItems> GetMenus()
+        {
+            return new List<SwipeMenuItems>
+            {
+                new SwipeMenuItems{ Name = "Wallet", Icon = "wallet.png"},
+                new SwipeMenuItems{ Name = "Deposit", Icon = "menu_deposit.png"},
+                new SwipeMenuItems{ Name = "Withdraw", Icon = "withdraw.png"},
+                new SwipeMenuItems{ Name = "Send", Icon = "send.png"},
+                new SwipeMenuItems{ Name = "Exchange", Icon = "exchange.png"},
+                new SwipeMenuItems{ Name = "Profile", Icon = "profileavatar.png"},
+            };
         }
 
     }

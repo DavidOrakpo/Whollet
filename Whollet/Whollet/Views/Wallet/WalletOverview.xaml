@@ -5,6 +5,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
              xmlns:converter="clr-namespace:MasterClass.Converters"
+             
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:converter1="clr-namespace:Whollet.Converters"
@@ -16,6 +17,7 @@
                 <converter1:MicroChartHeightConverter x:Key="HeightConverter"/>
             </ResourceDictionary>
         </ContentView.Resources>
+        
         <Grid RowDefinitions="*,1.1*" Padding="20,20,20,30">
                 
                 <Grid RowDefinitions="auto,auto,auto,*" x:Name="TopGrid">
@@ -29,7 +31,7 @@
                                TextColor="{DynamicResource PureWhite}"
                                FontSize="26"
                                VerticalOptions="Center"/>
-                        <ImageButton Source="backicon.png"
+                        <ImageButton Source="menu_burger.png"
                                      Grid.Column="2"
                                      RotationY="180"
                                      BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
