@@ -4,6 +4,7 @@
              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:dxe="http://schemas.devexpress.com/xamarin/2014/forms/editors"
+             xmlns:circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:converter="clr-namespace:MasterClass.Converters"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -16,11 +17,11 @@
                 <converter1:MicroChartHeightConverter x:Key="HeightConverter"/>
             </ResourceDictionary>
         </ContentView.Resources>
-        <Grid RowDefinitions="*,1.1*" Padding="20,20,20,30">
-                
+       
+            <Grid RowDefinitions="*,1.1*" Padding="20,20,20,30" xct:SideMenuView.Position="MainView" >
                 <Grid RowDefinitions="auto,auto,auto,*" x:Name="TopGrid">
                     <Grid Grid.Row="0" ColumnDefinitions="auto,*,auto">
-                        <ImageButton Source="backicon.png" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
+                        <ImageButton Source="backicon.png"  BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
                                      xct:IconTintColorEffect.TintColor="White"/>
                         <Label Grid.Column="1"
                                Text="Portfolio"
@@ -32,6 +33,7 @@
                         <ImageButton Source="backicon.png"
                                      Grid.Column="2"
                                      RotationY="180"
+                                     Clicked="ImageButton_Clicked"
                                      BackgroundColor="Transparent" VerticalOptions="CenterAndExpand"
                                      xct:IconTintColorEffect.TintColor="White"/>
                     </Grid>
@@ -40,10 +42,9 @@
                         <Label Grid.Row="1" Text="Wallet Assets" FontSize="15" HorizontalOptions="Center" TextColor="{DynamicResource PureWhite}" Opacity=".8"/>
                     </Grid>
                     <Grid Grid.Row="2" Margin="-20,0,-20,0">
-                        
+
                         <microcharts:ChartView x:Name="chartView"
-                                               VerticalOptions="CenterAndExpand"
-                                            
+                                               VerticalOptions="CenterAndExpand"                    
                                                xct:CornerRadiusEffect.CornerRadius="20"
                                                BackgroundColor="Transparent"
                                                Chart="{Binding PriceChart}"
@@ -69,21 +70,21 @@
                                         <VisualState.Setters>
                                             <Setter Property="BackgroundColor" Value="#4988f2"/>
                                             <Setter Property="TextColor" Value="White"/>
-                                            
+
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState x:Name="UnSelected">
                                         <VisualState.Setters>
-                                            
+
                                             <Setter Property="BackgroundColor" Value="Transparent"/>
-                                            
-                                    </VisualState.Setters>
+
+                                        </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                        </Label.GestureRecognizers>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Label.GestureRecognizers>
                         </Label>
                         <Label Grid.Column="1" 
                                Text="Week" BackgroundColor="Transparent" 
@@ -101,22 +102,22 @@
                                 <VisualStateGroup>
                                     <VisualState x:Name="Selected">
                                         <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="#4988f2"/>
-                                        <Setter Property="TextColor" Value="White"/>
-                                    </VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                            <Setter Property="TextColor" Value="White"/>
+                                        </VisualState.Setters>
                                     </VisualState>
                                     <VisualState x:Name="UnSelected">
                                         <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="Transparent"/>
-                                        <Setter Property="Opacity" Value="1"/>
-                                    </VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            <Setter Property="Opacity" Value="1"/>
+                                        </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <Label Grid.Column="2" Text="Month" 
                                BackgroundColor="Transparent"
                                HorizontalOptions="Center" 
@@ -134,22 +135,22 @@
                                 <VisualStateGroup>
                                     <VisualState x:Name="Selected">
                                         <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="#4988f2"/>
-                                        <Setter Property="TextColor" Value="White"/>
-                                    </VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                            <Setter Property="TextColor" Value="White"/>
+                                        </VisualState.Setters>
                                     </VisualState>
                                     <VisualState x:Name="UnSelected">
                                         <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="Transparent"/>
-                                        <Setter Property="Opacity" Value="1"/>
-                                    </VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            <Setter Property="Opacity" Value="1"/>
+                                        </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <Label Grid.Column="3"
                                Text="Year"
                                HorizontalOptions="Center" 
@@ -163,26 +164,26 @@
                                HeightRequest="30"
                                BackgroundColor="Transparent"
                                TextColor="{DynamicResource PureWhite}" TextTransform="None" xct:CornerRadiusEffect.CornerRadius="5">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup>
-                                <VisualState x:Name="Selected">
-                                    <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="#4988f2"/>
-                                        <Setter Property="TextColor" Value="White"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="UnSelected">
-                                    <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="Transparent"/>
-                                        <Setter Property="Opacity" Value="1"/>
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                            <Setter Property="TextColor" Value="White"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="UnSelected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            <Setter Property="Opacity" Value="1"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <Label Grid.Column="4" 
                                Text="All"
                                HorizontalOptions="Center" 
@@ -199,22 +200,22 @@
                                 <VisualStateGroup>
                                     <VisualState x:Name="Selected">
                                         <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="#4988f2"/>
-                                        <Setter Property="TextColor" Value="White"/>
-                                    </VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="#4988f2"/>
+                                            <Setter Property="TextColor" Value="White"/>
+                                        </VisualState.Setters>
                                     </VisualState>
                                     <VisualState x:Name="UnSelected">
                                         <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="Transparent"/>
-                                        <Setter Property="Opacity" Value="1"/>
-                                    </VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            <Setter Property="Opacity" Value="1"/>
+                                        </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                        </Label.GestureRecognizers>
-                    </Label>
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
 
                     </Grid>
                 </Grid>
@@ -250,118 +251,121 @@
 
                                 </dxe:ComboBoxEdit>
                             </Grid>
-                            
+
                             <CollectionView x:Name="cview" ItemsSource="{Binding LatestListings}"
                                             SelectionMode="Single" 
                                             
                                             SelectionChangedCommandParameter="{Binding Source={x:Reference cview}, Path=SelectedItem}"  
                                             SelectionChangedCommand="{Binding GetCoinCommand}">
 
-                            <CollectionView.EmptyView>
-                                <ContentView Padding="10">
-                                    <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
-                                        <ActivityIndicator VerticalOptions="Start" IsRunning="True" Color="{DynamicResource SkipBlue}" HorizontalOptions="Center"/>
-                                        <Label Text="Loading..." FontSize="28" TextColor="{DynamicResource SkipBlue}" VerticalOptions="Start" HorizontalOptions="Center"/>
-                                    </StackLayout>
-                                </ContentView>
-                            </CollectionView.EmptyView>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid x:Name="itemgrid" Padding="0,8" 
+                                <CollectionView.EmptyView>
+                                    <ContentView Padding="10">
+                                        <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+                                            <ActivityIndicator VerticalOptions="Start" IsRunning="True" Color="{DynamicResource SkipBlue}" HorizontalOptions="Center"/>
+                                            <Label Text="Loading..." FontSize="28" TextColor="{DynamicResource SkipBlue}" VerticalOptions="Start" HorizontalOptions="Center"/>
+                                        </StackLayout>
+                                    </ContentView>
+                                </CollectionView.EmptyView>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid x:Name="itemgrid" Padding="0,8" 
                                           xct:TouchEffect.Command="{Binding Path=BindingContext.GridStateCommand, Source={x:Reference RootPage}}"
                                           xct:TouchEffect.CommandParameter="{Binding Source={x:Reference itemgrid}, Path=.}">
-                                        
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup>
-                                                <VisualState Name="Selected">
-                                                    <VisualState.Setters>
-                                                        <Setter Property="BackgroundColor" Value="Transparent" />
-                                                        <Setter TargetName="Pview" Property="pcake:PancakeView.BackgroundColor" Value="#347AF0"/>
-                                                        <Setter TargetName="CoinNameLabel" Property="Label.TextColor" Value="White"/>
-                                                        <Setter TargetName="CoinSymbolLabel" Property="Label.TextColor" Value="White"/>
-                                                        <Setter TargetName="CoinPriceLabel" Property="Label.TextColor" Value="White"/>
 
-                                                    </VisualState.Setters>
-                                                </VisualState>
-                                                <VisualState Name="UnSelected">
-                                                    <VisualState.Setters>
-                                                        <Setter Property="BackgroundColor" Value="Transparent" />
-                                                        <Setter TargetName="Pview" Property="pcake:PancakeView.BackgroundColor" Value="{DynamicResource BackGroundWhite}"/>
-                                                        <Setter TargetName="CoinNameLabel" Property="Label.TextColor" Value="#0D1F3C"/>
-                                                        <Setter TargetName="CoinSymbolLabel" Property="Label.TextColor" Value="Black"/>
-                                                        <Setter TargetName="CoinPriceLabel" Property="Label.TextColor" Value="#0D1F3C"/>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup>
+                                                    <VisualState Name="Selected">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="Transparent" />
+                                                            <Setter TargetName="Pview" Property="pcake:PancakeView.BackgroundColor" Value="#347AF0"/>
+                                                            <Setter TargetName="CoinNameLabel" Property="Label.TextColor" Value="White"/>
+                                                            <Setter TargetName="CoinSymbolLabel" Property="Label.TextColor" Value="White"/>
+                                                            <Setter TargetName="CoinPriceLabel" Property="Label.TextColor" Value="White"/>
 
-                                                    </VisualState.Setters>
-                                                </VisualState>
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                    <VisualState Name="UnSelected">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="Transparent" />
+                                                            <Setter TargetName="Pview" Property="pcake:PancakeView.BackgroundColor" Value="{DynamicResource BackGroundWhite}"/>
+                                                            <Setter TargetName="CoinNameLabel" Property="Label.TextColor" Value="#0D1F3C"/>
+                                                            <Setter TargetName="CoinSymbolLabel" Property="Label.TextColor" Value="Black"/>
+                                                            <Setter TargetName="CoinPriceLabel" Property="Label.TextColor" Value="#0D1F3C"/>
 
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <pcake:PancakeView HeightRequest="40" Padding="15,10"
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <pcake:PancakeView HeightRequest="40" Padding="15,10"
                                             x:Name="Pview"
                                             CornerRadius="40"
                                             BackgroundColor="{DynamicResource BackGroundWhite}">
-                                            
-                                            <Grid RowDefinitions="*,*" ColumnDefinitions="auto,*,auto">
-                                                
-                                                <Image Grid.RowSpan="2" Source="{Binding Logo}"/>
-                                                <Label 
+
+                                                <Grid RowDefinitions="*,*" ColumnDefinitions="auto,*,auto">
+
+                                                    <Image Grid.RowSpan="2" Source="{Binding Logo}"/>
+                                                    <Label 
                                                        x:Name="CoinNameLabel"
                                                        Grid.Column="1" 
                                                        Margin="10,0,0,0"
                                                        Grid.Row="0" 
                                                        Text="{Binding name}" 
                                                        FontAttributes="Bold" FontSize="15" TextColor="#0D1F3C"/>
-                                                <Label Grid.Column="1"
+                                                    <Label Grid.Column="1"
                                                        x:Name="CoinSymbolLabel"
                                                        Margin="10,0,0,0"
                                                        Grid.Row="1" Text="{Binding symbol, StringFormat='{0}'}" TextColor="Black"/>
-                                                <Label Grid.Column="2" Grid.RowSpan="2" 
+                                                    <Label Grid.Column="2" Grid.RowSpan="2" 
                                                        VerticalOptions="Center"
                                                        x:Name="CoinPriceLabel"
                                                        FontAttributes="Bold"
                                                        Text="{Binding price, StringFormat='${0:N2}'}" FontSize="15" TextColor="#0D1F3C"/>
-                                            </Grid>
-                                        </pcake:PancakeView>
-                                    </Grid>
+                                                </Grid>
+                                            </pcake:PancakeView>
+                                        </Grid>
 
 
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                            <CollectionView.Footer>
-                                <ContentView>
-                                    <StackLayout>
-                                        <pcake:PancakeView HeightRequest="40" Padding="15,10"
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                                <CollectionView.Footer>
+                                    <ContentView>
+                                        <StackLayout>
+                                            <pcake:PancakeView HeightRequest="40" Padding="15,10"
                                             CornerRadius="40"
                                             BackgroundColor="Transparent"
                                             Border="{pcake:BorderMarkup Color={DynamicResource PlaceholderGrey}, Thickness=1, DashPattern=4}">
 
-                                            <Label Text="+ Deposit more coins" 
+                                                <Label Text="+ Deposit more coins" 
                                                VerticalOptions="Center"
                                                HorizontalOptions="Center"
                                                FontAttributes="Bold"
                                                Opacity=".5"
                                                
                                                TextColor="{DynamicResource PlaceholderGrey}" FontSize="20"/>
-                                        </pcake:PancakeView>
-                                        <Label Text="See All Assets"
+                                            </pcake:PancakeView>
+                                            <Label Text="See All Assets"
                                                VerticalOptions="Center"
                                                HorizontalOptions="Center"
                                                FontAttributes="Bold"
                                                TextColor="{DynamicResource SkipBlue}" FontSize="18">
-                                            
-                                        </Label>
-                                    </StackLayout>
-                                </ContentView>
-                            </CollectionView.Footer>
-                        </CollectionView>
+
+                                            </Label>
+                                        </StackLayout>
+                                    </ContentView>
+                                </CollectionView.Footer>
+                            </CollectionView>
                         </StackLayout>
                         <StackLayout Grid.Row="1">
-                        
+
                         </StackLayout>
                     </Grid>
                 </ScrollView>
-                
             </Grid>
+   
+            
+        
+       
         
     </ContentView>
 </ContentView>

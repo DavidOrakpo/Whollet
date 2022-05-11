@@ -74,7 +74,7 @@ namespace Whollet.ViewModel
         private async Task PopChartAsync(LatestListings coin = null)
         {
             var currentTime = DateTime.Now;
-            var oneMonthAgo = DateTime.Today.AddMonths(-2);
+            var oneMonthAgo = DateTime.Today.AddMonths(-1);
             var PriceObject = await _geckoPriceHistory.GetCoinGeckoPriceHistory(currency: "usd", oneMonthAgo, currentTime, coin?.id);
             var pricelist = PriceObject.prices.ToList();
             var minprice = pricelist.Select(p => p[1]).Min();

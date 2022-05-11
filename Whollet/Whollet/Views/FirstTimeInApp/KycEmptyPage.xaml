@@ -7,6 +7,7 @@
              xmlns:dtemplate="clr-namespace:Whollet.DataTenplateSelectors" 
              xmlns:deposit="clr-namespace:Whollet.Views.Deposit"
              NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource PureWhite}"
              x:Name="RootPage"
              x:Class="Whollet.Views.FirstTimeInApp.KycEmptyPage">
     
@@ -135,11 +136,19 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid RowDefinitions="auto,*">
+        <xct:SideMenuView x:Name="SideMenu">
+            <Grid x:Name="MainGrid" RowDefinitions="auto,*"
+                  Padding="-5,-5,-5,0" 
+                  xct:SideMenuView.Position="MainView"
+                  xct:ShadowEffect.Color="Black"
+                  xct:CornerRadiusEffect.CornerRadius="20">
+                
+            
             <xct:TabView x:Name="KycTabView"
                          Grid.Row="0"
                          Grid.RowSpan="2"
                          x:FieldModifier="Public"
+                         
                          IsSwipeEnabled="True"
                          Style="{StaticResource CustomTabStyle}">
                 <xct:TabView.Behaviors>
@@ -198,11 +207,42 @@
                     <TapGestureRecognizer Tapped="PageFader_Tapped" />
                 </BoxView.GestureRecognizers>
             </BoxView>
+                
+                <BoxView x:Name="MenuBox" Grid.Row="0" BackgroundColor="Transparent" HeightRequest="70" WidthRequest="70" HorizontalOptions="End">
+                    <BoxView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </BoxView.GestureRecognizers>
+                </BoxView>
             <deposit:DepositPopView 
                 x:Name="DepView"
                 Grid.Row="0"
                 Grid.RowSpan="2"
                 TranslationY="{Binding Source={x:Reference RootPage}, Path=Height}"/>
-        </Grid>
+             </Grid>
+
+            <Grid RowDefinitions="auto,*,auto" 
+                  xct:SideMenuView.Position="RightMenu" 
+                 xct:SideMenuView.MenuAppearanceType="SlideIn"
+                    xct:SideMenuView.MenuWidthPercentage=".5"
+                   xct:SideMenuView.MenuGestureEnabled="False" 
+                   
+                    xct:SideMenuView.MainViewScaleFactor=".80"
+                    xct:ShadowEffect.Color="Black"
+                  BackgroundColor="{DynamicResource PureWhite}">
+                <StackLayout Grid.Row="0" Orientation="Vertical" Spacing="10">
+                    <Label Text="Title" TextColor="{DynamicResource DescriptionBlack}" FontSize="24"/>
+                    <Label Text="Subtitle" TextColor="{DynamicResource DescriptionBlack}" FontSize="18"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="1" Orientation="Vertical" Spacing="10">
+                    <Label Text="Title" TextColor="{DynamicResource DescriptionBlack}" FontSize="24"/>
+                    <Label Text="Subtitle" TextColor="{DynamicResource DescriptionBlack}" FontSize="18"/>
+                </StackLayout>
+                
+                
+            </Grid>
+            
+        </xct:SideMenuView>
+        
     </ContentPage.Content>
 </ContentPage>

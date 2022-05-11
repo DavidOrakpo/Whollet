@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using Whollet.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Whollet.Enums;
+using Whollet.Views.Wallet;
+using Xamarin.CommunityToolkit.UI.Views;
 
 namespace Whollet.Views.FirstTimeInApp
 {
@@ -17,25 +19,64 @@ namespace Whollet.Views.FirstTimeInApp
     public partial class KycEmptyPage : ContentPage
     {
         private KycTabModel2 _model;
-        private bool _showDeposit;
+        private bool _showDeposit, LeftMenuShown;
         const uint AnimationSpeed = 300;
         private bool PoppedUp = false;
-
+      
+        double Xposition, Yposition;    
         //public delegate ObservableCollection<LatestListings> DepositSelectedCoin();
         //public DepositSelectedCoin OnDepositTapped { get; set; }
 
         public static event EventHandler OnDepositTapped;
+        public static event EventHandler<double> DepositPageHeight;
 
         public KycEmptyPage(TabViewManager view, int index, bool showDeposit = false)
         {
             _model = ActivatorUtilities.CreateInstance<KycTabModel2>(Startup.serviceprovider, view, index);
             _showDeposit = showDeposit;
+            
             InitializeComponent();
             BindingContext = _model;
             KycTabView.SelectedIndex = index + 1;
             DepositPopViewModel.RemoveDepositEvent += DepositPopViewModel_RemoveDepositEvent;
             
-           // Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 1]);
+           // SideMenu.State = SideMenuState.MainViewShown;
+            //WalletOverview.OnSideMenuTapped += WalletOverview_OnSideMenuTapped;
+            //if (SideMenu?.State == SideMenuState.MainViewShown)
+            //{
+            //    MainGrid.TranslateTo(Xposition, Yposition, 250, Easing.SinInOut);
+            //}
+
+            // Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 1]);
+        }
+
+        
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            
+            if (_showDeposit && KycTabView.SelectedIndex == 2)
+            {
+                Xposition = MainGrid.TranslationX;
+                Yposition = MainGrid.TranslationY;
+                SideMenu.State = SideMenuState.RightMenuShown;
+                MainGrid.TranslateTo(-Width / 2, Yposition, 300, Easing.SinInOut);
+                DepView.IsVisible = false;
+                
+
+            }
+          
+                
+            
+        }
+
+        private void WalletOverview_OnSideMenuTapped(object sender, EventArgs e)
+        {
+            
+             
+             
+            
+            
         }
 
         private void DepositPopViewModel_RemoveDepositEvent(object sender, EventArgs e)
@@ -69,7 +110,11 @@ namespace Whollet.Views.FirstTimeInApp
             await PageFader.FadeTo(0, AnimationSpeed, Easing.SinInOut);
             PageFader.IsVisible = false;
             PoppedUp = false;
+            MenuBox.IsEnabled = true;
+            MenuBox.IsVisible = true;
         }
+
+       
 
         private void Middle_tab_TabTapped(object sender, Xamarin.CommunityToolkit.UI.Views.TabTappedEventArgs e)
         {
@@ -77,11 +122,14 @@ namespace Whollet.Views.FirstTimeInApp
             {
                 var rootpageheight = Height;
                 var depviewheight = rootpageheight / 4;
+                DepositPageHeight?.Invoke(this, rootpageheight - depviewheight);
                 PageFader.IsVisible = true;
                 PageFader.FadeTo(1, AnimationSpeed, Easing.SinInOut);
+                DepView.IsVisible = true;
                 DepView.TranslateTo(0, depviewheight, AnimationSpeed, Easing.SinInOut);
                 OnDepositTapped?.Invoke(this, EventArgs.Empty);
-
+                MenuBox.IsEnabled = false;
+                MenuBox.IsVisible = false;
                 PoppedUp = true;
             }
             else
