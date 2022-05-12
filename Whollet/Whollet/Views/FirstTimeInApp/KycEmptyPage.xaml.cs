@@ -163,7 +163,22 @@ namespace Whollet.Views.FirstTimeInApp
             PoppedUp = false;
             MenuBox.IsEnabled = true;
             MenuBox.IsVisible = true;
-            MainSwpieView.IsEnabled = true;
+            if (KycTabView.SelectedIndex == 0)
+
+            {
+
+                MainSwpieView.IsEnabled = false;
+
+            }
+
+            else
+
+            {
+
+                MainSwpieView.IsEnabled = true;
+
+            }
+
         }
 
         private void Middle_tab_TabTapped(object sender, Xamarin.CommunityToolkit.UI.Views.TabTappedEventArgs e)
