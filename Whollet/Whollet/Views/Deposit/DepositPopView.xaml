@@ -8,7 +8,7 @@
              xmlns:circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="Whollet.Views.Deposit.DepositPopView">
   <ContentView.Content>
-      <Grid  RowDefinitions="35,*" Padding="0,5,0,0">
+      <Grid x:Name="RootPage" RowDefinitions="35,*" Padding="0,5,0,0">
             <BoxView Grid.Row="1" CornerRadius="20,20,0,0" BackgroundColor="#EDF1F9"/>
             <Ellipse Stroke="#EDF1F9"
                 HorizontalOptions="Center"
@@ -26,9 +26,10 @@
                    Margin="5,-35,0,0" HorizontalTextAlignment="Center" WidthRequest="50"
                    HorizontalOptions="Center" VerticalOptions="Start" Scale="1.8" Text="+" Rotation="45"/>-->
 
-            <Grid Grid.Row="1" Padding="20" Margin="0,30,0,0" RowDefinitions="auto,auto,auto,auto,auto">
-                <Label Text="Deposit Coins" FontFamily="TitilliumBold" TextColor="{DynamicResource TitleBlack}" FontSize="26" HorizontalOptions="Center"/>
-                <CarouselView Grid.Row="1" Margin="0,20,0,0"  ItemsSource="{Binding LatestListings}" HeightRequest="60" PeekAreaInsets="70" WidthRequest="80">
+            <Grid x:Name="mainGrid" Grid.Row="1" Padding="20" Margin="0,30,0,0" RowDefinitions="auto,auto,auto,auto,*" >
+                <Label x:Name="TitleLabel" Text="Deposit Coins" FontFamily="TitilliumBold" TextColor="{DynamicResource TitleBlack}"
+                       FontSize="26" HorizontalOptions="Center"/>
+                <CarouselView x:Name="carousel" Grid.Row="1" Margin="0,20,0,0"  ItemsSource="{Binding LatestListings}" HeightRequest="60" PeekAreaInsets="70" WidthRequest="80">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="30"/>
                     </CarouselView.ItemsLayout>
@@ -81,24 +82,27 @@
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
-                <pancake:PancakeView Grid.Row="2" WidthRequest="200" HeightRequest="200" 
+                <pancake:PancakeView x:Name="pcake" Grid.Row="2" WidthRequest="200" HeightRequest="200" 
                                      HorizontalOptions="Center"
                                      BackgroundColor="{DynamicResource PureWhite}" CornerRadius="20" Margin="0,20,0,10">
-                    <barcode:ZXingBarcodeImageView  x:Name="BarCode" WidthRequest="200" HeightRequest="200" BarcodeFormat="QR_CODE"
+                    <barcode:ZXingBarcodeImageView  x:Name="BarCode" WidthRequest="{Binding Source={x:Reference pcake}, Path=WidthRequest}"
+                                                    HeightRequest="{Binding Source={x:Reference pcake}, Path=HeightRequest}" BarcodeFormat="QR_CODE"
                                                 Scale="1.1"
                                                 BarcodeValue="{Binding Source={x:Reference DepositID}, Path=Text}">
                         <barcode:ZXingBarcodeImageView.BarcodeOptions>
-                            <codeoptions:EncodingOptions Height="200" Width="200" PureBarcode="True"/>
+                            <codeoptions:EncodingOptions x:Name="barcodeOptions" Height="200" Width="200" PureBarcode="True"/>
 
                         </barcode:ZXingBarcodeImageView.BarcodeOptions>
                     </barcode:ZXingBarcodeImageView>
                 </pancake:PancakeView>
                 
                 <Label x:Name="DepositID" FontSize="24" HorizontalTextAlignment="Center" TextColor="{DynamicResource TitleBlack}"
-                       Grid.Row="3" HorizontalOptions="Center" MaxLines="2" WidthRequest="200" Text="3M8w2knJKsr3jqMatYiyuraxVvZAmuZ"/>
-                <Grid ColumnDefinitions="*,*" HorizontalOptions="Center" Grid.Row="4" Padding="30" ColumnSpacing="20">
+                       Grid.Row="3" HorizontalOptions="Center" MaxLines="2" WidthRequest="250" Text="3M8w2knJKsr3jqMatYiyuraxVvZAmuZ"/>
+                
+                <Grid ColumnDefinitions="*,*" HorizontalOptions="Center" Grid.Row="4" Padding="30,20" ColumnSpacing="20">
                     <Label Grid.Column="0" Text="Copy" TextColor="{DynamicResource SkipBlue}" FontSize="18" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
-                    <BoxView Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="25" Color="{DynamicResource  PlaceholderGrey}" Opacity="0.5" WidthRequest="1" HorizontalOptions="Center"/>
+                    <BoxView Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="20" Color="{DynamicResource  PlaceholderGrey}" Opacity="0.5" VerticalOptions="Start"
+                             WidthRequest="1" HorizontalOptions="Center"/>
                     <Label Grid.Column="1" Text="Share" TextColor="{DynamicResource SkipBlue}" FontSize="18" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
                 </Grid>
                 

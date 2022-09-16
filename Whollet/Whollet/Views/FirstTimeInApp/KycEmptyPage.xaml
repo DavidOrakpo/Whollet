@@ -8,6 +8,7 @@
              xmlns:dtemplate="clr-namespace:Whollet.DataTenplateSelectors" 
              xmlns:deposit="clr-namespace:Whollet.Views.Deposit" xmlns:pcake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource PureWhite}"
              x:Name="RootPage"
              BackgroundColor="{DynamicResource PureWhite}"
              x:Class="Whollet.Views.FirstTimeInApp.KycEmptyPage">
@@ -137,6 +138,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
+
         <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
             <SwipeView x:Name="MainSwpieView"
                    Grid.Row="0"
@@ -208,10 +210,12 @@
                                        CornerRadius="0"
                          Grid.RowSpan="2">
                         <xct:TabView x:Name="KycTabView"
+
                          Grid.Row="0"
                          Grid.RowSpan="2"
                          
                          x:FieldModifier="Public"
+                         
                          IsSwipeEnabled="True"
                          Style="{StaticResource CustomTabStyle}">
                             <xct:TabView.Behaviors>
@@ -261,6 +265,7 @@
                         </xct:TabView>
                     </pcake:PancakeView>
                     
+
                     <BoxView
                         x:Name="PageFader"
                         Grid.Row="0"
@@ -286,6 +291,7 @@
             </SwipeView>
         </Grid>
         
+
         
     </ContentPage.Content>
 </ContentPage>

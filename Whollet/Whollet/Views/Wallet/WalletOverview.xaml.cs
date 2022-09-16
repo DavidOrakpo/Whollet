@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Whollet.ViewModel;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +13,7 @@ namespace Whollet.Views.Wallet
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WalletOverview : ContentView
     {
-        Color buttoncolor;
+      //  public static event EventHandler OnSideMenuTapped;
         Label lastElementSelected;
         Grid gridselected;
         public WalletOverview(WalletOverviewViewModel vm)
@@ -42,7 +43,12 @@ namespace Whollet.Views.Wallet
             //  cview.SelectionChangedCommand.Execute(this.cview.SelectedItem);
         }
 
-         
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            //OnSideMenuTapped?.Invoke(this, EventArgs.Empty);
+        }
+
+
 
 
 
